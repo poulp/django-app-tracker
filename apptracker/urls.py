@@ -1,26 +1,9 @@
-from django.conf.urls import patterns, include, url
-from rest_framework import routers, serializers, viewsets
+from django.conf.urls import include, url
 
-from .models import Project
+from .routers import router
 
-
-class ProjectSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Project
-        fields = ('name',)
-
-# ViewSets define the view behavior.
-class ProjectViewSet(viewsets.ModelViewSet):
-    queryset = Project.objects.all()
-    serializer_class = ProjectSerializer
-
-# Routers provide an easy way of automatically determining the URL conf.
-router = routers.DefaultRouter()
-router.register(r'project', ProjectViewSet)
-
-# Wire up our API using automatic URL routing.
-# Additionally, we include login URLs for the browsable API.
 urlpatterns = [
-    url(r'^', include(router.urls)),
-    url(r'^tracker/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^api/', include(router.urls)),
+    url(r'^tracker-api/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^angular/', 'apptracker.views.index')
 ]
