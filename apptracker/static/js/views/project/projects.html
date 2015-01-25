@@ -1,0 +1,9 @@
+<h1>Projects</h1>
+
+  <ul>
+    <li ng-repeat="p in projects">
+      <span><a href="#/project/{{ p.pk }}/ticket">{{p.name}}</a></span>
+    </li>
+  </ul>
+
+<a href="#/project/new">add a project</a>

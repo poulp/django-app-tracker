@@ -1,6 +1,6 @@
 var services = angular.module('trackerApp.services', []);
 
-services.factory('Projects', function($http) {
+services.factory('ProjectService', function($http) {
 
     return {
         list: function(){
@@ -14,7 +14,13 @@ services.factory('Projects', function($http) {
                 method: 'GET',
                 url: '/tracker/api/project/' + project_id + '?format=json'
             })
+        },
+        add: function(data){
+            return $http({
+                method: 'POST',
+                data: data,
+                url: '/tracker/api/project/'
+            })
         }
     };
-
 });

@@ -2,22 +2,19 @@
 
 <!doctype html>
 <html lang="fr" >
-<head>
-    <meta charset="UTF-8">
-    <title>Ma première page</title>
+    <head>
+        <meta charset="UTF-8">
+        <title>Ma première page</title>
+    </head>
 
+    <body ng-app="trackerApp">
+        <div class="container" ng-view></div>
 
+        <script src="{% static "js/bower_components/angular/angular.min.js" %}"></script>
+        <script src="{% static "js/bower_components/angular-route/angular-route.min.js" %}"></script>
+        <script src="{% static "js/app.js" %}"></script>
+            <script src="{% static "js/services/project-services.js" %}"></script>
+        <script src="{% static "js/controllers/project-controllers.js" %}"></script>
+    </body>
 
-</head>
-<body ng-app="trackerApp">
-    <div class="container" ng-view></div>
-    <p>aaa</p>
-
-
-    <script src="{% static "js/bower_components/angular/angular.min.js" %}"></script>
-    <script src="{% static "js/bower_components/angular-route/angular-route.min.js" %}"></script>
-    <script src="{% static "js/app.js" %}"></script>
-        <script src="{% static "js/services/project-services.js" %}"></script>
-    <script src="{% static "js/controllers/project-controllers.js" %}"></script>
-</body>
 </html>

@@ -2,22 +2,35 @@
 
 var trackerControllers = angular.module('trackerApp.controllers', []);
 
-trackerControllers.controller("ProjectHome", function($scope, Projects) {
-    console.log("lolilol");
+trackerControllers.controller("ProjectList", function($scope, ProjectService) {
 
-    Projects.list().success(function (response) {
-        //Dig into the responde to get the relevant data
-        console.log("hello");
-        console.log(response);
+    ProjectService.list().success(function (response) {
+        $scope.projects = response;
     }).error(function (data, status, headers, config) {
         console.log("projects list failed !")
     });
+});
 
-    Projects.get(2).success(function (response) {
-        //Dig into the responde to get the relevant data
-        console.log("hello");
-        console.log(response);
-    }).error(function (data, status, headers, config) {
-        console.log("projects list failed !")
+trackerControllers.controller("ProjectNew", function($scope, $location, ProjectService) {
+
+    $scope.add = function(project){
+        ProjectService.add(project).success(function (response){
+            console.log("new project added");
+            $location.path('/');
+        }).error(function (data, status, headers, config) {
+            console.log("projects new failed !")
+        });
+    }
+});
+
+trackerControllers.controller("ProjectTicket", function($scope, $routeParams, ProjectService) {
+
+    console.log($routeParams);
+
+    ProjectService.get($routeParams.id).success(function (response){
+        $scope.project = response;
+    }).error(function (data, status, headers, config ){
+        console.log("error get project !");
     });
+
 });

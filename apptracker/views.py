@@ -5,6 +5,7 @@ from django.shortcuts import render
 from .models import Project
 from .serializers import ProjectSerializer
 
+
 def index(request):
     return render(request, "apptracker/base.html", {})
 
