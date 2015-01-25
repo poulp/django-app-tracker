@@ -6,7 +6,7 @@ services.factory('ProjectService', function($http) {
         list: function(){
             return $http({
                 method: 'GET',
-                url: '/tracker/api/project/?format=json'
+                url: '/tracker/api/project?format=json'
             });
         },
         get: function(project_id){
@@ -19,7 +19,13 @@ services.factory('ProjectService', function($http) {
             return $http({
                 method: 'POST',
                 data: data,
-                url: '/tracker/api/project/'
+                url: '/tracker/api/project'
+            })
+        },
+        getIssues: function(project_id){
+            return $http({
+                method: 'GET',
+                url: '/tracker/api/project/'+project_id+'/issues?format=json'
             })
         }
     };

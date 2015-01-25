@@ -1,9 +1,15 @@
 from django.conf.urls import include, url
 
-from .routers import router
+from .api import ProjectList, ProjectIssues
+
+
+project_urls =[
+    url(r'^$', ProjectList.as_view(), name='project-list'),
+    url(r'^/(?P<pk>[0-9]+)/issues$', ProjectIssues.as_view(), name='project-issues'),
+
+]
 
 urlpatterns = [
-    url(r'^api/', include(router.urls)),
-    url(r'^tracker-api/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^api/project', include(project_urls)),
     url(r'^angular/', 'apptracker.views.index')
 ]

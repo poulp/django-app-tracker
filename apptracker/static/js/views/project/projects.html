@@ -1,9 +1,23 @@
-<h1>Projects</h1>
 
-  <ul>
-    <li ng-repeat="p in projects">
-      <span><a href="#/project/{{ p.pk }}/ticket">{{p.name}}</a></span>
-    </li>
-  </ul>
+<div class="row">
+    <div class="col-md-6">
+        <h1>Projects</h1>
 
-<a href="#/project/new">add a project</a>
+    </div>
+
+    <div class="col-md-6">
+        <a class="btn btn-success" href="#/project/new" >add a project</a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="list-group" >
+            <a ng-repeat="p in projects" href="#/project/{{ p.pk }}/issues" class="list-group-item">
+                <h4>{{ p.name }}</h4>
+            </a>
+        </div>
+    </div>
+</div>
+
+
