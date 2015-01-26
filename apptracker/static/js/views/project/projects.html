@@ -1,5 +1,5 @@
 
-<div class="row">
+<div class="row row-header">
     <div class="col-md-6">
         <h1>Projects</h1>
 
@@ -11,10 +11,11 @@
 </div>
 
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-8 col-md-offset-2">
         <div class="list-group" >
             <a ng-repeat="p in projects" href="#/project/{{ p.pk }}/issues" class="list-group-item">
                 <h4>{{ p.name }}</h4>
+                <p>{{ p.description }}</p>
             </a>
         </div>
     </div>

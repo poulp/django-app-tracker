@@ -1,7 +1,27 @@
 body{
-    background-color: #F3F3F3;
 }
 
 .container {
     margin-top: 20px;
+}
+
+.issue-block {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 5px;
+}
+
+.issue-block:hover {
+    background-color: #EAEAEA;
+}
+
+.row-header {
+    padding-bottom: 10px;
+    padding-top: 10px;
+    margin-bottom: 10px;
+}
+
+.row-action {
+    background-color: #F0F0F0;
+    border-radius: 5px;
 }
