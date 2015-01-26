@@ -21,6 +21,10 @@ var trackerApp = angular.module('trackerApp', ['trackerApp.controllers', 'tracke
             /**
              * Issues
              **/
+            .when('/project/:project_pk/issue/:issue_pk', {
+                templateUrl: '/static/js/views/project/issue-detail.html',
+                controller: 'IssueDetailCtrl'
+            })
             .when('/project/:project_pk/issues/new', {
                 templateUrl: '/static/js/views/project/add-issue.html',
                 controller: 'IssueNewCtrl'

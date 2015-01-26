@@ -1,0 +1,49 @@
+<div class="row">
+    <div class="col-md-6">
+        <h1><a href="#/project/{{ issue.project.pk }}/issues">{{ issue.project.name }}</a></h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <h2>{{ issue.title }}</h2>
+        <hr/>
+        <div class="issue-description">
+            {{ issue.description }}
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <h3>Comment</h3>
+        <hr/>
+    </div>
+
+    <div class="col-md-6">
+        <h3>Activity</h3>
+        <hr/>
+
+        <ul class="timeline" >
+            <li>
+            <div class="timeline-badge success"><i class="glyphicon glyphicon-plus"></i></div>
+                <div class="timeline-panel">
+                    <div class="timeline-heading">
+                        <h4 class="timeline-title">Issue open</h4>
+                        <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> {{ issue.created_date }}</small></p>
+                    </div>
+                </div>
+            </li>
+
+            <li ng-repeat="activity in issue.activity" ng-class-odd="'timeline-inverted'">
+                <div class="timeline-badge warning"><i class="glyphicon glyphicon-edit"></i></div>
+                <div class="timeline-panel">
+                    <div class="timeline-heading">
+                        <h4 class="timeline-title">Edit : {{ activity.attribute_changed }}</h4>
+                        <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> {{ activity.created_date }}</small></p>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
