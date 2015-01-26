@@ -41,7 +41,7 @@ class ProjectIssuesListView(APIView):
 
     def post(self, request, pk, format=None):
         project = get_object_or_404(Project, pk=pk)
-        serializer = IssueItemSerializer(data=request.data)
+        serializer = IssueDetailSerializer(data=request.data)
 
         if serializer.is_valid():
             serializer.save(project=project)

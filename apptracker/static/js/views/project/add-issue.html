@@ -5,10 +5,17 @@
 </div>
 
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-6">
         <form novalidate class="simple-form">
-            Title: <input type="text" ng-model="issue.title" /><br />
-            <input type="submit" ng-click="add(issue)" value="Save" />
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" class="form-control" id="title" ng-model="issue.title">
+
+                <label for="description">Description</label>
+                <input type="text" class="form-control" id="description" ng-model="issue.description">
+            </div>
+
+            <button type="submit" class="btn btn-success" ng-click="add(issue)">Add new issue</button>
         </form>
     </div>
 </div>
