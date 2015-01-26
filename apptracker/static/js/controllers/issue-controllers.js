@@ -18,10 +18,21 @@ trackerControllers.controller("IssueDetailCtrl", function($scope, $routeParams, 
     var project_pk = $routeParams.project_pk;
     var issue_pk = $routeParams.issue_pk;
 
+    $scope.editorTitleEnabled = false;
+
     IssueService.get(project_pk, issue_pk).success(function (response){
         $scope.issue = response;
     }).error(function (data, status, headers, config) {
         console.log("issue get failed !")
     });
+
+    /* Edit title */
+    $scope.enableEditorTitle = function(){
+        $scope.editorTitleEnabled = true;
+    };
+
+    $scope.saveEditTitle = function(){
+        $scope.editorTitleEnabled = false;
+    };
 
 });
