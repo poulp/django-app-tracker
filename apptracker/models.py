@@ -42,7 +42,7 @@ class IssueActivity(models.Model):
 @receiver(pre_save, sender=Issue)
 def pre_save_issue(sender, instance, **kwargs):
     instance.modified_date = timezone.now()
-    instance.reference = instance.project.total_issue + 1
+    instance.reference = instance.project.total_issue
 
 
 @receiver(post_save, sender=Issue)

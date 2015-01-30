@@ -1,18 +1,17 @@
 body{
+    background-color: #E5E9EC;
 }
 
+/*************************
+ * General
+ ************************/
 .container {
     margin-top: 20px;
 }
 
-.issue-block {
-    padding-top: 10px;
-    padding-bottom: 10px;
-    border-radius: 5px;
-}
-
-.issue-block:hover {
-    background-color: #EAEAEA;
+.vertical-align {
+    display: flex;
+    align-items: center;
 }
 
 .row-header {
@@ -26,7 +25,12 @@ body{
     border-radius: 5px;
 }
 
-.vertical-align {
-    display: flex;
-    align-items: center;
+/*************************
+ * Project issues list
+ ************************/
+.issue-block {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 5px;
+    background-color: #FFFFFF;
 }

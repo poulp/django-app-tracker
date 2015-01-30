@@ -44,8 +44,6 @@ class ProjectIssuesListView(APIView):
 
         if serializer.is_valid():
             serializer.save(project=project)
-            project.total_issue += 1
-            project.save()
 
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

@@ -46,7 +46,7 @@ class IssueModelTest(TestCase):
         self.assertEqual(self.issue1.title, self.issue1.__str__())
 
     def test_issue_reference(self):
-        self.assertEqual(1, self.issue1.reference)
+        self.assertEqual(0, self.issue1.reference)
         self.assertEqual(1, self.project1.total_issue)
 
         issue2 = Issue()
@@ -55,8 +55,8 @@ class IssueModelTest(TestCase):
         issue2.project = self.project1
         issue2.save()
 
-        self.assertEqual(1, self.issue1.reference)
-        self.assertEqual(2, issue2.reference)
+        self.assertEqual(0, self.issue1.reference)
+        self.assertEqual(1, issue2.reference)
         self.assertEqual(2, self.project1.total_issue)
 
         self.issue1.delete()

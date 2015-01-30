@@ -38,7 +38,7 @@ class IssueDetailSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Issue
-        fields = ('pk', 'reference', 'title', 'description', 'project', 'created_date', 'modified_date', 'activity')
+        fields = ('pk', 'title', 'description', 'created_date', 'modified_date','project', 'activity')
         read_only_fields = ('created_date', 'modified_date', 'reference')
 
     def update(self, instance, validated_data):

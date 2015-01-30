@@ -20,15 +20,23 @@
         </ul>
     </div>
 
-    <div class="col-md-9" ng-repeat="issue in project.issues">
+    <div class="col-md-9">
 
-        <div class="row issue-block" >
-            <div class="col-md-1">
-                <span>#{{ issue.reference }}</span>
-            </div>
-            <div class="col-md-6">
-                <a href="#/project/{{ project.pk }}/issue/{{ issue.reference }}" >{{ issue.title }}</a>
-            </div>
-        </div>
+        <table st-table="rowCollection" class="table table-striped">
+            <thead>
+            <tr>
+                <th>ref</th>
+                <th>title</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="issue in project.issues">
+                <td>#{{issue.reference}}</td>
+                <td><a href="#/project/{{ project.pk }}/issue/{{ issue.reference }}" >{{ issue.title }}</a></td>
+            </tr>
+            </tbody>
+        </table>
+
     </div>
 </div>
+

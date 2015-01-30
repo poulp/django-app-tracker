@@ -1,6 +1,11 @@
 'use strict';
 
-var trackerApp = angular.module('trackerApp', ['trackerApp.controllers', 'trackerApp.services', 'ngRoute', 'ui.bootstrap'])
+var trackerApp = angular.module('trackerApp', [
+    'trackerApp.controllers',
+    'trackerApp.services',
+    'ngRoute',
+    'ui.bootstrap',
+    'smart-table'])
     .config(['$routeProvider', function($routeProvider) {
         $routeProvider
             .when('/', {
@@ -22,7 +27,7 @@ var trackerApp = angular.module('trackerApp', ['trackerApp.controllers', 'tracke
              * Issues
              **/
             .when('/project/:project_pk/issue/:issue_ref', {
-                templateUrl: '/static/js/views/project/issue-detail.html',
+                templateUrl: '/static/js/views/issue/detail.html',
                 controller: 'IssueDetailCtrl'
             })
             .when('/project/:project_pk/issues/new', {
