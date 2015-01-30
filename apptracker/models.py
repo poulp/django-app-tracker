@@ -15,6 +15,9 @@ class Project(models.Model):
     def __str__(self):
         return self.name
 
+    def __unicode__(self):
+        return self.name
+
 
 class Issue(models.Model):
 
@@ -34,11 +37,17 @@ class Issue(models.Model):
     def __str__(self):
         return self.title
 
+    def __unicode__(self):
+        return self.title
+
 
 class IssueActivity(models.Model):
     issue = models.ForeignKey(Issue, related_name="activity", null=False, blank=False)
     attribute_changed = models.CharField('Changed', max_length=200)
     created_date = models.DateTimeField('Created date', null=False, blank=False, default=timezone.now)
+
+    def __unicode__(self):
+        return self.issue.title + " " + self.attribute_changed
 
 
 @receiver(pre_save, sender=Issue)
