@@ -14,6 +14,13 @@ services.factory('IssueService', function($http) {
                 url: '/tracker/api/project/' + project_pk + '/issues'
             })
         },
+        patch: function(project_pk, issue_reference, data){
+            return $http({
+                method: 'PATCH',
+                data: data,
+                url: '/tracker/api/project/' + project_pk + '/issues/' + issue_reference
+            })
+        },
         remove: function(project_pk, issue_reference){
             return $http({
                 method: 'DELETE',

@@ -44,4 +44,22 @@ trackerControllers.controller("IssueDetailCtrl", function($scope, $location, $ro
         });
     };
 
+    $scope.close = function(){
+        IssueService.patch(project_pk, issue_ref, {"is_closed": "True"}).success(function (response){
+            console.log("issue closed !");
+            $scope.issue.is_closed = true;
+        }).error(function (data, status, headers, config){
+            console.log("issue not closed !");
+        });
+    };
+
+    $scope.open = function(){
+        IssueService.patch(project_pk, issue_ref, {"is_closed": "False"}).success(function (response){
+            console.log("issue opened !");
+            $scope.issue.is_closed = false;
+        }).error(function (data, status, headers, config){
+            console.log("issue not opened !");
+        });
+    }
+
 });

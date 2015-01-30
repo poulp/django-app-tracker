@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-6">
-        <h1><a href="#/project/{{ issue.project.pk }}/issues">{{ issue.project.name }}</a></h1>
+        <h1><a href="#/project/{{ issue.project.pk }}/issues">< {{ issue.project.name }}</a></h1>
     </div>
 </div>
 
@@ -25,6 +25,8 @@
     </div>
 
     <div class="col-md-6">
+        <button type="button" class="btn btn-block btn-danger" ng-click="close()" ng-hide="issue.is_closed">Close Issue</button>
+        <button type="button" class="btn btn-block btn-success" ng-click="open()" ng-show="issue.is_closed">Open Issue</button>
         <button type="button" class="btn btn-block btn-danger" ng-click="remove()">Delete</button>
     </div>
 </div>

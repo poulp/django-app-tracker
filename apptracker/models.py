@@ -23,6 +23,8 @@ class Issue(models.Model):
     reference = models.IntegerField(default=0, null=False, blank=False)
     project = models.ForeignKey(Project, related_name='issues', null=False, blank=False)
 
+    is_closed = models.BooleanField(default=False, null=False, blank=False)
+
     created_date = models.DateTimeField('Created date', null=False, blank=False, default=timezone.now)
     modified_date = models.DateTimeField('Modified date', null=False, blank=False, default=timezone.now)
 
