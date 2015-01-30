@@ -78,3 +78,10 @@ class IssueDetailView(APIView):
 
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, project_pk, issue_reference, format=None):
+        project = get_object_or_404(Project, pk=project_pk)
+        issue = get_object_or_404(Issue, reference=issue_reference, project=project)
+        issue.delete()
+
+        return Response(status=status.HTTP_200_OK)

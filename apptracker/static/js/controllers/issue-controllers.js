@@ -13,7 +13,7 @@ trackerControllers.controller("IssueNewCtrl", function($scope, $location, $route
     }
 });
 
-trackerControllers.controller("IssueDetailCtrl", function($scope, $routeParams, IssueService) {
+trackerControllers.controller("IssueDetailCtrl", function($scope, $location, $routeParams, IssueService) {
 
     var project_pk = $routeParams.project_pk;
     var issue_ref = $routeParams.issue_ref;
@@ -34,6 +34,14 @@ trackerControllers.controller("IssueDetailCtrl", function($scope, $routeParams, 
     /* save new title */
     $scope.saveEditTitle = function(){
         $scope.editorTitleEnabled = false;
+    };
+
+    $scope.remove = function(){
+        IssueService.remove(project_pk, issue_ref).success(function (response){
+            $location.path('/project/'+project_pk+'/issues');
+        }).error(function (data, status, headers, config){
+            console.log("issue not deleted !");
+        });
     };
 
 });

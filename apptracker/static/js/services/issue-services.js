@@ -4,14 +4,20 @@ services.factory('IssueService', function($http) {
         get: function(project_pk, issue_reference){
             return $http({
                 method: 'GET',
-                url: '/tracker/api/project/'+project_pk+'/issues/'+issue_reference
+                url: '/tracker/api/project/'+project_pk+'/issues/' + issue_reference
             })
         },
-        add: function(project_id, data){
+        add: function(project_pk, data){
             return $http({
                 method: 'POST',
                 data: data,
-                url: '/tracker/api/project/' + project_id + '/issues'
+                url: '/tracker/api/project/' + project_pk + '/issues'
+            })
+        },
+        remove: function(project_pk, issue_reference){
+            return $http({
+                method: 'DELETE',
+                url: '/tracker/api/project/' + project_pk + '/issues/' + issue_reference
             })
         }
     };
