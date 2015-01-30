@@ -5,14 +5,10 @@
     </div>
 </div>
 
-<div class="row row-header row-action">
-    <div class="col-md-12 text-right">
-        <a href="#/project/{{ project.pk }}/issues/new" class="btn btn-success">Add a new issue</a>
-    </div>
-</div>
-
 <div class="row">
     <div class="col-md-3">
+        <a href="#/project/{{ project.pk }}/issues/new" class="btn btn-success btn-block">Add a new issue</a>
+
         <ul class="nav nav-pills nav-stacked">
             <li role="presentation" class="active"><a href="#/project/{{ project.pk }}/issues">Issues</a></li>
             <li role="presentation"><a href="#" >Search</a></li>
@@ -21,21 +17,34 @@
     </div>
 
     <div class="col-md-9">
+        <div class="box">
+            <div class="box-header">
+                <h3>Issue</h3>
+            </div>
 
-        <table st-table="rowCollection" class="table table-striped">
-            <thead>
-            <tr>
-                <th>ref</th>
-                <th>title</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr ng-repeat="issue in project.issues">
-                <td>#{{issue.reference}}</td>
-                <td><a href="#/project/{{ project.pk }}/issue/{{ issue.reference }}" >{{ issue.title }}</a></td>
-            </tr>
-            </tbody>
-        </table>
+            <div class="box-body">
+                <table st-table="rowCollection" class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Ref</th>
+                        <th>Author</th>
+                        <th>Title</th>
+                        <th>Date</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="issue in project.issues">
+                        <td>#{{issue.reference}}</td>
+                        <td>pseudo</td>
+                        <td><a href="#/project/{{ project.pk }}/issue/{{ issue.reference }}" >{{ issue.title }}</a></td>
+                        <td>{{ issue.created_date | date :'MM-dd-yyyy' }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
 
     </div>
 </div>

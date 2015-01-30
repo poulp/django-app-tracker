@@ -8,7 +8,7 @@ class IssueItemSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta(object):
         model = Issue
-        fields = ('pk', 'title', 'reference')
+        fields = ('pk', 'title', 'reference', 'created_date')
 
 
 class ProjectSerializer(serializers.HyperlinkedModelSerializer):
