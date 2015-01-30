@@ -6,13 +6,13 @@ from .models import Project, Issue, IssueActivity
 
 class IssueItemSerializer(serializers.HyperlinkedModelSerializer):
 
-    class Meta:
+    class Meta(object):
         model = Issue
         fields = ('pk', 'title', 'reference')
 
 
 class ProjectSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
+    class Meta(object):
         model = Project
         fields = ('pk', 'name', 'description')
 
@@ -20,14 +20,14 @@ class ProjectSerializer(serializers.HyperlinkedModelSerializer):
 class ProjectIssuesListSerializer(serializers.HyperlinkedModelSerializer):
     issues = IssueItemSerializer(many=True)
 
-    class Meta:
+    class Meta(object):
         model = Project
         fields = ('pk', 'name', 'issues')
 
 
 class IssueActivitySerializer(serializers.HyperlinkedModelSerializer):
 
-    class Meta:
+    class Meta(object):
         model = IssueActivity
         fields = ('pk', 'created_date', 'attribute_changed')
 
@@ -36,7 +36,7 @@ class IssueDetailSerializer(serializers.HyperlinkedModelSerializer):
     project = ProjectSerializer(read_only=True)
     activity = IssueActivitySerializer(read_only=True, many=True)
 
-    class Meta:
+    class Meta(object):
         model = Issue
         fields = (
             'pk',

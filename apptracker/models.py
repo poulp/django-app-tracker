@@ -28,7 +28,7 @@ class Issue(models.Model):
     created_date = models.DateTimeField('Created date', null=False, blank=False, default=timezone.now)
     modified_date = models.DateTimeField('Modified date', null=False, blank=False, default=timezone.now)
 
-    class Meta:
+    class Meta(object):
         unique_together = ('reference', 'project')
 
     def __str__(self):

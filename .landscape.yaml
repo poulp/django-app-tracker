@@ -1,3 +1,7 @@
 requirements:
-  - requirements.txt
-  - requirements-test.txt
+    - requirements.txt
+    - requirements-test.txt
+uses:
+    - django
+ignore-paths:
+    - docs
