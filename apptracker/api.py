@@ -1,4 +1,3 @@
-from django.http import Http404
 from django.shortcuts import get_object_or_404
 
 from rest_framework.views import APIView
@@ -6,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework import status
 
 from .models import Project, Issue
-from .serializers import ProjectSerializer, ProjectIssuesListSerializer, IssueItemSerializer, IssueDetailSerializer
+from .serializers import ProjectSerializer, ProjectIssuesListSerializer, IssueDetailSerializer
 
 
 class ProjectListView(APIView):
@@ -54,15 +53,15 @@ class ProjectIssuesListView(APIView):
 
 class IssueDetailView(APIView):
 
-    def get(self, request, project_pk, issue_pk, format=None):
+    def get(self, request, project_pk, issue_reference, format=None):
         project = get_object_or_404(Project, pk=project_pk)
-        issue = get_object_or_404(Issue, pk=issue_pk)
+        issue = get_object_or_404(Issue, reference=issue_reference, project=project)
         serializer = IssueDetailSerializer(issue)
         return Response(serializer.data)
 
-    def put(self, request, project_pk, issue_pk, format=None):
+    def put(self, request, project_pk, issue_reference, format=None):
         project = get_object_or_404(Project, pk=project_pk)
-        issue = get_object_or_404(Issue, pk=issue_pk)
+        issue = get_object_or_404(Issue, reference=issue_reference, project=project)
         serializer = IssueDetailSerializer(issue, data=request.data)
 
         if serializer.is_valid():
@@ -71,9 +70,9 @@ class IssueDetailView(APIView):
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def patch(self, request, project_pk, issue_pk, format=None):
+    def patch(self, request, project_pk, issue_reference, format=None):
         project = get_object_or_404(Project, pk=project_pk)
-        issue = get_object_or_404(Issue, pk=issue_pk)
+        issue = get_object_or_404(Issue, reference=issue_reference, project=project)
         serializer = IssueDetailSerializer(issue, data=request.data, partial=True)
 
         if serializer.is_valid():

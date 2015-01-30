@@ -8,7 +8,7 @@ class IssueItemSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Issue
-        fields = ('pk', 'title')
+        fields = ('pk', 'title', 'reference')
 
 
 class ProjectSerializer(serializers.HyperlinkedModelSerializer):
@@ -38,8 +38,8 @@ class IssueDetailSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Issue
-        fields = ('pk', 'title', 'description', 'project', 'created_date', 'modified_date', 'activity')
-        read_only_fields = ('created_date', 'modified_date')
+        fields = ('pk', 'reference', 'title', 'description', 'project', 'created_date', 'modified_date', 'activity')
+        read_only_fields = ('created_date', 'modified_date', 'reference')
 
     def update(self, instance, validated_data):
 

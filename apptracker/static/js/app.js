@@ -21,7 +21,7 @@ var trackerApp = angular.module('trackerApp', ['trackerApp.controllers', 'tracke
             /**
              * Issues
              **/
-            .when('/project/:project_pk/issue/:issue_pk', {
+            .when('/project/:project_pk/issue/:issue_ref', {
                 templateUrl: '/static/js/views/project/issue-detail.html',
                 controller: 'IssueDetailCtrl'
             })
@@ -34,6 +34,9 @@ var trackerApp = angular.module('trackerApp', ['trackerApp.controllers', 'tracke
             });
     }]);
 
+/**
+ * csrf token
+ **/
 trackerApp.config(['$httpProvider', function($httpProvider) {
     $httpProvider.defaults.xsrfCookieName = 'csrftoken';
     $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';

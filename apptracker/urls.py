@@ -6,7 +6,7 @@ from .api import ProjectListView, ProjectIssuesListView, IssueDetailView
 project_urls =[
     url(r'^$', ProjectListView.as_view(), name='project-list'),
     url(r'^/(?P<pk>[0-9]+)/issues$', ProjectIssuesListView.as_view(), name='project-issues'),
-    url(r'^/(?P<project_pk>[0-9]+)/issues/(?P<issue_pk>[0-9]+)$', IssueDetailView.as_view(), name='issue-detail'),
+    url(r'^/(?P<project_pk>[0-9]+)/issues/(?P<issue_reference>[0-9]+)$', IssueDetailView.as_view(), name='issue-detail'),
 ]
 
 urlpatterns = [

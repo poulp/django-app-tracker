@@ -16,21 +16,22 @@ trackerControllers.controller("IssueNewCtrl", function($scope, $location, $route
 trackerControllers.controller("IssueDetailCtrl", function($scope, $routeParams, IssueService) {
 
     var project_pk = $routeParams.project_pk;
-    var issue_pk = $routeParams.issue_pk;
+    var issue_ref = $routeParams.issue_ref;
 
     $scope.editorTitleEnabled = false;
 
-    IssueService.get(project_pk, issue_pk).success(function (response){
+    IssueService.get(project_pk, issue_ref).success(function (response){
         $scope.issue = response;
     }).error(function (data, status, headers, config) {
         console.log("issue get failed !")
     });
 
-    /* Edit title */
+    /* show title editor */
     $scope.enableEditorTitle = function(){
         $scope.editorTitleEnabled = true;
     };
 
+    /* save new title */
     $scope.saveEditTitle = function(){
         $scope.editorTitleEnabled = false;
     };
