@@ -36,6 +36,7 @@ trackerControllers.controller("IssueDetailCtrl", function($scope, $location, $ro
         $scope.editorTitleEnabled = false;
     };
 
+    /* delete issue */
     $scope.remove = function(){
         IssueService.remove(project_pk, issue_ref).success(function (response){
             $location.path('/project/'+project_pk+'/issues');
@@ -44,6 +45,7 @@ trackerControllers.controller("IssueDetailCtrl", function($scope, $location, $ro
         });
     };
 
+    /* close issue */
     $scope.close = function(){
         IssueService.patch(project_pk, issue_ref, {"is_closed": "True"}).success(function (response){
             console.log("issue closed !");
@@ -53,6 +55,7 @@ trackerControllers.controller("IssueDetailCtrl", function($scope, $location, $ro
         });
     };
 
+    /* open issue */
     $scope.open = function(){
         IssueService.patch(project_pk, issue_ref, {"is_closed": "False"}).success(function (response){
             console.log("issue opened !");
