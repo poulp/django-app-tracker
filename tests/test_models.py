@@ -27,6 +27,9 @@ class ProjectModelTest(TestCase):
     def test_str(self):
         self.assertEqual(self.project.name, self.project.__str__())
 
+    def test_unicode(self):
+        self.assertEqual(self.project.name, self.project.__unicode__())
+
 
 class IssueModelTest(TestCase):
 
@@ -44,6 +47,9 @@ class IssueModelTest(TestCase):
 
     def test_str(self):
         self.assertEqual(self.issue1.title, self.issue1.__str__())
+
+    def test_unicode(self):
+        self.assertEqual(self.issue1.title, self.issue1.__unicode__())
 
     def test_issue_reference(self):
         self.assertEqual(0, self.issue1.reference)
@@ -77,3 +83,4 @@ class IssueModelTest(TestCase):
         issue_activity = IssueActivity.objects.get(pk=1)
         self.assertEqual(issue_activity.issue, self.issue1)
         self.assertEqual(issue_activity.attribute_changed, "title")
+        self.assertEqual(issue_activity.__unicode__(), self.issue1.title+" "+issue_activity.attribute_changed)
