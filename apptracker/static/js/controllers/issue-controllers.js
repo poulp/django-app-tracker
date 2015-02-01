@@ -33,7 +33,11 @@ trackerControllers.controller("IssueDetailCtrl", function($scope, $location, $ro
 
     /* save new title */
     $scope.saveEditTitle = function(){
-        $scope.editorTitleEnabled = false;
+        IssueService.patch(project_pk, issue_ref, {"title": $scope.issue.title}).success(function (response){
+            $scope.editorTitleEnabled = false;
+        }).error(function (data, status, headers, config){
+            console.log("something was wrong !");
+        });
     };
 
     /* delete issue */
