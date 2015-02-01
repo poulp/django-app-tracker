@@ -46,8 +46,9 @@ class IssueDetailSerializer(serializers.HyperlinkedModelSerializer):
             'modified_date',
             'project',
             'is_closed',
-            'activity')
-        read_only_fields = ('created_date', 'modified_date', 'reference')
+            'activity',
+            'description_html')
+        read_only_fields = ('created_date', 'modified_date', 'reference', 'description_html')
 
     def update(self, instance, validated_data):
 

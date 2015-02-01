@@ -5,16 +5,17 @@ var trackerApp = angular.module('trackerApp', [
     'trackerApp.services',
     'ngRoute',
     'ui.bootstrap',
-    'smart-table'])
+    'smart-table',
+    'ngSanitize'])
     .config(['$routeProvider', function($routeProvider) {
         $routeProvider
             .when('/', {
                 templateUrl: '/static/js/views/project/projects.html',
                 controller: 'ProjectListCtrl'
             })
-            /**
-             * Projects
-             **/
+        /**
+         * Projects
+         **/
             .when('/project/new', {
                 templateUrl: '/static/js/views/project/new.html',
                 controller: 'ProjectNewCtrl'
@@ -23,9 +24,9 @@ var trackerApp = angular.module('trackerApp', [
                 templateUrl: '/static/js/views/project/project-issues.html',
                 controller: 'ProjectIssuesCtrl'
             })
-            /**
-             * Issues
-             **/
+        /**
+         * Issues
+         **/
             .when('/project/:project_pk/issue/:issue_ref', {
                 templateUrl: '/static/js/views/issue/detail.html',
                 controller: 'IssueDetailCtrl'

@@ -12,8 +12,8 @@ body{
 }
 
 .container-full {
-  margin: 0 auto;
-  width: 100%;
+    margin: 0 auto;
+    width: 100%;
     background-color: #FFFFFF;
 }
 
@@ -39,6 +39,10 @@ h3 {
     margin-bottom: 20px;
     padding: 10px;
     border-bottom: 1px solid #E7EAEC;
+}
+
+.box-header.back {
+    background-color: #F3F6FB;
 }
 
 .box-body {
@@ -90,6 +94,5 @@ h3 {
 .sidenav a {
     display: block;
     padding: 5px;
-
     border-bottom: 1px solid #DCDCDC;
 }

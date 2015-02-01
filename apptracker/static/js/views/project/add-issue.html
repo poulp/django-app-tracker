@@ -13,7 +13,7 @@
                         <input type="text" class="form-control" id="title" ng-model="issue.title">
 
                         <label for="description">Description</label>
-                        <input type="text" class="form-control" id="description" ng-model="issue.description">
+                        <textarea class="form-control" rows=6 id="description" ng-model="issue.description"></textarea>
                     </div>
                     <button type="submit" class="btn btn-success" ng-click="add(issue)">Add new issue</button>
                 </form>
