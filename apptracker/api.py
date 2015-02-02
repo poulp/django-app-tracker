@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework import status
 
 from .models import Project, Issue
-from .serializers import ProjectSerializer, ProjectIssuesListSerializer, IssueDetailSerializer
+from .serializers import ProjectSerializer, ProjectIssuesListSerializer, IssueDetailSerializer, LabelSerializer
 
 
 class ProjectListView(APIView):
@@ -29,6 +29,24 @@ class ProjectDetailView(APIView):
         project = get_object_or_404(Project, pk=pk)
         serializer = ProjectSerializer(project)
         return Response(serializer.data)
+
+
+class ProjectLabelsView(APIView):
+
+    def get(self, request, project_pk):
+        project = get_object_or_404(Project, pk=project_pk)
+        labels = project.labels
+        serializer = LabelSerializer(labels, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, project_pk):
+        project = get_object_or_404(Project, pk=project_pk)
+        serializer = LabelSerializer(data=request.data)
+
+        if serializer.is_valid():
+            serializer.save(project=project)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class ProjectIssuesListView(APIView):

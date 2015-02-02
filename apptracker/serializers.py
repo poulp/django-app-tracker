@@ -1,7 +1,14 @@
 
 from rest_framework import serializers
 
-from .models import Project, Issue, IssueActivity
+from .models import Project, Issue, IssueActivity, Label
+
+
+class LabelSerializer(serializers.HyperlinkedModelSerializer):
+
+    class Meta(object):
+        model = Label
+        fields = ('pk', 'title')
 
 
 class IssueItemSerializer(serializers.HyperlinkedModelSerializer):
@@ -12,9 +19,11 @@ class IssueItemSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class ProjectSerializer(serializers.HyperlinkedModelSerializer):
+    labels = LabelSerializer(many=True, read_only=True)
+
     class Meta(object):
         model = Project
-        fields = ('pk', 'name', 'description')
+        fields = ('pk', 'name', 'description', 'labels')
 
 
 class ProjectIssuesListSerializer(serializers.HyperlinkedModelSerializer):

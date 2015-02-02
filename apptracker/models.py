@@ -91,6 +91,7 @@ class Label(models.Model):
 
     title = models.CharField(max_length=20, verbose_name='Title')
     slug = models.SlugField(max_length=20)
+    project = models.ForeignKey(Project, related_name='labels', null=False, blank=False)
 
     def __unicode__(self):
         return u"{0}".format(self.title)
@@ -98,4 +99,4 @@ class Label(models.Model):
     def save(self, *args, **kwargs):
         self.title = smart_text(self.title).lower()
         self.slug = slugify(self.title)
-        super(Label, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
