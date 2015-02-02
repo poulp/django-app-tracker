@@ -32,16 +32,26 @@
             </div>
 
             <div class="box-body">
-                <div class="row">
+                <div class="row issue-description-meta">
                     <div class="col-md-10">
-                        pseudo
+                        <strong>pseudo</strong>
                     </div>
 
                     <div class="col-md-2 text-right">
-                        edit
+                        <a href="" ng-click="enableEditorDescription()"><i class="glyphicon glyphicon-pencil"></i></a>
                     </div>
                 </div>
-                <span ng-bind-html="issue.description_html"></span>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <span ng-hide="editorDescriptionEnabled" class="issue-description" ng-bind-html="issue.description_html"></span>
+                        <div ng-show="editorDescriptionEnabled">
+                            <textarea  class="form-control" rows="10" ng-model="issue.description" value="{{ issue.description }}"></textarea>
+                            <button class="btn btn-success" ng-click="saveEditDescription()">Edit</button>
+                            <button class="btn btn-default" ng-click="disableEditorDescription()">Cancel</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

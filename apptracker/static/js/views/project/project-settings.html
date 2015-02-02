@@ -17,36 +17,23 @@
         </ul>
     </div>
 
-    <div class="col-md-9">
+    <div class="col-md-3">
         <div class="box">
             <div class="box-header">
-                <h3>Issue</h3>
+                <h3>Labels</h3>
             </div>
 
             <div class="box-body">
-                <table st-table="rowCollection" class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th>Ref</th>
-                        <th>Author</th>
-                        <th>Title</th>
-                        <th>Date</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr ng-repeat="issue in project.issues">
-                        <td>#{{issue.reference}}</td>
-                        <td>pseudo</td>
-                        <td><a href="#/project/{{ project.pk }}/issue/{{ issue.reference }}" >{{ issue.title }}</a></td>
-                        <td>{{ issue.created_date | date :'MM-dd-yyyy' }}</td>
-                    </tr>
-                    </tbody>
-                </table>
+                <div class="row">
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" />
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i></button>
+                    </div>
+                </div>
             </div>
         </div>
-
-
-
     </div>
 </div>
 

@@ -50,12 +50,10 @@ class IssueDetailSerializer(serializers.HyperlinkedModelSerializer):
             'description_html')
         read_only_fields = ('created_date', 'modified_date', 'reference', 'description_html')
 
-    def update(self, instance, validated_data):
-
-        update_fields = []
-        for attr, value in validated_data.items():
-            setattr(instance, attr, value)
-            update_fields.append(attr)
-        instance.save(update_fields = update_fields)
-
-        return instance
+    #def update(self, instance, validated_data):
+    #    update_fields = []
+    #    for attr, value in validated_data.items():
+    #        setattr(instance, attr, value)
+    #        update_fields.append(attr)
+    #    instance.save(validated_data = update_fields)
+    #    return instance

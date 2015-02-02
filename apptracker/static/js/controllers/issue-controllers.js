@@ -19,6 +19,7 @@ trackerControllers.controller("IssueDetailCtrl", function($scope, $location, $ro
     var issue_ref = $routeParams.issue_ref;
 
     $scope.editorTitleEnabled = false;
+    $scope.editorDescriptionEnabled = false;
 
     IssueService.get(project_pk, issue_ref).success(function (response){
         $scope.issue = response;
@@ -35,6 +36,28 @@ trackerControllers.controller("IssueDetailCtrl", function($scope, $location, $ro
     $scope.saveEditTitle = function(){
         IssueService.patch(project_pk, issue_ref, {"title": $scope.issue.title}).success(function (response){
             $scope.editorTitleEnabled = false;
+        }).error(function (data, status, headers, config){
+            console.log("something was wrong !");
+        });
+    };
+
+    /* show description editor */
+    $scope.enableEditorDescription = function(){
+        console.log("lol");
+        $scope.editorDescriptionEnabled = true;
+    };
+
+    /* hide description editor */
+    $scope.disableEditorDescription = function(){
+        $scope.editorDescriptionEnabled = false;
+    };
+
+    /* save new description */
+    $scope.saveEditDescription = function(){
+        IssueService.patch(project_pk, issue_ref, {"description": $scope.issue.description}).success(function (response){
+            $scope.disableEditorDescription();
+            console.log(response);
+            $scope.issue.description_html = response.description_html;
         }).error(function (data, status, headers, config){
             console.log("something was wrong !");
         });

@@ -31,3 +31,13 @@ trackerControllers.controller("ProjectIssuesCtrl", function($scope, $routeParams
     });
 
 });
+
+trackerControllers.controller("ProjectSettingsCtrl", function($scope, $routeParams, ProjectService) {
+
+    ProjectService.getIssues($routeParams.id).success(function (response){
+        $scope.project = response;
+    }).error(function (data, status, headers, config ){
+        console.log("error get project !");
+    });
+
+});

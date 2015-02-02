@@ -3,8 +3,10 @@
 from django.db import models
 from django.dispatch import receiver
 from django.utils import timezone
-from django.db.models.signals import pre_save, post_save
+from django.db.models.signals import post_save
 from django.utils.safestring import mark_safe
+from django.utils.encoding import smart_text
+from django.utils.text import slugify
 
 from markdown import markdown
 
@@ -38,30 +40,32 @@ class Issue(models.Model):
     class Meta(object):
         unique_together = ('reference', 'project')
 
-    def __str__(self):
-        return self.title
-
     def __unicode__(self):
         return self.title
 
+    def __str__(self):
+        return self.title
 
-@receiver(pre_save, sender=Issue)
-def pre_save_issue(sender, instance, **kwargs):
-    instance.modified_date = timezone.now()
-    instance.description_html = mark_safe(markdown(instance.description))
+    def save(self, *args, **kwargs):
+        self.modified_date = timezone.now()
+
+        if self.description:
+            self.description_html = mark_safe(markdown(self.description))
+
+        super().save(*args, **kwargs)
 
 
 @receiver(post_save, sender=Issue)
 def post_save_issue(sender, instance, **kwargs):
-    updated_fields = kwargs.get('update_fields', [])
+    #updated_fields = kwargs.get('update_fields', [])
     created = kwargs.get('created', True)
 
-    if not created and updated_fields:
-        for field in updated_fields:
-            issue_activity = IssueActivity()
-            issue_activity.issue = instance
-            issue_activity.attribute_changed = field
-            issue_activity.save()
+    #if not created and updated_fields:
+    #    for field in updated_fields:
+    #        issue_activity = IssueActivity()
+    #        issue_activity.issue = instance
+    #        issue_activity.attribute_changed = field
+    #        issue_activity.save()
 
     if created:
         # update total issues for the project
@@ -78,3 +82,20 @@ class IssueActivity(models.Model):
     def __unicode__(self):
         return self.issue.title + " " + self.attribute_changed
 
+
+class Label(models.Model):
+
+    class Meta:
+        verbose_name = 'Label'
+        verbose_name_plural = 'Labels'
+
+    title = models.CharField(max_length=20, verbose_name='Title')
+    slug = models.SlugField(max_length=20)
+
+    def __unicode__(self):
+        return u"{0}".format(self.title)
+
+    def save(self, *args, **kwargs):
+        self.title = smart_text(self.title).lower()
+        self.slug = slugify(self.title)
+        super(Label, self).save(*args, **kwargs)

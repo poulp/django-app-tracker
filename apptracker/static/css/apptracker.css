@@ -96,3 +96,10 @@ h3 {
     padding: 5px;
     border-bottom: 1px solid #DCDCDC;
 }
+
+/*************************
+ * Issue detail
+ ************************/
+.issue-description-meta {
+    padding-bottom: 10px;
+}
