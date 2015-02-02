@@ -40,6 +40,12 @@ services.factory('ProjectService', function($http) {
                 data: label,
                 url: '/tracker/api/project/'+project_id+'/labels'
             })
+        },
+        removeLabel: function(project_id, label_pk){
+            return $http({
+                method: 'DELETE',
+                url: '/tracker/api/project/'+project_id+'/labels/'+label_pk
+            })
         }
     };
 });

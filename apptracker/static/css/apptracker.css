@@ -49,6 +49,12 @@ h3 {
     margin: 15px;
 }
 
+.box-footer {
+    padding: 10px;
+    margin-top: 10px;
+    border-top: 1px solid #E7EAEC;
+}
+
 .nav {
     padding-top: 40px;
 }

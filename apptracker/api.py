@@ -4,10 +4,13 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 
-from .models import Project, Issue
+from .models import Project, Issue, Label
 from .serializers import ProjectSerializer, ProjectIssuesListSerializer, IssueDetailSerializer, LabelSerializer
 
 
+###############################
+# Projects
+###############################
 class ProjectListView(APIView):
 
     def get(self, request):
@@ -31,6 +34,9 @@ class ProjectDetailView(APIView):
         return Response(serializer.data)
 
 
+###############################
+# Labels
+###############################
 class ProjectLabelsView(APIView):
 
     def get(self, request, project_pk):
@@ -50,6 +56,22 @@ class ProjectLabelsView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+class LabelsView(APIView):
+
+    def get(self, request, project_pk, label_pk):
+        label = get_object_or_404(Label, pk=label_pk)
+        serializer = LabelSerializer(label)
+        return Response(serializer.data)
+
+    def delete(self, request, project_pk, label_pk):
+        label = get_object_or_404(Label, pk=label_pk)
+        label.delete()
+        return Response(status=status.HTTP_200_OK)
+
+
+###############################
+# Labels
+###############################
 class ProjectIssuesListView(APIView):
 
     def get(self, request, pk):

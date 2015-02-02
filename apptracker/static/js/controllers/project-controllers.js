@@ -49,5 +49,16 @@ trackerControllers.controller("ProjectSettingsCtrl", function($scope, $routePara
             console.log("error !!!");
         })
     };
+});
 
+trackerControllers.controller("LabelSettingsCtrl", function($scope, $routeParams, ProjectService) {
+ 
+    $scope.removeLabel = function(label){
+       ProjectService.removeLabel($routeParams.id, label.pk).success(function (response){
+            console.log("label removed !");
+            $scope.label = null;
+        }).error(function (data, status, headers, config){
+            console.log("error remove label");
+        });
+    }
 });
