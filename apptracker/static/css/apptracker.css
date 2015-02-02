@@ -103,3 +103,14 @@ h3 {
 .issue-description-meta {
     padding-bottom: 10px;
 }
+
+/*************************
+ * Project settings
+ ************************/
+.label{
+    font-size: 13px;
+}
+
+.block-label {
+    margin-bottom: 10px;
+}

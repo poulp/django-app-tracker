@@ -45,7 +45,8 @@ class ProjectLabelsView(APIView):
 
         if serializer.is_valid():
             serializer.save(project=project)
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            labels = LabelSerializer(project.labels, many=True)
+            return Response(labels.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 

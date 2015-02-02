@@ -27,6 +27,19 @@ services.factory('ProjectService', function($http) {
                 method: 'GET',
                 url: '/tracker/api/project/'+project_id+'/issues?format=json'
             })
+        },
+        getLabels: function(project_id){
+            return $http({
+                method: 'GET',
+                url: '/tracker/api/project/'+project_id+'/labels'
+            })
+        },
+        addLabel: function(project_id, label){
+            return $http({
+                method: 'POST',
+                data: label,
+                url: '/tracker/api/project/'+project_id+'/labels'
+            })
         }
     };
 });

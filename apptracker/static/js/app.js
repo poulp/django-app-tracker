@@ -6,7 +6,8 @@ var trackerApp = angular.module('trackerApp', [
     'ngRoute',
     'ui.bootstrap',
     'smart-table',
-    'ngSanitize'])
+    'ngSanitize',
+    'colorpicker.module'])
     .config(['$routeProvider', function($routeProvider) {
         $routeProvider
             .when('/', {

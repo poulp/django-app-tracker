@@ -34,10 +34,20 @@ trackerControllers.controller("ProjectIssuesCtrl", function($scope, $routeParams
 
 trackerControllers.controller("ProjectSettingsCtrl", function($scope, $routeParams, ProjectService) {
 
-    ProjectService.getIssues($routeParams.id).success(function (response){
-        $scope.project = response;
+    ProjectService.getLabels($routeParams.id).success(function (response){
+        $scope.labels = response;
     }).error(function (data, status, headers, config ){
-        console.log("error get project !");
+        console.log("error get labels !");
     });
+
+    /* add a new label */
+    $scope.addNewLabel = function(label){
+       ProjectService.addLabel($routeParams.id, label).success(function (response){
+            $scope.labels = response;
+            $scope.label = null;
+        }).error(function (data, status, headers, config){
+            console.log("error !!!");
+        })
+    };
 
 });

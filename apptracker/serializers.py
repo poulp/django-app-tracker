@@ -8,7 +8,7 @@ class LabelSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta(object):
         model = Label
-        fields = ('pk', 'title')
+        fields = ('pk', 'title', 'color')
 
 
 class IssueItemSerializer(serializers.HyperlinkedModelSerializer):

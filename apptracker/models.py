@@ -91,6 +91,7 @@ class Label(models.Model):
 
     title = models.CharField(max_length=20, verbose_name='Title')
     slug = models.SlugField(max_length=20)
+    color = models.CharField(max_length=7, default="#FFFFFF")
     project = models.ForeignKey(Project, related_name='labels', null=False, blank=False)
 
     def __unicode__(self):
