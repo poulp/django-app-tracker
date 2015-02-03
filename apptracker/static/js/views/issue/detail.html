@@ -74,7 +74,8 @@
                 </div>
 
                 <h4>Labels</h4>
-                <p class="text-center">No label</p>
+                <p class="text-center" ng-hide="issue.labels">No label</p>
+                <p ng-repeat="label in issue.labels"><span class="label" style="background-color:{{ label.color }}">{{ label.title }}</span></p>
             </div>
         </div>
     </div>

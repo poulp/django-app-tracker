@@ -12,10 +12,11 @@ class LabelSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class IssueItemSerializer(serializers.HyperlinkedModelSerializer):
+    labels = LabelSerializer(many=True, required=False)
 
     class Meta(object):
         model = Issue
-        fields = ('pk', 'title', 'reference', 'created_date')
+        fields = ('pk', 'title', 'reference', 'created_date', 'labels')
 
 
 class ProjectSerializer(serializers.HyperlinkedModelSerializer):
@@ -44,6 +45,7 @@ class IssueActivitySerializer(serializers.HyperlinkedModelSerializer):
 class IssueDetailSerializer(serializers.HyperlinkedModelSerializer):
     project = ProjectSerializer(read_only=True)
     activity = IssueActivitySerializer(read_only=True, many=True)
+    labels = LabelSerializer(many=True, required=False)
 
     class Meta(object):
         model = Issue
@@ -56,7 +58,9 @@ class IssueDetailSerializer(serializers.HyperlinkedModelSerializer):
             'project',
             'is_closed',
             'activity',
-            'description_html')
+            'description_html',
+            'labels'
+        )
         read_only_fields = ('created_date', 'modified_date', 'reference', 'description_html')
 
     #def update(self, instance, validated_data):

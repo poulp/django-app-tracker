@@ -24,13 +24,35 @@ class Project(models.Model):
         return self.name
 
 
+class Label(models.Model):
+
+    class Meta:
+        verbose_name = 'Label'
+        verbose_name_plural = 'Labels'
+
+    title = models.CharField(max_length=20, verbose_name='Title')
+    slug = models.SlugField(max_length=20)
+    color = models.CharField(max_length=7, default="#FFFFFF")
+    project = models.ForeignKey(Project, related_name='labels', null=False, blank=False)
+
+    def __unicode__(self):
+        return u"{0}".format(self.title)
+
+    def save(self, *args, **kwargs):
+        self.title = smart_text(self.title).lower()
+        self.slug = slugify(self.title)
+        super().save(*args, **kwargs)
+
+
 class Issue(models.Model):
 
     title = models.CharField('Title', max_length=140)
     description = models.TextField('Description', null=False, blank=False)
     description_html = models.TextField('Description Html')
     reference = models.IntegerField(default=0, null=False, blank=False)
+
     project = models.ForeignKey(Project, related_name='issues', null=False, blank=False)
+    labels = models.ManyToManyField(Label, related_name="issues")
 
     is_closed = models.BooleanField(default=False, null=False, blank=False)
 
@@ -81,23 +103,3 @@ class IssueActivity(models.Model):
 
     def __unicode__(self):
         return self.issue.title + " " + self.attribute_changed
-
-
-class Label(models.Model):
-
-    class Meta:
-        verbose_name = 'Label'
-        verbose_name_plural = 'Labels'
-
-    title = models.CharField(max_length=20, verbose_name='Title')
-    slug = models.SlugField(max_length=20)
-    color = models.CharField(max_length=7, default="#FFFFFF")
-    project = models.ForeignKey(Project, related_name='labels', null=False, blank=False)
-
-    def __unicode__(self):
-        return u"{0}".format(self.title)
-
-    def save(self, *args, **kwargs):
-        self.title = smart_text(self.title).lower()
-        self.slug = slugify(self.title)
-        super().save(*args, **kwargs)
