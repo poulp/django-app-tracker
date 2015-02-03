@@ -41,6 +41,13 @@ services.factory('ProjectService', function($http) {
                 url: '/tracker/api/project/'+project_id+'/labels'
             })
         },
+        editLabel: function(project_id, label_pk, label){
+            return $http({
+                method: 'PUT',
+                data: label,
+                url: '/tracker/api/project/'+project_id+'/labels/'+label_pk
+            })
+        },
         removeLabel: function(project_id, label_pk){
             return $http({
                 method: 'DELETE',

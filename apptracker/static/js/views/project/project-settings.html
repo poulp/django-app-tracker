@@ -26,11 +26,22 @@
             <div class="box-body">
                 <div class="row" ng-controller="LabelSettingsCtrl" ng-repeat="label in labels" ng-show="label">
                     <div class="col-md-9 block-label">
-                        <span class="label" style="background-color:{{ label.color }}">{{ label.title }}</span>
+                        <span class="label" ng-hide="editorLabelEnabled" style="background-color:{{ label.color }}">{{ label.title }}</span>
+                        <div class="row" ng-show="editorLabelEnabled">
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" ng-model="label.title" value="label.title" />
+                            </div>
+                            <div class="col-md-6">
+                                <input colorpicker type="text" class="form-control" ng-model="label.color" value="label.color" />
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-md-3 text-right">
-                        <a href=""><i class="glyphicon glyphicon-pencil"></i></a>
-                        <a href=""  ng-click="removeLabel(label)"><i class="glyphicon glyphicon-trash"></i></a>
+                    <div class="col-md-3 text-right" >
+                        <a href="" ng-hide="editorLabelEnabled" ng-click="showEditLabelForm()"><i class="glyphicon glyphicon-pencil"></i></a>
+                        <a href=""  ng-hide="editorLabelEnabled" ng-click="removeLabel(label)"><i class="glyphicon glyphicon-trash"></i></a>
+
+                        <a href="" ng-show="editorLabelEnabled" ng-click="editLabel(label)"><i class="glyphicon glyphicon-floppy-disk"></i></a>
+                        <a href=""  ng-show="editorLabelEnabled" ng-click="cancelEditLabel()"><i class="glyphicon glyphicon-calendar"></i></a>
                     </div>
                 </div>
             </div>
@@ -40,7 +51,6 @@
                     <form novalidate class="simple-form">
                         <div class="col-md-6">
                             <input type="text" class="form-control" ng-model="label.title" placeholder="Title" />
-
                         </div>
 
                         <div class="col-md-4">
@@ -52,6 +62,18 @@
                         </div>
                     </form>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-5">
+        <div class="box">
+            <div class="box-header">
+                <h3>Project</h3>
+            </div>
+
+            <div class="box-body">
+
             </div>
         </div>
     </div>

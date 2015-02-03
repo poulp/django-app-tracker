@@ -34,6 +34,12 @@ trackerControllers.controller("ProjectIssuesCtrl", function($scope, $routeParams
 
 trackerControllers.controller("ProjectSettingsCtrl", function($scope, $routeParams, ProjectService) {
 
+    ProjectService.get($routeParams.id).success(function (response){
+        $scope.project = response;
+    }).error(function (data, status, headers, config){
+        console.log("error get project");
+    });
+
     ProjectService.getLabels($routeParams.id).success(function (response){
         $scope.labels = response;
     }).error(function (data, status, headers, config ){
@@ -42,7 +48,7 @@ trackerControllers.controller("ProjectSettingsCtrl", function($scope, $routePara
 
     /* add a new label */
     $scope.addNewLabel = function(label){
-       ProjectService.addLabel($routeParams.id, label).success(function (response){
+        ProjectService.addLabel($routeParams.id, label).success(function (response){
             $scope.labels = response;
             $scope.label = null;
         }).error(function (data, status, headers, config){
@@ -52,13 +58,36 @@ trackerControllers.controller("ProjectSettingsCtrl", function($scope, $routePara
 });
 
 trackerControllers.controller("LabelSettingsCtrl", function($scope, $routeParams, ProjectService) {
- 
+
+    $scope.editorLabelEnabled = false;
+
+    /* remove label from server */
     $scope.removeLabel = function(label){
-       ProjectService.removeLabel($routeParams.id, label.pk).success(function (response){
+        ProjectService.removeLabel($routeParams.id, label.pk).success(function (response){
             console.log("label removed !");
             $scope.label = null;
         }).error(function (data, status, headers, config){
             console.log("error remove label");
+        });
+    };
+
+    /* show edit label form */
+    $scope.showEditLabelForm = function(){
+        $scope.editorLabelEnabled = true;
+    };
+
+    /* hide edit label form */
+    $scope.cancelEditLabel = function(){
+        $scope.editorLabelEnabled = false;
+    };
+
+    /* edit label from server */
+    $scope.editLabel = function(label){
+        ProjectService.editLabel($routeParams.id, label.pk, label).success(function (response){
+            $scope.label = response;
+            $scope.editorLabelEnabled = false;
+        }).error(function (data, status, headers, config){
+            console.log("error edit label");
         });
     }
 });

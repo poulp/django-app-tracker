@@ -18,7 +18,7 @@ class ProjectListView(APIView):
         serializer = ProjectSerializer(projects, many=True)
         return Response(serializer.data)
 
-    def post(self, request ):
+    def post(self, request):
         serializer = ProjectSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -63,6 +63,17 @@ class LabelsView(APIView):
         serializer = LabelSerializer(label)
         return Response(serializer.data)
 
+    def put(self, request, project_pk, label_pk):
+        project = get_object_or_404(Project, pk=project_pk)
+        label = get_object_or_404(Label, pk=label_pk, project=project)
+        serializer = LabelSerializer(label, data=request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
     def delete(self, request, project_pk, label_pk):
         label = get_object_or_404(Label, pk=label_pk)
         label.delete()
@@ -70,7 +81,7 @@ class LabelsView(APIView):
 
 
 ###############################
-# Labels
+# Issues
 ###############################
 class ProjectIssuesListView(APIView):
 

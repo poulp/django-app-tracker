@@ -57,10 +57,10 @@ class Issue(models.Model):
 
 @receiver(post_save, sender=Issue)
 def post_save_issue(sender, instance, **kwargs):
-    #updated_fields = kwargs.get('update_fields', [])
+    # updated_fields = kwargs.get('update_fields', [])
     created = kwargs.get('created', True)
 
-    #if not created and updated_fields:
+    # if not created and updated_fields:
     #    for field in updated_fields:
     #        issue_activity = IssueActivity()
     #        issue_activity.issue = instance
@@ -70,7 +70,7 @@ def post_save_issue(sender, instance, **kwargs):
     if created:
         # update total issues for the project
         project = instance.project
-        project.total_issue = project.total_issue + 1
+        project.total_issue +=  1
         project.save()
 
 
