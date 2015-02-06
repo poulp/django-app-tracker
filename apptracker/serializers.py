@@ -1,7 +1,15 @@
 
+from django.contrib.auth.models import User
 from rest_framework import serializers
 
 from .models import Project, Issue, IssueActivity, Label
+
+
+class UserSerializer(serializers.HyperlinkedModelSerializer):
+
+    class Meta(object):
+        model = User
+        fields = ('username',)
 
 
 class LabelSerializer(serializers.HyperlinkedModelSerializer):
@@ -13,10 +21,11 @@ class LabelSerializer(serializers.HyperlinkedModelSerializer):
 
 class IssueItemSerializer(serializers.HyperlinkedModelSerializer):
     labels = LabelSerializer(many=True, required=False)
+    owner = UserSerializer(read_only=True)
 
     class Meta(object):
         model = Issue
-        fields = ('pk', 'title', 'reference', 'created_date', 'labels')
+        fields = ('pk', 'title', 'reference', 'created_date', 'labels', 'owner')
 
 
 class ProjectSerializer(serializers.HyperlinkedModelSerializer):
@@ -46,6 +55,7 @@ class IssueDetailSerializer(serializers.HyperlinkedModelSerializer):
     project = ProjectSerializer(read_only=True)
     activity = IssueActivitySerializer(read_only=True, many=True)
     labels = LabelSerializer(many=True, required=False)
+    owner = UserSerializer(read_only=True)
 
     class Meta(object):
         model = Issue
@@ -59,7 +69,8 @@ class IssueDetailSerializer(serializers.HyperlinkedModelSerializer):
             'is_closed',
             'activity',
             'description_html',
-            'labels'
+            'labels',
+            'owner'
         )
         read_only_fields = ('created_date', 'modified_date', 'reference', 'description_html')
 

@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import status
+from rest_framework import status, permissions
 
 from .models import Project, Issue, Label
 from .serializers import ProjectSerializer, ProjectIssuesListSerializer, IssueDetailSerializer, LabelSerializer
@@ -12,6 +12,9 @@ from .serializers import ProjectSerializer, ProjectIssuesListSerializer, IssueDe
 # Projects
 ###############################
 class ProjectListView(APIView):
+    permission_classes = [
+            permissions.IsAuthenticatedOrReadOnly
+    ]
 
     def get(self, request):
         projects = Project.objects.all()
@@ -27,6 +30,9 @@ class ProjectListView(APIView):
 
 
 class ProjectDetailView(APIView):
+    permission_classes = [
+            permissions.IsAuthenticatedOrReadOnly
+    ]
 
     def get(self, request, project_pk):
         project = get_object_or_404(Project, pk=project_pk)
@@ -115,7 +121,7 @@ class ProjectIssuesListView(APIView):
         serializer = IssueDetailSerializer(data=request.data)
 
         if serializer.is_valid():
-            serializer.save(project=project, reference=project.total_issue)
+            serializer.save(owner = request.user, project=project, reference=project.total_issue)
 
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

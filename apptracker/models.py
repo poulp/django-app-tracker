@@ -7,6 +7,7 @@ from django.db.models.signals import post_save
 from django.utils.safestring import mark_safe
 from django.utils.encoding import smart_text
 from django.utils.text import slugify
+from django.contrib.auth.models import User
 
 from markdown import markdown
 
@@ -18,9 +19,6 @@ class Project(models.Model):
     total_issue = models.IntegerField(default=0, null=False, blank=False)
 
     def __str__(self):
-        return self.name
-
-    def __unicode__(self):
         return self.name
 
 
@@ -35,8 +33,8 @@ class Label(models.Model):
     color = models.CharField(max_length=7, default="#FFFFFF")
     project = models.ForeignKey(Project, related_name='labels', null=False, blank=False)
 
-    def __unicode__(self):
-        return u"{0}".format(self.title)
+    def __str__(self):
+        return self.title
 
     def save(self, *args, **kwargs):
         self.title = smart_text(self.title).lower()
@@ -50,7 +48,8 @@ class Issue(models.Model):
     description = models.TextField('Description', null=False, blank=False)
     description_html = models.TextField('Description Html')
     reference = models.IntegerField(default=0, null=False, blank=False)
-
+    owner = models.ForeignKey(User, null=False, blank=False,
+                              related_name="owned_issues")
     project = models.ForeignKey(Project, related_name='issues', null=False, blank=False)
     labels = models.ManyToManyField(Label, related_name="issues")
 
@@ -61,9 +60,6 @@ class Issue(models.Model):
 
     class Meta(object):
         unique_together = ('reference', 'project')
-
-    def __unicode__(self):
-        return self.title
 
     def __str__(self):
         return self.title
@@ -101,5 +97,5 @@ class IssueActivity(models.Model):
     attribute_changed = models.CharField('Changed', max_length=200)
     created_date = models.DateTimeField('Created date', null=False, blank=False, default=timezone.now)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.issue.title + " " + self.attribute_changed
