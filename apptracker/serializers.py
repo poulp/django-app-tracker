@@ -18,7 +18,8 @@ class LabelSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta(object):
         model = Label
-        fields = ('pk', 'title', 'color')
+        fields = ('pk', 'title', 'slug', 'color')
+        read_only_fields = ('slug',)
 
 
 class IssueItemSerializer(serializers.HyperlinkedModelSerializer):
@@ -87,7 +88,7 @@ class IssueDetailSerializer(serializers.HyperlinkedModelSerializer):
         )
 
         for label in validated_data['labels']:
-            label = get_object_or_404(Label, title=label['title'], project=validated_data['project'])
+            label = get_object_or_404(Label, slug=label['slug'], project=validated_data['project'])
             issue.labels.add(label)
 
         return issue

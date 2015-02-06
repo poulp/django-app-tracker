@@ -80,8 +80,8 @@ h3 {
 .issue-block {
     padding-top: 10px;
     padding-bottom: 10px;
-    border-radius: 5px;
     background-color: #FFFFFF;
+    border-bottom: 1px solid #E7EAEC;
 }
 
 .sidenav-title {
@@ -115,7 +115,14 @@ h3 {
  ************************/
 .label{
     font-size: 13px;
+    margin-right: 3px;
+    margin-left: 3px;
+}
+
+.label-small {
+    font-size: 11px;
     margin-right: 5px;
+    padding: 2px;
 }
 
 .block-label {

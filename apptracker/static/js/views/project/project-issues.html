@@ -24,29 +24,25 @@
             </div>
 
             <div class="box-body">
-                <table st-table="rowCollection" class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th>Ref</th>
-                        <th>Author</th>
-                        <th>Title</th>
-                        <th>Date</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr ng-repeat="issue in project.issues">
-                        <td>#{{issue.reference}}</td>
-                        <td>{{ issue.owner.username }}</td>
-                        <td><a href="#/project/{{ project.pk }}/issue/{{ issue.reference }}" >{{ issue.title }}</a></td>
-                        <td>{{ issue.created_date | date :'MM-dd-yyyy' }}</td>
-                    </tr>
-                    </tbody>
-                </table>
+
+                <div ng-repeat="issue in project.issues" class="issue-block">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4><a href="#/project/{{ project.pk }}/issue/{{ issue.reference }}" >{{ issue.title }}</a> <small>#{{ issue.reference }}</small></h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <p>
+                                <i class="glyphicon glyphicon-time"></i> {{ issue.created_date | date :'MM-dd-yyyy' }}
+                                <i class="glyphicon glyphicon-user"></i> {{ issue.owner.username }}
+                                <i class="glyphicon glyphicon-tags"></i> <span ng-repeat="label in issue.labels" class="label label-small" style="background-color:{{ label.color }}">{{ label.title }}</span></p>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
-
-
-
     </div>
 </div>
-
