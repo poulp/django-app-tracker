@@ -48,8 +48,8 @@ class Issue(models.Model):
     description = models.TextField('Description', null=False, blank=False)
     description_html = models.TextField('Description Html')
     reference = models.IntegerField(default=0, null=False, blank=False)
-    owner = models.ForeignKey(User, null=False, blank=False,
-                              related_name="owned_issues")
+    owner = models.ForeignKey(User, null=False, blank=False, related_name="owned_issues")
+
     project = models.ForeignKey(Project, related_name='issues', null=False, blank=False)
     labels = models.ManyToManyField(Label, related_name="issues")
 

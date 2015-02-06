@@ -1,16 +1,32 @@
 'use strict';
 
-trackerControllers.controller("IssueNewCtrl", function($scope, $location, $routeParams, IssueService) {
+trackerControllers.controller("IssueNewCtrl", function($scope, $location, $routeParams, IssueService, ProjectService) {
 
-    var project_pk = $routeParams.project_pk;
+    $scope.issue_labels = [];
 
     $scope.add = function(issue){
-        IssueService.add(project_pk, issue).success(function (response){
-            $location.path('/project/'+project_pk+'/issues')
+        issue.labels = $scope.issue_labels;
+
+        IssueService.add($routeParams.project_pk, issue).success(function (response){
+            $location.path('/project/'+$routeParams.project_pk+'/issues')
         }).error(function (data, status, headers, config) {
             console.log("issue new failed !")
         });
-    }
+    };
+
+    ProjectService.getLabels($routeParams.project_pk).success(function (response){
+        $scope.labels = response;
+    }).error(function (data, status, headers, config){
+        console.log("error get labels !");
+    });
+
+    $scope.addLabel = function(label){
+        $scope.issue_labels.push(label);
+    };
+
+    $scope.removeLabel = function(label){
+       // $scope.labels.add(label);
+    };
 });
 
 trackerControllers.controller("IssueDetailCtrl", function($scope, $location, $routeParams, IssueService) {
@@ -43,7 +59,6 @@ trackerControllers.controller("IssueDetailCtrl", function($scope, $location, $ro
 
     /* show description editor */
     $scope.enableEditorDescription = function(){
-        console.log("lol");
         $scope.editorDescriptionEnabled = true;
     };
 

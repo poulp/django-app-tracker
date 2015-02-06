@@ -1,5 +1,7 @@
 
 from django.contrib.auth.models import User
+from django.shortcuts import get_object_or_404
+
 from rest_framework import serializers
 
 from .models import Project, Issue, IssueActivity, Label
@@ -73,6 +75,22 @@ class IssueDetailSerializer(serializers.HyperlinkedModelSerializer):
             'owner'
         )
         read_only_fields = ('created_date', 'modified_date', 'reference', 'description_html')
+
+    def create(self, validated_data):
+
+        issue = Issue.objects.create(
+            title = validated_data['title'],
+            description = validated_data['description'],
+            owner = validated_data['owner'],
+            project = validated_data['project'],
+            reference = validated_data['reference']
+        )
+
+        for label in validated_data['labels']:
+            label = get_object_or_404(Label, title=label['title'], project=validated_data['project'])
+            issue.labels.add(label)
+
+        return issue
 
     #def update(self, instance, validated_data):
     #    update_fields = []
