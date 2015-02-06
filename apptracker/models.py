@@ -14,6 +14,10 @@ from markdown import markdown
 
 class Project(models.Model):
 
+    class Meta(object):
+        verbose_name = 'Project'
+        verbose_name_plural = 'Projects'
+
     name = models.CharField('Name', max_length=80)
     description = models.CharField('Description', max_length=200)
     total_issue = models.IntegerField(default=0, null=False, blank=False)
@@ -24,7 +28,7 @@ class Project(models.Model):
 
 class Label(models.Model):
 
-    class Meta:
+    class Meta(object):
         verbose_name = 'Label'
         verbose_name_plural = 'Labels'
 
@@ -44,6 +48,11 @@ class Label(models.Model):
 
 class Issue(models.Model):
 
+    class Meta(object):
+        verbose_name = 'Issue'
+        verbose_name_plural = 'Issues'
+        unique_together = ('reference', 'project')
+
     title = models.CharField('Title', max_length=140)
     description = models.TextField('Description', null=False, blank=False)
     description_html = models.TextField('Description Html')
@@ -57,9 +66,6 @@ class Issue(models.Model):
 
     created_date = models.DateTimeField('Created date', null=False, blank=False, default=timezone.now)
     modified_date = models.DateTimeField('Modified date', null=False, blank=False, default=timezone.now)
-
-    class Meta(object):
-        unique_together = ('reference', 'project')
 
     def __str__(self):
         return self.title
@@ -93,6 +99,11 @@ def post_save_issue(sender, instance, **kwargs):
 
 
 class IssueActivity(models.Model):
+
+    class Meta(object):
+        verbose_name = 'Issue Activity'
+        verbose_name_plural = 'Issue Activities'
+
     issue = models.ForeignKey(Issue, related_name="activity", null=False, blank=False)
     attribute_changed = models.CharField('Changed', max_length=200)
     created_date = models.DateTimeField('Created date', null=False, blank=False, default=timezone.now)
