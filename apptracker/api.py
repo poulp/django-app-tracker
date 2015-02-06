@@ -28,8 +28,8 @@ class ProjectListView(APIView):
 
 class ProjectDetailView(APIView):
 
-    def get(self, request, pk):
-        project = get_object_or_404(Project, pk=pk)
+    def get(self, request, project_pk):
+        project = get_object_or_404(Project, pk=project_pk)
         serializer = ProjectSerializer(project)
         return Response(serializer.data)
 
@@ -85,13 +85,13 @@ class LabelsView(APIView):
 ###############################
 class ProjectIssuesListView(APIView):
 
-    def get(self, request, pk):
-        project = get_object_or_404(Project, pk=pk)
+    def get(self, request, project_pk):
+        project = get_object_or_404(Project, pk=project_pk)
         serializer = ProjectIssuesListSerializer(project)
         return Response(serializer.data)
 
-    def post(self, request, pk):
-        project = get_object_or_404(Project, pk=pk)
+    def post(self, request, project_pk):
+        project = get_object_or_404(Project, pk=project_pk)
         serializer = IssueDetailSerializer(data=request.data)
 
         if serializer.is_valid():
