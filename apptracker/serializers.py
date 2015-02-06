@@ -78,7 +78,7 @@ class IssueDetailSerializer(serializers.HyperlinkedModelSerializer):
         read_only_fields = ('created_date', 'modified_date', 'reference', 'description_html')
 
     def create(self, validated_data):
-
+        print(validated_data)
         issue = Issue.objects.create(
             title = validated_data['title'],
             description = validated_data['description'],

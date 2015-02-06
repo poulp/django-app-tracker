@@ -26,10 +26,7 @@ class ProjectModelTest(TestCase):
 
     def test_str(self):
         self.assertEqual(self.project.name, self.project.__str__())
-
-    def test_unicode(self):
-        self.assertEqual(self.project.name, self.project.__unicode__())
-
+        
 
 class IssueModelTest(TestCase):
 
