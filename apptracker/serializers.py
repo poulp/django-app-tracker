@@ -7,22 +7,22 @@ from rest_framework import serializers
 from .models import Project, Issue, IssueActivity, Label
 
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
 
     class Meta(object):
         model = User
         fields = ('username',)
 
 
-class LabelSerializer(serializers.HyperlinkedModelSerializer):
+class LabelSerializer(serializers.ModelSerializer):
 
     class Meta(object):
         model = Label
         fields = ('pk', 'title', 'slug', 'color')
-        read_only_fields = ('slug',)
+        read_only_fields = ('slug')
 
 
-class IssueItemSerializer(serializers.HyperlinkedModelSerializer):
+class IssueItemSerializer(serializers.ModelSerializer):
     labels = LabelSerializer(many=True, required=False)
     owner = UserSerializer(read_only=True)
 
@@ -31,7 +31,7 @@ class IssueItemSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('pk', 'title', 'reference', 'created_date', 'labels', 'owner')
 
 
-class ProjectSerializer(serializers.HyperlinkedModelSerializer):
+class ProjectSerializer(serializers.ModelSerializer):
     labels = LabelSerializer(many=True, read_only=True)
 
     class Meta(object):
@@ -39,7 +39,7 @@ class ProjectSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('pk', 'name', 'description', 'labels')
 
 
-class ProjectIssuesListSerializer(serializers.HyperlinkedModelSerializer):
+class ProjectIssuesListSerializer(serializers.ModelSerializer):
     issues = IssueItemSerializer(many=True)
 
     class Meta(object):
@@ -47,16 +47,16 @@ class ProjectIssuesListSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('pk', 'name', 'issues')
 
 
-class IssueActivitySerializer(serializers.HyperlinkedModelSerializer):
+class IssueActivitySerializer(serializers.ModelSerializer):
 
     class Meta(object):
         model = IssueActivity
         fields = ('pk', 'created_date', 'attribute_changed')
 
 
-class IssueDetailSerializer(serializers.HyperlinkedModelSerializer):
+class IssueDetailSerializer(serializers.ModelSerializer):
     project = ProjectSerializer(read_only=True)
-    activity = IssueActivitySerializer(read_only=True, many=True)
+    #activity = IssueActivitySerializer(read_only=True, many=True)
     labels = LabelSerializer(many=True, required=False)
     owner = UserSerializer(read_only=True)
 
@@ -66,19 +66,26 @@ class IssueDetailSerializer(serializers.HyperlinkedModelSerializer):
             'pk',
             'title',
             'description',
+            'reference',
+            'project',
             'created_date',
             'modified_date',
-            'project',
             'is_closed',
-            'activity',
             'description_html',
+            'owner',
             'labels',
-            'owner'
+            'reference'
         )
-        read_only_fields = ('created_date', 'modified_date', 'reference', 'description_html')
+        read_only_fields = (
+            'created_date',
+            'modified_date',
+            'reference',
+            'description_html',
+        )
+        validators = []
 
     def create(self, validated_data):
-        print(validated_data)
+
         issue = Issue.objects.create(
             title = validated_data['title'],
             description = validated_data['description'],
@@ -87,9 +94,10 @@ class IssueDetailSerializer(serializers.HyperlinkedModelSerializer):
             reference = validated_data['reference']
         )
 
-        for label in validated_data['labels']:
-            label = get_object_or_404(Label, slug=label['slug'], project=validated_data['project'])
-            issue.labels.add(label)
+        if 'labels' in validated_data:
+            for label in validated_data['labels']:
+                label = get_object_or_404(Label, slug=label['slug'], project=validated_data['project'])
+                issue.labels.add(label)
 
         return issue
 

@@ -120,8 +120,8 @@ class ProjectIssuesListView(APIView):
         project = get_object_or_404(Project, pk=project_pk)
         serializer = IssueDetailSerializer(data=request.data)
 
-        if serializer.is_valid():
-            serializer.save(owner = request.user, project=project, reference=project.total_issue)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save(owner=request.user, project=project, reference=project.total_issue)
 
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

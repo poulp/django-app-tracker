@@ -33,8 +33,8 @@ class Label(models.Model):
         verbose_name_plural = 'Labels'
 
     title = models.CharField(max_length=20, verbose_name='Title')
-    slug = models.SlugField(max_length=20)
-    color = models.CharField(max_length=7, default="#FFFFFF")
+    slug = models.SlugField(max_length=20, verbose_name='Slug')
+    color = models.CharField(max_length=7, default="#FFFFFF", verbose_name='Color')
     project = models.ForeignKey(Project, related_name='labels', null=False, blank=False)
 
     def __str__(self):
@@ -57,10 +57,10 @@ class Issue(models.Model):
     description = models.TextField('Description', null=False, blank=False)
     description_html = models.TextField('Description Html')
     reference = models.IntegerField(default=0, null=False, blank=False)
-    owner = models.ForeignKey(User, null=False, blank=False, related_name="owned_issues")
+    owner = models.ForeignKey(User, null=False, blank=False, related_name='owned_issues')
 
     project = models.ForeignKey(Project, related_name='issues', null=False, blank=False)
-    labels = models.ManyToManyField(Label, related_name="issues")
+    labels = models.ManyToManyField(Label, related_name='issues')
 
     is_closed = models.BooleanField(default=False, null=False, blank=False)
 
