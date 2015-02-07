@@ -134,13 +134,13 @@ class IssueDetailView(APIView):
 
     def get(self, request, project_pk, issue_reference):
         project = get_object_or_404(Project, pk=project_pk)
-        issue = get_object_or_404(Issue, reference=issue_reference, project=project)
+        issue = get_object_or_404(Issue, pk=issue_reference, project=project)
         serializer = IssueDetailSerializer(issue)
         return Response(serializer.data)
 
     def put(self, request, project_pk, issue_reference):
         project = get_object_or_404(Project, pk=project_pk)
-        issue = get_object_or_404(Issue, reference=issue_reference, project=project)
+        issue = get_object_or_404(Issue, pk=issue_reference, project=project)
         serializer = IssueDetailSerializer(issue, data=request.data)
 
         if serializer.is_valid():
@@ -151,7 +151,7 @@ class IssueDetailView(APIView):
 
     def patch(self, request, project_pk, issue_reference):
         project = get_object_or_404(Project, pk=project_pk)
-        issue = get_object_or_404(Issue, reference=issue_reference, project=project)
+        issue = get_object_or_404(Issue, pk=issue_reference, project=project)
         serializer = IssueDetailSerializer(issue, data=request.data, partial=True)
 
         if serializer.is_valid():
@@ -162,7 +162,7 @@ class IssueDetailView(APIView):
 
     def delete(self, request, project_pk, issue_reference):
         project = get_object_or_404(Project, pk=project_pk)
-        issue = get_object_or_404(Issue, reference=issue_reference, project=project)
+        issue = get_object_or_404(Issue, pk=issue_reference, project=project)
         issue.delete()
 
         return Response(status=status.HTTP_200_OK)

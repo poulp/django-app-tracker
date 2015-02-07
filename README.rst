@@ -13,4 +13,6 @@ django-app-tracker
      :target: https://requires.io/github/poulp/django-app-tracker/requirements/?branch=master
      :alt: Requirements Status
 
-todo
+.. image:: https://coveralls.io/repos/poulp/django-app-tracker/badge.svg?branch=master
+     :target: https://coveralls.io/r/poulp/django-app-tracker?branch=master
+     :alt: Coverage
