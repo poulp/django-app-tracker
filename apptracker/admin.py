@@ -1,4 +1,6 @@
-# coding: utf-8
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 from django.contrib import admin
 
 from .models import Project, Issue, IssueActivity, Label

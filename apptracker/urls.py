@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 from django.conf.urls import include, url
 
 from .api import ProjectListView, ProjectIssuesListView, \

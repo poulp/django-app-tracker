@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 from django.shortcuts import get_object_or_404
 
 from rest_framework.views import APIView

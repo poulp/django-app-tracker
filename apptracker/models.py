@@ -1,9 +1,8 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 from django.db import models
-from django.dispatch import receiver
 from django.utils import timezone
-from django.db.models.signals import post_save
 from django.utils.safestring import mark_safe
 from django.utils.encoding import smart_text
 from django.utils.text import slugify
