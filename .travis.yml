@@ -9,7 +9,7 @@ install:
   - travis_retry pip install coveralls
 
 script:
-  - python runtests.py
+  - coverage run runtests.py
 
 after_succes:
   - coveralls
