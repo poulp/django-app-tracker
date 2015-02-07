@@ -1,5 +1,5 @@
 [run]
 source = apptracker
-branch = True
 omit =
     *admin.py*
+    *__init__*

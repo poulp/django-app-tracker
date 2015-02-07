@@ -5,6 +5,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework import serializers
 
 from .models import Project, Issue, IssueActivity, Label
+from .validators import validator_strip
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -12,9 +13,12 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta(object):
         model = User
         fields = ('username',)
+        read_only = ('username',)
 
 
 class LabelSerializer(serializers.ModelSerializer):
+    title = serializers.CharField(max_length=20, validators=[validator_strip])
+    color = serializers.CharField(max_length=7, validators=[validator_strip])
 
     class Meta(object):
         model = Label
@@ -66,7 +70,6 @@ class IssueDetailSerializer(serializers.ModelSerializer):
             'pk',
             'title',
             'description',
-            'reference',
             'project',
             'created_date',
             'modified_date',
@@ -74,12 +77,10 @@ class IssueDetailSerializer(serializers.ModelSerializer):
             'description_html',
             'owner',
             'labels',
-            'reference'
         )
         read_only_fields = (
             'created_date',
             'modified_date',
-            'reference',
             'description_html',
         )
         validators = []
@@ -91,7 +92,6 @@ class IssueDetailSerializer(serializers.ModelSerializer):
             description = validated_data['description'],
             owner = validated_data['owner'],
             project = validated_data['project'],
-            reference = validated_data['reference']
         )
 
         if 'labels' in validated_data:
