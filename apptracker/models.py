@@ -37,7 +37,7 @@ class Label(models.Model):
 
     title = models.CharField(max_length=20, verbose_name='Title')
     slug = models.SlugField(max_length=20, verbose_name='Slug')
-    color = models.CharField(max_length=7, default="#FFFFFF", verbose_name='Color')
+    color = models.CharField(max_length=7, default="#2D3E63", verbose_name='Color')
     project = models.ForeignKey(Project, related_name='labels', null=False, blank=False)
 
     def __str__(self):
@@ -54,6 +54,7 @@ class Issue(models.Model):
     class Meta(object):
         verbose_name = 'Issue'
         verbose_name_plural = 'Issues'
+        ordering = ['pk']
 
     title = models.CharField('Title', max_length=140)
     description = models.TextField('Description', null=False, blank=False)

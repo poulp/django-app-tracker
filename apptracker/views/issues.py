@@ -14,6 +14,7 @@ from apptracker.models import Issue
 class IssuesListView(ProjectMixin, ListView):
     template_name = 'apptracker/issues/list.html'
     context_object_name = 'issues'
+    paginate_by = 20
 
     def get_queryset(self, **kwargs):
         return self.get_project().issues.all()
