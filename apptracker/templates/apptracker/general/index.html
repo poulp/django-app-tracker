@@ -1,0 +1,28 @@
+{% extends "apptracker/base.html" %}
+
+{% block page_title %}
+Home
+{% endblock %}
+
+{% block breadcrumb %}
+Home
+{% endblock %}
+
+{% block side_title %}
+Issue tracker
+<span class="menu-icon glyphicon glyphicon-transfer"></span>
+{% endblock %}
+
+{% block side_menu %}
+<li class="sidebar-title"><span>NAVIGATION</span></li>
+<li class="sidebar-list">
+    <a href="/tracker/projects/">Projects <span class="menu-icon glyphicon glyphicon-th-list"></span></a>
+</li>
+<li class="sidebar-list">
+    <a href="#">Settings <span class="menu-icon glyphicon glyphicon-cog"></span></a>
+</li>
+{% endblock %}
+
+{% block content %}
+<p>message de bienvenue ou je sais pas quoi</p>
+{% endblock %}

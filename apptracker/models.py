@@ -18,10 +18,15 @@ class Project(models.Model):
         verbose_name_plural = 'Projects'
 
     name = models.CharField('Name', max_length=80)
+    slug = models.CharField('Slug', max_length=80)
     description = models.CharField('Description', max_length=200)
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
 
 
 class Label(models.Model):
@@ -56,7 +61,7 @@ class Issue(models.Model):
     owner = models.ForeignKey(User, null=False, blank=False, related_name='owned_issues')
 
     project = models.ForeignKey(Project, related_name='issues', null=False, blank=False)
-    labels = models.ManyToManyField(Label, related_name='issues')
+    labels = models.ManyToManyField(Label, related_name='issues', blank=True)
 
     is_closed = models.BooleanField(default=False, null=False, blank=False)
 

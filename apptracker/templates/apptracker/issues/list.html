@@ -1,0 +1,37 @@
+{% extends "apptracker/issues/base.html" %}
+
+{% block page_title %}
+    Issues
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-xs-9">
+            <div class="box">
+                <div class="box-body">
+                    {% for issue in issues %}
+                        <div class="issue-block">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h4><a href="{% url "issue-detail" project.pk issue.pk %}" >{{ issue.title }}</a> <small>#{{ issue.pk }}</small></h4>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <p>
+                                        <i class="glyphicon glyphicon-time"></i> {{ issue.created_date|date:'M-d-y' }}
+                                        <i class="glyphicon glyphicon-user"></i> {{ issue.owner.username }}
+                                        <i class="glyphicon glyphicon-tags"></i>
+                                        {% for label in issue.labels.all %}
+                                            <span class="label label-small" style="background-color:{{ label.color }}">{{ label.title }}</span>
+                                        {% endfor %}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

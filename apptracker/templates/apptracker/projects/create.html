@@ -1,0 +1,19 @@
+{% extends "apptracker/projects/base_projects.html" %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-xs-4">
+            <div class="box">
+                <div class="box-body">
+                    <form action="" method="POST" class="simple-form">{% csrf_token %}
+                        <div class="form-group">
+                            {{ form.as_p }}
+                        </div>
+
+                        <button type="submit" class="btn btn-success">Create project</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

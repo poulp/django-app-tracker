@@ -1,0 +1,7 @@
+{% extends "apptracker/projects/base_detail.html" %}
+
+{% block content %}
+    {% for label in labels %}
+        {{ label.title }}
+    {% endfor %}
+{% endblock %}

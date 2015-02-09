@@ -1,0 +1,29 @@
+{% extends "apptracker/projects/base_projects.html" %}
+
+{% block page_title %}
+    {{ project.name }}
+{% endblock %}
+
+{% block breadcrumb %}
+    <a href="{% url "project-list" %}">Projects</a> / {{ project.name }}
+{% endblock %}
+
+{% block side_title %}
+    {{ project.name }}
+    <span class="menu-icon glyphicon glyphicon-transfer"></span>
+{% endblock %}
+
+{% block side_menu %}
+    <li class="sidebar-title"><span>NAVIGATION</span></li>
+    <li class="sidebar-list">
+        <a href="{% url "issue-list" project.pk %}">Issues <span class="menu-icon glyphicon glyphicon-th-list"></span></a>
+    </li>
+    <li class="sidebar-list">
+        <a href="{% url "issue-new" project.pk %}">Open issue <span class="menu-icon glyphicon glyphicon-plus"></span></a>
+    </li>
+
+    <li class="sidebar-title"><span>PROJECT SETTINGS</span></li>
+    <li class="sidebar-list">
+        <a href="{% url "project-labels" project.pk %}">Labels <span class="menu-icon glyphicon glyphicon-tags"></span></a>
+    </li>
+{% endblock %}

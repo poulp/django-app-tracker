@@ -1,0 +1,21 @@
+{% extends "apptracker/issues/base.html" %}
+
+{% block page_title %}
+    New Issue
+{% endblock %}
+
+{%  block content %}
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-body">
+                    <form action="" method="post">{% csrf_token %}
+                        {{ form.as_p }}
+                        <input type="submit" value="Send message" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

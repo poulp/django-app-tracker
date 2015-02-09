@@ -2,38 +2,82 @@
 
 <!doctype html>
 <html lang="fr" >
-    <head>
-        <meta charset="UTF-8">
-        <title>Issue tracker</title>
-        <link rel="stylesheet" href="{% static "bower_components/bootstrap/dist/css/bootstrap.min.css" %}"/>
-        <link rel="stylesheet" href="{% static "bower_components/angular-bootstrap-colorpicker/css/colorpicker.min.css" %}"/>
-        <link rel="stylesheet" href="{% static "css/timeline.css" %}"/>
-        <link rel="stylesheet" href="{% static "css/apptracker.css" %}"/>
+<head>
+    <meta charset="UTF-8">
+    <title>Issue tracker</title>
+    <link rel="stylesheet" href="{% static "bower_components/bootstrap/dist/css/bootstrap.min.css" %}"/>
+    <link rel="stylesheet" href="{% static "bower_components/rdash-ui/dist/css/rdash.min.css" %}"/>
 
+    <link rel="stylesheet" href="{% static "css/timeline.css" %}"/>
+    <link rel="stylesheet" href="{% static "css/apptracker.css" %}"/>
 
+</head>
 
-    </head>
+<body>
 
-    <body ng-app="trackerApp">
-        <div class="container" ng-view></div>
+<div id="page-wrapper" class="open">
+    <div id="sidebar-wrapper">
+        <ul class="sidebar">
+            <li class="sidebar-main">
+                <a>
+                    {% block side_title %}
+                    {% endblock %}
+                </a>
+            </li>
+            {% block side_menu %}{% endblock %}
+        </ul>
+        <div class="sidebar-footer">
+            <div class="col-xs-4">
+                <a href="https://github.com/rdash/rdash-angular" target="_blank">
+                    Depository
+                </a>
+            </div>
+            <div class="col-xs-4">
+                <a href="https://github.com/rdash/rdash-angular/README.md" target="_blank">
+                    Docs
+                </a>
+            </div>
+            <div class="col-xs-4">
+                <a href="#">
+                    Support
+                </a>
+            </div>
+        </div>
+    </div>
 
-        <script src="{% static "bower_components/angular/angular.min.js" %}"></script>
-        <script src="{% static "bower_components/angular-route/angular-route.min.js" %}"></script>
-        <script src="{% static "bower_components/angular-sanitize/angular-sanitize.min.js" %}"></script>
+    <div id="content-wrapper">
+        <div class="page-content">
+            <!-- Header Bar -->
+            <div class="row header">
+                <div class="col-xs-12">
+                    <div class="user pull-right">
+                        <div class="item dropdown">
+                            {% if user.is_authenticated %}
+                                <a href="#">
+                                    {{ user.username }}
+                                </a>
+                                {% else %}
+                                <a href="#">Not logged in</a>
+                            {% endif %}
 
-        <script src="{% static "bower_components/angular-bootstrap/ui-bootstrap.min.js" %}"></script>
-        <script src="{% static "bower_components/angular-smart-table/dist/smart-table.min.js" %}"></script>
-
-        <script src="{% static "bower_components/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.min.js" %}"></script>
-
-        <script src="{% static "js/app.js" %}"></script>
-
-        <script src="{% static "js/services/project-services.js" %}"></script>
-        <script src="{% static "js/services/issue-services.js" %}"></script>
-
-        <script src="{% static "js/controllers/project-controllers.js" %}"></script>
-        <script src="{% static "js/controllers/issue-controllers.js" %}"></script>
-
-    </body>
+                        </div>
+                    </div>
+                    <div class="meta">
+                        <div class="page">
+                            {% block page_title %}{% endblock %}
+                        </div>
+                        <div class="breadcrumb-links">
+                            <a href="{% url "apptracker-home" %}">Home</a> /
+                            {% block breadcrumb %}
+                            {% endblock %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+</div>
+</body>
 
 </html>
