@@ -58,7 +58,11 @@
                 </div>
 
                 <div class="box-body">
+                    <form method="GET" action="{% url "issue-list" project.pk %}">
+                        {{ filter_form.as_p }}
 
+                        <button class="btn btn-primary" type="submit">Filter</button>
+                    </form>
                 </div>
             </div>
         </div>

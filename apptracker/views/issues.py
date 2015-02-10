@@ -7,7 +7,7 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 
 from apptracker.mixins import ProjectMixin
-from apptracker.forms import NewIssueForm
+from apptracker.forms import NewIssueForm, IssueFilterForm
 from apptracker.models import Issue
 
 
@@ -18,6 +18,11 @@ class IssuesListView(ProjectMixin, ListView):
 
     def get_queryset(self, **kwargs):
         return self.get_project().issues.all()
+
+    def get_context_data(self, **kwargs):
+        context = super(IssuesListView, self).get_context_data(**kwargs)
+        context['filter_form'] = IssueFilterForm()
+        return context
 
 
 class IssueDetailView(ProjectMixin, DetailView):
