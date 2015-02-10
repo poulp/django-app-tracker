@@ -54,7 +54,7 @@ class Issue(models.Model):
     class Meta(object):
         verbose_name = 'Issue'
         verbose_name_plural = 'Issues'
-        ordering = ['pk']
+        ordering = ['-pk']
 
     title = models.CharField('Title', max_length=140)
     description = models.TextField('Description', null=False, blank=False)

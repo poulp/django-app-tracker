@@ -1,4 +1,19 @@
 {% extends "apptracker/projects/base_detail.html" %}
+{% load staticfiles %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static "bower_components/bootstrap-colorpicker/css/colorpicker.css" %}"/>
+
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static "bower_components/bootstrap-colorpicker/js/bootstrap-colorpicker.js" %}"></script>
+    <script>
+    $(function(){
+        $('.color-input').colorpicker();
+    });
+</script>
+{% endblock %}
 
 {% block content %}
 
@@ -7,7 +22,7 @@
             <div class="box">
                 <div class="box-body">
                     {% for label in labels %}
-                        <p><span class="label label-small" style="background-color:{{ label.color }}">{{ label.title }}</span></p>
+                        <p><span class="label" style="background-color:{{ label.color }}">{{ label.title }}</span></p>
                     {% endfor %}
                 </div>
             </div>
