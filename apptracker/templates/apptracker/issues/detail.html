@@ -1,5 +1,22 @@
 {% extends "apptracker/issues/base.html" %}
 
+{% block issue_actions %}
+    <li class="sidebar-title"><span>ISSUE ACTIONS</span></li>
+    <li class="sidebar-list">
+        <a href="#">Edit <span class="menu-icon glyphicon glyphicon-pencil"></span></a>
+    </li>
+    <li class="sidebar-list">
+        {% if issue.is_closed %}
+            <a href="#">Open <span class="menu-icon glyphicon glyphicon-ok-circle"></span></a>
+        {% else %}
+            <a href="#">Close <span class="menu-icon glyphicon glyphicon-remove-circle"></span></a>
+        {% endif %}
+    </li>
+    <li class="sidebar-list">
+        <a href="{% url "issue-delete" project.pk issue.pk %}">Delete <span class="menu-icon glyphicon glyphicon-trash"></span></a>
+    </li>
+{% endblock %}
+
 {% block page_title %}
     {% if issue.is_closed %}
         <span class="label label-danger">Close</span>
@@ -64,64 +81,47 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="box">
-                <div class="box-header">
-                    <h3>Action</h3>
-                </div>
 
-                <div class="box-body">
-                    {% if issue.is_closed %}
-                        <button type="button" class="btn btn-block btn-success" >Open Issue</button>
-                    {% else %}
-                        <button type="button" class="btn btn-block btn-danger">Close Issue</button>
-                    {% endif %}
-                    <a href="{% url "issue-delete" project.pk issue.pk %}" class="btn btn-block btn-danger">Delete</a>
-                </div>
-            </div>
-        </div>
-    </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="box">
+                    <div class="box-header">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <h3>Comment</h3>
+                            </div>
 
-    <div class="row">
-        <div class="col-md-6">
-            <div class="box">
-                <div class="box-header">
-                    <div class="row">
-                        <div class="col-md-10">
-                            <h3>Comment</h3>
-                        </div>
-
-                        <div class="col-md-2 text-right">
-                            <span class="label label-info">0</span>
+                            <div class="col-md-2 text-right">
+                                <span class="label label-info">0</span>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="box-body">
-                    <p class="text-center">No messages</p>
+                    <div class="box-body">
+                        <p class="text-center">No messages</p>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="col-md-6">
-            <div class="box">
-                <div class="box-header">
-                    <h3>Activity</h3>
-                </div>
+            <div class="col-md-6">
+                <div class="box">
+                    <div class="box-header">
+                        <h3>Activity</h3>
+                    </div>
 
-                <div class="box-body">
-                    <ul class="timeline" >
-                        <li>
-                            <div class="timeline-badge success"><i class="glyphicon glyphicon-plus"></i></div>
-                            <div class="timeline-panel">
-                                <div class="timeline-heading">
-                                    <h4 class="timeline-title">Issue open</h4>
-                                    <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> {{ issue.created_date }}</small></p>
+                    <div class="box-body">
+                        <ul class="timeline" >
+                            <li>
+                                <div class="timeline-badge success"><i class="glyphicon glyphicon-plus"></i></div>
+                                <div class="timeline-panel">
+                                    <div class="timeline-heading">
+                                        <h4 class="timeline-title">Issue open</h4>
+                                        <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> {{ issue.created_date }}</small></p>
+                                    </div>
                                 </div>
-                            </div>
-                        </li>
+                            </li>
 
-                        <!--<li ng-repeat="activity in issue.activity" ng-class-odd="'timeline-inverted'">
+                            <!--<li ng-repeat="activity in issue.activity" ng-class-odd="'timeline-inverted'">
                             <div class="timeline-badge warning"><i class="glyphicon glyphicon-edit"></i></div>
                             <div class="timeline-panel">
                                 <div class="timeline-heading">
@@ -130,9 +130,9 @@
                                 </div>
                             </div>
                         </li>-->
-                    </ul>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 {% endblock %}

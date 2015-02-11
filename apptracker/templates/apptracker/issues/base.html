@@ -21,6 +21,7 @@
     <li class="sidebar-list">
         <a href="{% url "issue-new" project.pk %}">Open issue <span class="menu-icon glyphicon glyphicon-plus"></span></a>
     </li>
+    {% block issue_actions %}{% endblock %}
 
     <li class="sidebar-title"><span>PROJECT SETTINGS</span></li>
     <li class="sidebar-list">
