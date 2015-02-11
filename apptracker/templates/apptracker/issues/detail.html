@@ -37,7 +37,7 @@
                 <div class="box-body">
                     <div class="row issue-description-meta">
                         <div class="col-md-10">
-                            <strong>{{ issue.owner.username }}</strong>
+                            <i class="glyphicon glyphicon-user"></i><strong> {{ issue.owner.username }}</strong>
                         </div>
 
                         <div class="col-md-2 text-right">
@@ -101,7 +101,7 @@
                     {% else %}
                         <button type="button" class="btn btn-block btn-danger">Close Issue</button>
                     {% endif %}
-                    <button type="button" class="btn btn-block btn-danger">Delete</button>
+                    <a href="{% url "issue-delete" project.pk issue.pk %}" class="btn btn-block btn-danger">Delete</a>
                 </div>
             </div>
         </div>

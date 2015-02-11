@@ -79,6 +79,14 @@ h3 {
     border-bottom: 1px solid #E7EAEC;
 }
 
+.issue-block-title {
+    font-size: 15px;
+}
+
+.issue-block-info {
+    color: red;
+}
+
 /*************************
  * Issue detail
  ************************/

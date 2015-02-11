@@ -20,6 +20,8 @@ project_urls =[
     url(r'^(?P<pk>[0-9]+)/issues/$', issues.IssuesListView.as_view(), name='issue-list'),
     url(r'^(?P<pk>[0-9]+)/issues/(?P<issue_pk>[0-9]+)$', issues.IssueDetailView.as_view(), name='issue-detail'),
     url(r'^(?P<pk>[0-9]+)/issue/new/$', issues.IssueNewView.as_view(), name='issue-new'),
+    url(r'^(?P<pk>[0-9]+)/issues/(?P<issue_pk>[0-9]+)/delete$', issues.IssueDeleteView.as_view(), name='issue-delete'),
+
 ]
 
 urlpatterns = [

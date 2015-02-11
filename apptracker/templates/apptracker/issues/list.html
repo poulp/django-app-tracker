@@ -6,14 +6,14 @@
 
 {% block content %}
     <div class="row">
-        <div class="col-xs-6">
+        <div class="col-xs-8">
             <div class="box">
                 <div class="box-body">
                     {% for issue in issues %}
                         <div class="issue-block">
-                            <h4><a href="{% url "issue-detail" project.pk issue.pk %}" >{{ issue.title }}</a> <small>#{{ issue.pk }}</small></h4>
+                            <span class="issue-block-title"><a href="{% url "issue-detail" project.pk issue.pk %}" >{{ issue.title }}</a> <small>#{{ issue.pk }}</small></span>
                             <p>
-                                <i class="glyphicon glyphicon-time"></i> {{ issue.created_date|date:'M-d-y' }}
+                                <span class="issue-block-info"><i class="glyphicon glyphicon-time"></i> {{ issue.created_date|date:'M-d-y' }}</span>
                                 <i class="glyphicon glyphicon-user"></i> {{ issue.owner.username }}
                                 <i class="glyphicon glyphicon-tags"></i>
                                 {% for label in issue.labels.all %}

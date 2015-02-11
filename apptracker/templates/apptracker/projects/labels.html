@@ -45,7 +45,7 @@
                                 <p><span class="label" style="background-color:{{ label.color }}">{{ label.title }}</span></p>
                             </div>
                             <div class="col-xs-6">
-                                <button type="button" class="btn btn-primary delete-label-button" value="{% url "label-delete" project.pk label.pk %}"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+                                <button type="button" class="btn btn-primary btn-sm delete-label-button" value="{% url "label-delete" project.pk label.pk %}"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
                             </div>
                         </div>
                     {% endfor %}

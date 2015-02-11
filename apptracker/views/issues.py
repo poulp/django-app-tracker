@@ -1,8 +1,8 @@
 
 from django.views.generic.list import ListView
-from django.views.generic.edit import FormView
+from django.views.generic.edit import FormView, DeleteView
 from django.views.generic.detail import DetailView
-from django.core.urlresolvers import reverse_lazy
+from django.core.urlresolvers import reverse_lazy, reverse
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 
@@ -30,6 +30,16 @@ class IssueDetailView(ProjectMixin, DetailView):
     template_name = 'apptracker/issues/detail.html'
     context_object_name = 'issue'
     pk_url_kwarg = 'issue_pk'
+
+
+class IssueDeleteView(ProjectMixin, DeleteView):
+    model = Issue
+    pk_url_kwarg = 'issue_pk'
+    template_name = 'apptracker/issues/confirm_delete.html'
+    context_object_name = 'issue'
+
+    def get_success_url(self):
+        return reverse('issue-list', kwargs={'pk': self.get_project().pk})
 
 
 class IssueNewView(ProjectMixin, FormView):
