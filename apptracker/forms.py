@@ -15,9 +15,6 @@ class LabelForm(forms.ModelForm):
     class Meta(object):
         model = Label
         fields = ['title', 'color']
-        widgets = {
-            'color': TextInput(attrs={'class': 'color-input'})
-        }
 
 
 class IssueFilterForm(forms.Form):

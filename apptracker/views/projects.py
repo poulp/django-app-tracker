@@ -22,7 +22,12 @@ class ProjectDetailView(DetailView):
 class ProjectCreateView(CreateView):
     template_name = 'apptracker/projects/create.html'
     model = Project
-    fields = ['name', 'description']
+    fields = [
+        'name',
+        'description',
+        'repository',
+        'documentation'
+    ]
 
     def get_success_url(self):
         return reverse_lazy('project-list')

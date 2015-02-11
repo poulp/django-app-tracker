@@ -72,10 +72,24 @@ h3 {
 }
 
 /*************************
+ * Page menu
+ ************************/
+.page {
+    padding-bottom: 5px;
+}
+.page h1 {
+    font-size: 18px;
+    display: inline;
+    color: #5B5B5B;
+}
+
+
+/*************************
  * Project issues list
  ************************/
 .issue-block {
-    background-color: #FFFFFF;
+    padding-top: 5px;
+    padding-bottom: 5px;
     border-bottom: 1px solid #E7EAEC;
 }
 
@@ -83,8 +97,9 @@ h3 {
     font-size: 15px;
 }
 
-.issue-block-info {
-    color: red;
+.issue-block-info {
+    color: #939393;
+    font-size: 12px;
 }
 
 /*************************
@@ -110,4 +125,9 @@ h3 {
 
 .block-label {
     margin-bottom: 10px;
+}
+
+.form-group.required label:after {
+  content:"*";
+  color:red;
 }

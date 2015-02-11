@@ -21,6 +21,9 @@ class Project(models.Model):
     slug = models.CharField('Slug', max_length=80)
     description = models.CharField('Description', max_length=200)
 
+    repository = models.URLField('Repository', blank=True)
+    documentation = models.URLField('Documentation', blank=True)
+
     def __str__(self):
         return self.name
 
