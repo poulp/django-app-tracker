@@ -9,10 +9,26 @@
 {% block extra_js %}
     <script src="{% static "bower_components/bootstrap-colorpicker/js/bootstrap-colorpicker.js" %}"></script>
     <script>
-    $(function(){
-        $('.color-input').colorpicker();
-    });
-</script>
+        $(function(){
+            $('.color-input').colorpicker();
+
+            $('.delete-label-button').click(function(){
+                console.log(this.value);
+                $.ajax({
+                    url: this.value,
+                    method: 'POST',
+                    data: '',
+                    success: function(response, status){
+                        console.log(response);
+                        console.log(status)
+                    },
+                    error: function(response, status, error){
+                        console.log(error);
+                    }
+                });
+            });
+        });
+    </script>
 {% endblock %}
 
 {% block content %}
@@ -21,9 +37,22 @@
         <div class="col-xs-4">
             <div class="box">
                 <div class="box-body">
+                    {% if labels %}
+
                     {% for label in labels %}
-                        <p><span class="label" style="background-color:{{ label.color }}">{{ label.title }}</span></p>
+                        <div class="row" id="label-{{ label.pk }}">
+                            <div class="col-xs-6">
+                                <p><span class="label" style="background-color:{{ label.color }}">{{ label.title }}</span></p>
+                            </div>
+                            <div class="col-xs-6">
+                                <button type="button" class="btn btn-primary delete-label-button" value="{% url "label-delete" project.pk label.pk %}"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+                            </div>
+                        </div>
                     {% endfor %}
+
+                {% else %}
+                    <p>No labels.</p>
+                {% endif %}
                 </div>
             </div>
         </div>

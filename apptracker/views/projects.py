@@ -1,10 +1,10 @@
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from django.views.generic.edit import CreateView, FormView
+from django.views.generic.edit import CreateView, FormView, DeleteView
 from django.core.urlresolvers import reverse_lazy
 
-from apptracker.models import Project
-from apptracker.mixins import ProjectMixin
+from apptracker.models import Project, Label
+from apptracker.mixins import ProjectMixin, AjaxableResponseMixin
 from apptracker.forms import LabelForm
 
 
@@ -45,3 +45,12 @@ class ProjectLabelsView(ProjectMixin, FormView):
         label.project = self.get_project()
         label.save()
         return super(ProjectLabelsView, self).form_valid(form)
+
+
+class LabelDeleteView(AjaxableResponseMixin, DeleteView):
+    model = Label
+    pk_url_kwarg = 'label_pk'
+    template_name = 'apptracker/projects/delete_label_confirm.html'
+
+    def get_success_url(self):
+        return reverse_lazy('project-list')

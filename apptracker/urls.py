@@ -14,7 +14,7 @@ project_urls =[
 
     # Labels
     url(r'^(?P<pk>[0-9]+)/labels/$', projects.ProjectLabelsView.as_view(), name='project-labels'),
-    #url(r'^/(?P<project_pk>[0-9]+)/labels/(?P<label_pk>[0-9]+)$', LabelsView.as_view(), name='labels-detail'),
+    url(r'^(?P<pk>[0-9]+)/labels/(?P<label_pk>[0-9]+)/delete$', projects.LabelDeleteView.as_view(), name='label-delete'),
 
     # Issues
     url(r'^(?P<pk>[0-9]+)/issues/$', issues.IssuesListView.as_view(), name='issue-list'),
