@@ -10,18 +10,25 @@ from apptracker.mixins import ProjectMixin
 from apptracker.forms import NewIssueForm, IssueFilterForm
 from apptracker.models import Issue
 
-
 class IssuesListView(ProjectMixin, ListView):
     template_name = 'apptracker/issues/list.html'
     context_object_name = 'issues'
     paginate_by = 20
 
     def get_queryset(self, **kwargs):
-        return self.get_project().issues.all()
+        is_open = True if self.request.GET.get('is_open', False) else False
+        is_close = True if self.request.GET.get('is_close', False) else False
+
+        filter_params = {}
+
+        if not is_close == is_open:
+            filter_params['is_closed'] = is_close
+
+        return self.get_project().issues.all().filter(**filter_params)
 
     def get_context_data(self, **kwargs):
         context = super(IssuesListView, self).get_context_data(**kwargs)
-        context['filter_form'] = IssueFilterForm()
+        context['filter_form'] = IssueFilterForm(self.request.GET)
         return context
 
 

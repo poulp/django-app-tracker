@@ -21,5 +21,5 @@ class LabelForm(forms.ModelForm):
 
 
 class IssueFilterForm(forms.Form):
-    is_closed = forms.BooleanField(initial=False)
+    is_close = forms.BooleanField(initial=False)
     is_open = forms.BooleanField(initial=True)
