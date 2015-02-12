@@ -26,4 +26,7 @@
     <li class="sidebar-list">
         <a href="{% url "project-labels" project.pk %}">Labels <span class="menu-icon glyphicon glyphicon-tags"></span></a>
     </li>
+    <li class="sidebar-list">
+        <a href="{% url "project-edit" project.pk %}">Edit <span class="menu-icon glyphicon glyphicon-pencil"></span></a>
+    </li>
 {% endblock %}

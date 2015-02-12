@@ -1,6 +1,6 @@
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from django.views.generic.edit import CreateView, FormView, DeleteView
+from django.views.generic.edit import CreateView, FormView, DeleteView, UpdateView
 from django.core.urlresolvers import reverse_lazy
 
 from apptracker.models import Project, Label
@@ -21,6 +21,19 @@ class ProjectDetailView(DetailView):
 
 class ProjectCreateView(CreateView):
     template_name = 'apptracker/projects/create.html'
+    model = Project
+    fields = [
+        'name',
+        'description',
+        'repository',
+        'documentation'
+    ]
+
+    def get_success_url(self):
+        return reverse_lazy('project-list')
+
+class ProjectUpdateView(ProjectMixin, UpdateView):
+    template_name = 'apptracker/projects/edit.html'
     model = Project
     fields = [
         'name',
