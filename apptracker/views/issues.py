@@ -1,6 +1,6 @@
 
 from django.views.generic.list import ListView
-from django.views.generic.edit import FormView, DeleteView
+from django.views.generic.edit import FormView, DeleteView, UpdateView
 from django.views.generic.detail import DetailView
 from django.core.urlresolvers import reverse_lazy, reverse
 from django.utils.decorators import method_decorator
@@ -63,3 +63,27 @@ class IssueNewView(ProjectMixin, FormView):
         issue.save()
         form.save_m2m()
         return super(IssueNewView, self).form_valid(form)
+
+
+class IssueEditView(ProjectMixin, UpdateView):
+    model = Issue
+    template_name = 'apptracker/issues/edit.html'
+    form_class = NewIssueForm
+    context_object_name = 'issue'
+    pk_url_kwarg = 'issue_pk'
+
+    def get_success_url(self):
+        return reverse('issue-detail', kwargs={'pk': self.get_project().pk, 'issue_pk': self.kwargs['issue_pk']})
+
+    def get_form(self, form_class):
+        return form_class(project=self.get_project(), **self.get_form_kwargs())
+
+    def form_valid(self, form):
+        issue = form.save(commit=False)
+        print(self.request.POST)
+        if 'editclose' in self.request.POST:
+            issue.is_closed = not issue.is_closed
+
+        issue.save()
+        return super(IssueEditView, self).form_valid(form)
+

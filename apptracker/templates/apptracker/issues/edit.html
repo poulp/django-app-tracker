@@ -1,0 +1,80 @@
+{% extends "apptracker/issues/base_sidebar_actions.html" %}
+{% load apptracker_tags %}
+
+{%  block content %}
+
+    <div class="row">
+        <div class="col-xs-8 col-xs-offset-2">
+            <div class="box">
+                <div class="box-body">
+                    <div class="row">
+                        <form action="" method="post">{% csrf_token %}
+                            <div class="col-xs-6">
+                                {% with title=form.title %}
+                                    {% if title.errors %}
+                                        <div class="form-group has-error">
+                                            {{ title.label_tag }}
+                                            {{ title|add_css_class:"form-control" }}
+                                            {% for error in title.errors %}
+                                                <span id="helpBlock" class="help-block">{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        <div class="form-group">
+                                            {{ title.label_tag }}
+                                            {{ title|add_css_class:"form-control" }}
+                                        </div>
+                                    {% endif %}
+                                {% endwith %}
+
+                                {% with description=form.description %}
+                                    {% if description.errors %}
+                                        <div class="form-group has-error">
+                                            {{ description.label_tag }}
+                                            {{ description|add_css_class:"form-control" }}
+                                            {% for error in description.errors %}
+                                                <span id="helpBlock" class="help-block">{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        <div class="form-group">
+                                            {{ description.label_tag }}
+                                            {{ description|add_css_class:"form-control" }}
+                                        </div>
+                                    {% endif %}
+                                {% endwith %}
+                            </div>
+
+                            <div class="col-xs-6">
+                                {% with labels=form.labels %}
+                                    {% if labels.errors %}
+                                        <div class="form-group has-error">
+                                            {{ labels.label_tag }}
+                                            {{ labels|add_css_class:"form-control" }}
+                                            {% for error in labels.errors %}
+                                                <span id="helpBlock" class="help-block">{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        <div class="form-group">
+                                            {{ labels.label_tag }}
+                                            {{ labels|add_css_class:"form-control" }}
+                                        </div>
+                                    {% endif %}
+                                {% endwith %}
+                                <div class="text-right">
+                                    {% if issue.is_closed %}
+                                        <button type="submit" class="btn btn-success" name="editclose">Edit and open issue</button>
+                                    {% else %}
+                                        <button type="submit" class="btn btn-danger" name="editclose">Edit and close issue</button>
+                                    {% endif %}
+                                    <button type="submit" class="btn btn-primary" name="edit">Edit issue</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

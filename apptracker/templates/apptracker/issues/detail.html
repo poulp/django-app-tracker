@@ -1,21 +1,4 @@
-{% extends "apptracker/issues/base.html" %}
-
-{% block issue_actions %}
-    <li class="sidebar-title"><span>ISSUE ACTIONS</span></li>
-    <li class="sidebar-list">
-        <a href="#">Edit <span class="menu-icon glyphicon glyphicon-pencil"></span></a>
-    </li>
-    <li class="sidebar-list">
-        {% if issue.is_closed %}
-            <a href="#">Open <span class="menu-icon glyphicon glyphicon-ok-circle"></span></a>
-        {% else %}
-            <a href="#">Close <span class="menu-icon glyphicon glyphicon-remove-circle"></span></a>
-        {% endif %}
-    </li>
-    <li class="sidebar-list">
-        <a href="{% url "issue-delete" project.pk issue.pk %}">Delete <span class="menu-icon glyphicon glyphicon-trash"></span></a>
-    </li>
-{% endblock %}
+{% extends "apptracker/issues/base_sidebar_actions.html" %}
 
 {% block page_title %}
     {% if issue.is_closed %}
