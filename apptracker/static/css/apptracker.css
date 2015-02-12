@@ -102,6 +102,13 @@ h3 {
     font-size: 12px;
 }
 
+.icon-open {
+    color: green;
+}
+
+.icon-close {
+    color:red;
+}
 /*************************
  * Issue detail
  ************************/

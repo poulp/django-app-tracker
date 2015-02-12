@@ -15,6 +15,11 @@
                             <div class="issue-block-info">
                                 <div class="col-xs-10">
                                     <div class="issue-block-title">
+                                        {% if issue.is_closed %}
+                                            <span><i class="glyphicon glyphicon-remove-circle icon-close"></i></span>
+                                        {% else %}
+                                            <span><i class="glyphicon glyphicon-ok-circle icon-open"></i></span>
+                                        {% endif %}
                                         <span><a href="{% url "issue-detail" project.pk issue.pk %}" >{{ issue.title }}</a> <small>#{{ issue.pk }}</small></span>
                                     </div>
                                     <span><i class="glyphicon glyphicon-user"></i> {{ issue.owner.username }}</span>
@@ -29,7 +34,7 @@
                                 </div>
                                 <div class="col-xs-2 text-right">
                                     <span><i class="glyphicon glyphicon-time"></i> {{ issue.created_date|date:'M-d-y' }}</span><br/>
-                                    <span><i class="glyphicon glyphicon-comment"></i> 3</span>
+                                    <span><i class="glyphicon glyphicon-comment"></i> 0</span>
                                 </div>
                             </div>
                         </div>
