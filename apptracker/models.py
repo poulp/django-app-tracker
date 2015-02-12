@@ -16,6 +16,7 @@ class Project(models.Model):
     class Meta(object):
         verbose_name = 'Project'
         verbose_name_plural = 'Projects'
+        ordering = ['slug']
 
     name = models.CharField('Name', max_length=80)
     slug = models.CharField('Slug', max_length=80)
@@ -37,6 +38,7 @@ class Label(models.Model):
     class Meta(object):
         verbose_name = 'Label'
         verbose_name_plural = 'Labels'
+        ordering = ['color']
 
     title = models.CharField(max_length=20, verbose_name='Title')
     slug = models.SlugField(max_length=20, verbose_name='Slug')

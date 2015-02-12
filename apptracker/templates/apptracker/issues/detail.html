@@ -31,6 +31,17 @@
     <div class="row">
         <div class="col-md-6">
             <div class="box">
+                <div class="box-header back">
+                    {% with labels=issue.labels.all %}
+                        {% if labels %}
+                            {% for label in labels %}
+                                <span class="label" style="background-color:{{ label.color }}">{{ label.title }}</span>
+                            {% endfor %}
+                        {% else %}
+                            <span>No label</span>
+                        {% endif %}
+                    {% endwith %}
+                </div>
                 <div class="box-body">
                     <div class="row issue-description-meta">
                         <div class="col-md-8">
@@ -49,79 +60,45 @@
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="col-md-3">
             <div class="box">
                 <div class="box-header">
-                    <h3>Details</h3>
+                    <div class="row">
+                        <div class="col-md-10">
+                            <h3>Comment</h3>
+                        </div>
+
+                        <div class="col-md-2 text-right">
+                            <span class="label label-info">0</span>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="box-body">
-                    <div class="detail-issue text-center">
-                        <small>Creation</small><br/>
-                        <strong>{{ issue.created_date|date:"M-d-y" }}</strong>
-                    </div>
-
-                    <div class="detail-issue text-center">
-                        <small>Update</small><br/>
-                        <strong>{{ issue.modified_date|date:"M-d-y" }}</strong>
-                    </div>
-
-                    <h4>Labels</h4>
-                    {% with labels=issue.labels.all %}
-                        {% if labels %}
-                            {% for label in labels %}
-                                <p><span class="label" style="background-color:{{ label.color }}">{{ label.title }}</span></p>
-                            {% endfor %}
-                        {% else %}
-                            <p class="text-center" ng-hide="issue.labels">No label</p>
-                        {% endif %}
-                    {% endwith %}
+                    <p class="text-center">No messages</p>
                 </div>
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-md-6">
-                <div class="box">
-                    <div class="box-header">
-                        <div class="row">
-                            <div class="col-md-10">
-                                <h3>Comment</h3>
-                            </div>
-
-                            <div class="col-md-2 text-right">
-                                <span class="label label-info">0</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="box-body">
-                        <p class="text-center">No messages</p>
-                    </div>
+        <div class="col-md-6">
+            <div class="box">
+                <div class="box-header">
+                    <h3>Activity</h3>
                 </div>
-            </div>
 
-            <div class="col-md-6">
-                <div class="box">
-                    <div class="box-header">
-                        <h3>Activity</h3>
-                    </div>
-
-                    <div class="box-body">
-                        <ul class="timeline" >
-                            <li>
-                                <div class="timeline-badge success"><i class="glyphicon glyphicon-plus"></i></div>
-                                <div class="timeline-panel">
-                                    <div class="timeline-heading">
-                                        <h4 class="timeline-title">Issue open</h4>
-                                        <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> {{ issue.created_date }}</small></p>
-                                    </div>
+                <div class="box-body">
+                    <ul class="timeline" >
+                        <li>
+                            <div class="timeline-badge success"><i class="glyphicon glyphicon-plus"></i></div>
+                            <div class="timeline-panel">
+                                <div class="timeline-heading">
+                                    <h4 class="timeline-title">Issue open</h4>
+                                    <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> {{ issue.created_date }}</small></p>
                                 </div>
-                            </li>
+                            </div>
+                        </li>
 
-                            <!--<li ng-repeat="activity in issue.activity" ng-class-odd="'timeline-inverted'">
+                        <!--<li ng-repeat="activity in issue.activity" ng-class-odd="'timeline-inverted'">
                             <div class="timeline-badge warning"><i class="glyphicon glyphicon-edit"></i></div>
                             <div class="timeline-panel">
                                 <div class="timeline-heading">
@@ -130,9 +107,9 @@
                                 </div>
                             </div>
                         </li>-->
-                        </ul>
-                    </div>
+                    </ul>
                 </div>
             </div>
         </div>
+    </div>
 {% endblock %}

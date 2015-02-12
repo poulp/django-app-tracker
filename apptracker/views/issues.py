@@ -46,6 +46,9 @@ class IssueNewView(ProjectMixin, FormView):
     template_name = 'apptracker/issues/new.html'
     form_class = NewIssueForm
 
+    def get_form(self, form_class):
+        return form_class(project=self.get_project(), **self.get_form_kwargs())
+
     def get_success_url(self):
         return reverse_lazy('issue-list', kwargs={'pk': self.kwargs['pk']})
 
@@ -58,4 +61,5 @@ class IssueNewView(ProjectMixin, FormView):
         issue.owner = self.request.user
         issue.project = self.get_project()
         issue.save()
+        form.save_m2m()
         return super(IssueNewView, self).form_valid(form)

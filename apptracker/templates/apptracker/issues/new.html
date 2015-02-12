@@ -1,4 +1,5 @@
 {% extends "apptracker/issues/base.html" %}
+{% load apptracker_tags %}
 
 {% block page_title %}
     New Issue
@@ -7,13 +8,70 @@
 {%  block content %}
 
     <div class="row">
-        <div class="col-xs-12">
+        <div class="col-xs-8 col-xs-offset-2">
             <div class="box">
                 <div class="box-body">
-                    <form action="" method="post">{% csrf_token %}
-                        {{ form.as_p }}
-                        <input type="submit" value="Send message" />
-                    </form>
+                    <div class="row">
+                        <form action="" method="post">{% csrf_token %}
+                            <div class="col-xs-6">
+                                {% with title=form.title %}
+                                    {% if title.errors %}
+                                        <div class="form-group has-error">
+                                            {{ title.label_tag }}
+                                            {{ title|add_css_class:"form-control" }}
+                                            {% for error in title.errors %}
+                                                <span id="helpBlock" class="help-block">{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        <div class="form-group">
+                                            {{ title.label_tag }}
+                                            {{ title|add_css_class:"form-control" }}
+                                        </div>
+                                    {% endif %}
+                                {% endwith %}
+
+                                {% with description=form.description %}
+                                    {% if description.errors %}
+                                        <div class="form-group has-error">
+                                            {{ description.label_tag }}
+                                            {{ description|add_css_class:"form-control" }}
+                                            {% for error in description.errors %}
+                                                <span id="helpBlock" class="help-block">{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        <div class="form-group">
+                                            {{ description.label_tag }}
+                                            {{ description|add_css_class:"form-control" }}
+                                        </div>
+                                    {% endif %}
+                                {% endwith %}
+                            </div>
+
+                            <div class="col-xs-6">
+                                {% with labels=form.labels %}
+                                    {% if labels.errors %}
+                                        <div class="form-group has-error">
+                                            {{ labels.label_tag }}
+                                            {{ labels|add_css_class:"form-control" }}
+                                            {% for error in labels.errors %}
+                                                <span id="helpBlock" class="help-block">{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        <div class="form-group">
+                                            {{ labels.label_tag }}
+                                            {{ labels|add_css_class:"form-control" }}
+                                        </div>
+                                    {% endif %}
+                                {% endwith %}
+                                <div class="text-right">
+                                    <button type="submit" class="btn btn-primary">Open issue</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
