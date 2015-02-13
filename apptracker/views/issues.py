@@ -18,17 +18,21 @@ class IssuesListView(ProjectMixin, ListView):
     def get_queryset(self, **kwargs):
         is_open = True if self.request.GET.get('is_open', False) else False
         is_close = True if self.request.GET.get('is_close', False) else False
+        labels = self.request.GET.getlist('labels', [])
 
         filter_params = {}
 
         if not is_close == is_open:
             filter_params['is_closed'] = is_close
 
+        if labels != []:
+            filter_params['labels__slug__in'] = labels
+
         return self.get_project().issues.all().filter(**filter_params)
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, *args, **kwargs):
         context = super(IssuesListView, self).get_context_data(**kwargs)
-        context['filter_form'] = IssueFilterForm(self.request.GET)
+        context['filter_form'] = IssueFilterForm(project=context['project'], data=self.request.GET)
         return context
 
 
@@ -87,7 +91,6 @@ class IssueEditView(ProjectMixin, UpdateView):
 
     def form_valid(self, form):
         issue = form.save(commit=False)
-        print(self.request.POST)
         if 'editclose' in self.request.POST:
             issue.is_closed = not issue.is_closed
 

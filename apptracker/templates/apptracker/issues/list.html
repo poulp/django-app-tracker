@@ -76,6 +76,9 @@
                 <div class="box-body">
                     <form method="GET" action="{% url "issue-list" project.pk %}">
                         <div class="form-group">
+                            <div class="text-right">
+                                <p>Status</p>
+                            </div>
                             <div class="checkbox">
                                 <label>
                                     {{ filter_form.is_open }}
@@ -89,6 +92,13 @@
                                     {{ filter_form.is_close.label }} <i class="glyphicon glyphicon-remove-circle icon-close"></i>
                                 </label>
                             </div>
+                        </div>
+                        <hr/>
+                        <div class="text-right">
+                                <p>Labels</p>
+                            </div>
+                        <div class="form-group">
+                            {{ filter_form.labels }}
                         </div>
                         <button class="btn btn-primary btn-block" type="submit">Filter</button>
                     </form>
