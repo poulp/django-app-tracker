@@ -1,5 +1,7 @@
 {% extends "apptracker/issues/base_sidebar_actions.html" %}
 
+{% load humanize %}
+
 {% block page_title %}
     {% if issue.is_closed %}
         <span class="label label-danger">Close</span>
@@ -12,7 +14,7 @@
 
 {% block content %}
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-7">
             <div class="box">
                 <div class="box-header back">
                     {% with labels=issue.labels.all %}
@@ -24,17 +26,21 @@
                             <span>No label</span>
                         {% endif %}
                     {% endwith %}
-                </div>
-                <div class="box-body">
-                    <div class="row issue-description-meta">
-                        <div class="col-md-8">
-                            <i class="glyphicon glyphicon-user"></i><strong> {{ issue.owner.username }}</strong>
+                <hr/>
+                <div class="row issue-description-meta">
+                        <div class="col-md-6">
+                            <p>Reported by <strong> {{ issue.owner.username }}</strong></p>
+                            <p>Pull Request : No pull request associated.</p>
                         </div>
 
-                        <div class="col-md-4 text-right">
-                            <i class="glyphicon glyphicon-time"></i><strong> {{ issue.created_date|date:"M-d-y" }}</strong>
+                        <div class="col-md-6 text-right">
+                            <p>Opened <strong> {{ issue.created_date|naturaltime }}</strong></p>
+                            <p>Last Modified <strong> {{ issue.modified_date|naturaltime }}</strong></p>
                         </div>
                     </div>
+                </div>
+                <div class="box-body">
+
 
                     <div class="row">
                         <div class="col-md-12">
@@ -63,7 +69,7 @@
             </div>
         </div>
 
-        <div class="col-md-6">
+        <div class="col-md-5">
             <div class="box">
                 <div class="box-header">
                     <h3>Activity</h3>
