@@ -62,7 +62,7 @@ class Issue(models.Model):
         ordering = ['-pk']
 
     title = models.CharField('Title', max_length=140)
-    description = models.TextField('Description', null=False, blank=False)
+    description = models.TextField('Description', default='', blank=True)
     description_html = models.TextField('Description Html')
     owner = models.ForeignKey(User, null=False, blank=False, related_name='owned_issues')
 
