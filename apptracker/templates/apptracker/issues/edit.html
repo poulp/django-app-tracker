@@ -62,6 +62,22 @@
                                         </div>
                                     {% endif %}
                                 {% endwith %}
+                                {% with pull_request=form.pull_request %}
+                                    {% if pull_request.errors %}
+                                        <div class="form-group has-error">
+                                            {{ pull_request.label_tag }}
+                                            {{ pull_request|add_css_class:"form-control" }}
+                                            {% for error in pull_request.errors %}
+                                                <span id="helpBlock" class="help-block">{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        <div class="form-group">
+                                            {{ pull_request.label_tag }}
+                                            {{ pull_request|add_css_class:"form-control" }}
+                                        </div>
+                                    {% endif %}
+                                {% endwith %}
                                 <div class="text-right">
                                     {% if issue.is_closed %}
                                         <button type="submit" class="btn btn-success" name="editclose">Edit and open issue</button>

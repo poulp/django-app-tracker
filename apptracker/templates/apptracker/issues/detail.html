@@ -26,11 +26,17 @@
                             <span>No label</span>
                         {% endif %}
                     {% endwith %}
-                <hr/>
-                <div class="row issue-description-meta">
+                    <hr/>
+                    <div class="row issue-description-meta">
                         <div class="col-md-6">
                             <p>Reported by <strong> {{ issue.owner.username }}</strong></p>
-                            <p>Pull Request : No pull request associated.</p>
+                            {% with pull_request=issue.pull_request %}
+                                {% if pull_request %}
+                                    <p>Pull Request : <a href="{{ pull_request }}">{{ pull_request }}</a></p>
+                                {% else %}
+                                    <p>Pull Request : No pull request associated.</p>
+                                {% endif %}
+                            {% endwith %}
                         </div>
 
                         <div class="col-md-6 text-right">

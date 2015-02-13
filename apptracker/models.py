@@ -70,6 +70,7 @@ class Issue(models.Model):
     labels = models.ManyToManyField(Label, related_name='issues', blank=True)
 
     is_closed = models.BooleanField(default=False, null=False, blank=False)
+    pull_request = models.URLField(default='', blank=True)
 
     created_date = models.DateTimeField('Created date', null=False, blank=False, default=timezone.now)
     modified_date = models.DateTimeField('Modified date', null=False, blank=False, default=timezone.now)

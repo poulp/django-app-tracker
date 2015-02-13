@@ -7,7 +7,7 @@ from apptracker.models import Issue, Label
 class NewIssueForm(forms.ModelForm):
     class Meta(object):
         model = Issue
-        fields = ['title', 'description', 'labels']
+        fields = ['title', 'description', 'labels', 'pull_request']
 
     def __init__(self, project, *args, **kwargs):
         super(NewIssueForm, self).__init__(*args, **kwargs)
