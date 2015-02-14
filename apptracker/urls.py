@@ -14,8 +14,6 @@ project_urls = [
     url(r'^(?P<pk>[0-9]+)/edit$', projects.ProjectUpdateView.as_view(), name='project-edit'),
     url(r'^(?P<pk>[0-9]+)/delete$', projects.ProjectDeleteView.as_view(), name='project-delete'),
 
-
-
     # Labels
     url(r'^(?P<pk>[0-9]+)/labels/$', projects.ProjectLabelsView.as_view(), name='project-labels'),
     url(r'^(?P<pk>[0-9]+)/labels/(?P<label_pk>[0-9]+)/delete$', projects.LabelDeleteView.as_view(), name='label-delete'),
@@ -24,9 +22,9 @@ project_urls = [
     url(r'^(?P<pk>[0-9]+)/issues/$', issues.IssuesListView.as_view(), name='issue-list'),
     url(r'^(?P<pk>[0-9]+)/issues/(?P<issue_pk>[0-9]+)$', issues.IssueDetailView.as_view(), name='issue-detail'),
     url(r'^(?P<pk>[0-9]+)/issues/(?P<issue_pk>[0-9]+)/edit$', issues.IssueEditView.as_view(), name='issue-edit'),
+    url(r'^(?P<pk>[0-9]+)/issues/(?P<issue_pk>[0-9]+)/close', issues.IssueCloseView.as_view(), name='issue-close'),
     url(r'^(?P<pk>[0-9]+)/issue/new/$', issues.IssueNewView.as_view(), name='issue-new'),
     url(r'^(?P<pk>[0-9]+)/issues/(?P<issue_pk>[0-9]+)/delete$', issues.IssueDeleteView.as_view(), name='issue-delete'),
-
 ]
 
 urlpatterns = [

@@ -2,9 +2,11 @@
 from django.views.generic.list import ListView
 from django.views.generic.edit import FormView, DeleteView, UpdateView
 from django.views.generic.detail import DetailView
+from django.views.generic import View
 from django.core.urlresolvers import reverse_lazy, reverse
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import redirect, get_object_or_404
 
 from apptracker.mixins import ProjectMixin
 from apptracker.forms import NewIssueForm, IssueFilterForm
@@ -97,3 +99,11 @@ class IssueEditView(ProjectMixin, UpdateView):
         issue.save()
         return super(IssueEditView, self).form_valid(form)
 
+
+class IssueCloseView(ProjectMixin, View):
+
+    def get(self, request, pk, issue_pk):
+        issue = get_object_or_404(Issue, pk=issue_pk)
+        issue.is_closed = not issue.is_closed
+        issue.save()
+        return redirect(reverse('issue-detail', kwargs={'pk': pk, 'issue_pk': issue_pk}))
