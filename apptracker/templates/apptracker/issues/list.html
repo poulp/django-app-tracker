@@ -20,7 +20,7 @@
                                         {% else %}
                                             <span><i class="glyphicon glyphicon-ok-circle icon-open"></i></span>
                                         {% endif %}
-                                        <span><a href="{% url "issue-detail" project.pk issue.pk %}" >{{ issue.title }}</a> <small>#{{ issue.pk }}</small></span>
+                                        <span><a href="{% url "issue-detail" project.pk issue.pk %}" title="{{ issue.title }}" >{{ issue.title }}</a> <small>#{{ issue.pk }}</small></span>
                                     </div>
                                     <span><i class="glyphicon glyphicon-user"></i> {{ issue.owner.username }}</span>
                                     {% with labels=issue.labels.all %}

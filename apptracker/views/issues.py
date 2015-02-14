@@ -28,7 +28,7 @@ class IssuesListView(ProjectMixin, ListView):
         if labels != []:
             filter_params['labels__slug__in'] = labels
 
-        return self.get_project().issues.all().filter(**filter_params)
+        return self.get_project().issues.all().filter(**filter_params).distinct()
 
     def get_context_data(self, *args, **kwargs):
         context = super(IssuesListView, self).get_context_data(**kwargs)

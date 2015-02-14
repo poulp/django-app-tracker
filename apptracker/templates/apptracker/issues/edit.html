@@ -1,6 +1,16 @@
 {% extends "apptracker/issues/base_sidebar_actions.html" %}
 {% load apptracker_tags %}
 
+{% block page_title %}
+    {% if issue.is_closed %}
+        <span class="label label-danger">Close</span>
+    {% else %}
+        <span class="label label-success">Open</span>
+    {% endif %}
+    <small>#{{ issue.pk }}</small>
+    <h1>{{ issue.title }}</h1>
+{% endblock %}
+
 {%  block content %}
 
     <div class="row">
