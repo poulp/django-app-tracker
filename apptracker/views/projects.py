@@ -55,7 +55,7 @@ class ProjectDeleteView(DeleteView):
 
 
 class ProjectLabelsView(ProjectMixin, FormView):
-    template_name = 'apptracker/projects/labels.html'
+    template_name = 'apptracker/projects/labels/list.html'
     form_class = LabelForm
 
     def get_success_url(self):
@@ -73,10 +73,21 @@ class ProjectLabelsView(ProjectMixin, FormView):
         return super(ProjectLabelsView, self).form_valid(form)
 
 
+class LabelEditView(ProjectMixin, UpdateView):
+    model = Label
+    template_name = 'apptracker/projects/labels/edit.html'
+    form_class = LabelForm
+    context_object_name = 'label'
+    pk_url_kwarg = 'label_pk'
+
+    def get_success_url(self):
+        return reverse('project-labels', kwargs={'pk': self.get_project().pk})
+
+
 class LabelDeleteView(AjaxableResponseMixin, DeleteView):
     model = Label
     pk_url_kwarg = 'label_pk'
-    template_name = 'apptracker/projects/delete_label_confirm.html'
+    template_name = 'apptracker/projects/labels/confirm_delete.html'
 
     def get_success_url(self):
         return reverse('project-list')
