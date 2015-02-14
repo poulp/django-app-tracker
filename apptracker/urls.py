@@ -12,6 +12,8 @@ project_urls = [
     url(r'^create/$', projects.ProjectCreateView.as_view(), name='project-create'),
     url(r'^(?P<pk>[0-9]+)/$', projects.ProjectDetailView.as_view(), name='project-detail'),
     url(r'^(?P<pk>[0-9]+)/edit$', projects.ProjectUpdateView.as_view(), name='project-edit'),
+    url(r'^(?P<pk>[0-9]+)/delete$', projects.ProjectDeleteView.as_view(), name='project-delete'),
+
 
 
     # Labels

@@ -1,7 +1,7 @@
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, FormView, DeleteView, UpdateView
-from django.core.urlresolvers import reverse_lazy
+from django.core.urlresolvers import reverse
 
 from apptracker.models import Project, Label
 from apptracker.mixins import ProjectMixin, AjaxableResponseMixin
@@ -30,7 +30,7 @@ class ProjectCreateView(CreateView):
     ]
 
     def get_success_url(self):
-        return reverse_lazy('project-list')
+        return reverse('project-list')
 
 class ProjectUpdateView(ProjectMixin, UpdateView):
     template_name = 'apptracker/projects/edit.html'
@@ -43,7 +43,15 @@ class ProjectUpdateView(ProjectMixin, UpdateView):
     ]
 
     def get_success_url(self):
-        return reverse_lazy('project-list')
+        return reverse('project-list')
+
+class ProjectDeleteView(DeleteView):
+    model = Project
+    template_name = 'apptracker/projects/confirm_delete.html'
+    context_object_name = 'project'
+
+    def get_success_url(self):
+        return reverse('project-list')
 
 
 class ProjectLabelsView(ProjectMixin, FormView):
@@ -51,7 +59,7 @@ class ProjectLabelsView(ProjectMixin, FormView):
     form_class = LabelForm
 
     def get_success_url(self):
-        return reverse_lazy('project-labels', kwargs={'pk': self.kwargs['pk']})
+        return reverse('project-labels', kwargs={'pk': self.kwargs['pk']})
 
     def get_context_data(self, **kwargs):
         context = super(ProjectLabelsView, self).get_context_data(**kwargs)
@@ -71,4 +79,4 @@ class LabelDeleteView(AjaxableResponseMixin, DeleteView):
     template_name = 'apptracker/projects/delete_label_confirm.html'
 
     def get_success_url(self):
-        return reverse_lazy('project-list')
+        return reverse('project-list')
