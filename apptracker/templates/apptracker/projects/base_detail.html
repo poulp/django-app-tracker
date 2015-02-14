@@ -16,11 +16,12 @@
 {% block side_menu %}
     <li class="sidebar-title"><span>NAVIGATION</span></li>
     <li class="sidebar-list">
-        <a href="{% url "issue-list" project.pk %}">Issues <span class="menu-icon glyphicon glyphicon-th-list"></span></a>
+        <a href="{% url "issue-list" project.pk %}?is_open=on">Issues <span class="menu-icon glyphicon glyphicon-th-list"></span></a>
     </li>
     <li class="sidebar-list">
         <a href="{% url "issue-new" project.pk %}">Open issue <span class="menu-icon glyphicon glyphicon-plus"></span></a>
     </li>
+    {% block issue_actions %}{% endblock %}
 
     <li class="sidebar-title"><span>PROJECT SETTINGS</span></li>
     <li class="sidebar-list">
