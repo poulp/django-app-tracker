@@ -31,3 +31,16 @@
         <a href="{% url "project-edit" project.pk %}">Edit <span class="menu-icon glyphicon glyphicon-pencil"></span></a>
     </li>
 {% endblock %}
+
+{% block sidebar_footer %}
+    <div class="col-xs-6">
+                <a href="{{ project.repository }}" target="_blank">
+                    Repository
+                </a>
+            </div>
+            <div class="col-xs-6">
+                <a href="{{ project.documentation }}" target="_blank">
+                    Documentation
+                </a>
+            </div>
+{% endblock %}

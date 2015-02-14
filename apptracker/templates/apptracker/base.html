@@ -27,21 +27,7 @@
             {% block side_menu %}{% endblock %}
         </ul>
         <div class="sidebar-footer">
-            <div class="col-xs-4">
-                <a href="https://github.com/rdash/rdash-angular" target="_blank">
-                    Depository
-                </a>
-            </div>
-            <div class="col-xs-4">
-                <a href="https://github.com/rdash/rdash-angular/README.md" target="_blank">
-                    Docs
-                </a>
-            </div>
-            <div class="col-xs-4">
-                <a href="#">
-                    Support
-                </a>
-            </div>
+            {% block sidebar_footer %}{% endblock %}
         </div>
     </div>
 
