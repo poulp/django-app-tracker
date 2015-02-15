@@ -95,6 +95,7 @@ class Comment(models.Model):
         ordering = ['pk']
 
     author = models.ForeignKey(User, related_name='user_comments')
+    is_issue_owner = models.BooleanField(default=False)
     issue = models.ForeignKey(Issue, related_name='comments')
     text = models.TextField('Text')
     text_html = models.TextField('Text Html')

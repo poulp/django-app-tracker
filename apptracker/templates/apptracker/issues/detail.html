@@ -78,6 +78,9 @@
                                     <div class="row">
                                         <div class="col-xs-6">
                                             <strong>{{ comment.author.username }}</strong>
+                                            {% if comment.is_issue_owner %}
+                                                <span class="comment-op">OP</span>
+                                            {% endif %}
                                         </div>
                                         <div class="col-xs-6 text-right">
                                             <span><i class="glyphicon glyphicon-time"></i> {{ comment.created_date|naturaltime }}</span>

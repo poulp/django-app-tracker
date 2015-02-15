@@ -115,6 +115,9 @@ h3 {
 .issue-description-meta {
 }
 
+.comment-op {
+    color: green;
+}
 /*************************
  * Project settings
  ************************/

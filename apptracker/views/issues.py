@@ -61,6 +61,11 @@ class IssueCommentView(ProjectMixin, IssueMixin, FormView):
         comment = form.save(commit=False)
         comment.author = self.request.user
         comment.issue = self.get_issue()
+        if comment.issue.owner == self.request.user:
+            comment.is_issue_owner = True
+        else:
+            comment.is_issue_owner = False
+
         comment.save()
         return super(IssueCommentView, self).form_valid(form)
 
