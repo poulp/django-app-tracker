@@ -87,6 +87,29 @@ class Issue(models.Model):
         super().save(*args, **kwargs)
 
 
+class Comment(models.Model):
+
+    class Meta(object):
+        verbose_name = 'Comment'
+        verbose_name_plural = 'Comments'
+        ordering = ['pk']
+
+    author = models.ForeignKey(User, related_name='user_comments')
+    issue = models.ForeignKey(Issue, related_name='comments')
+    text = models.TextField('Text')
+    text_html = models.TextField('Text Html')
+
+    created_date = models.DateTimeField('Created date', default=timezone.now)
+    modified_date = models.DateTimeField('Modified date', default=timezone.now)
+
+    def save(self, *args, **kwargs):
+        self.modified_date = timezone.now()
+
+        if self.text:
+            self.text_html = mark_safe(markdown(self.text))
+
+        super().save(*args, **kwargs)
+
 #@receiver(post_save, sender=Issue)
 #def post_save_issue(sender, instance, **kwargs):
     # updated_fields = kwargs.get('update_fields', [])

@@ -1,7 +1,7 @@
 
 from django import forms
 
-from apptracker.models import Issue, Label
+from apptracker.models import Issue, Label, Comment
 
 
 class NewIssueForm(forms.ModelForm):
@@ -28,3 +28,9 @@ class IssueFilterForm(forms.Form):
     def __init__(self, project, *args, **kwargs):
         super(IssueFilterForm, self).__init__(*args, **kwargs)
         self.fields['labels'].queryset = Label.objects.filter(project=project)
+
+
+class CommentForm(forms.ModelForm):
+    class Meta(object):
+        model = Comment
+        fields = ['text']

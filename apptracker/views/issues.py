@@ -8,8 +8,8 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, get_object_or_404
 
-from apptracker.mixins import ProjectMixin
-from apptracker.forms import NewIssueForm, IssueFilterForm
+from apptracker.mixins import ProjectMixin, IssueMixin
+from apptracker.forms import NewIssueForm, IssueFilterForm, CommentForm
 from apptracker.models import Issue
 
 class IssuesListView(ProjectMixin, ListView):
@@ -43,6 +43,26 @@ class IssueDetailView(ProjectMixin, DetailView):
     template_name = 'apptracker/issues/detail.html'
     context_object_name = 'issue'
     pk_url_kwarg = 'issue_pk'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(IssueDetailView, self).get_context_data(**kwargs)
+        context['comment_form'] = CommentForm()
+        return context
+
+
+class IssueCommentView(ProjectMixin, IssueMixin, FormView):
+    template_name = 'apptracker/issues/comment.html'
+    form_class = CommentForm
+
+    def get_success_url(self):
+        return reverse('issue-detail', kwargs={'pk': self.kwargs['pk'], 'issue_pk': self.kwargs['issue_pk']})
+
+    def form_valid(self, form):
+        comment = form.save(commit=False)
+        comment.author = self.request.user
+        comment.issue = self.get_issue()
+        comment.save()
+        return super(IssueCommentView, self).form_valid(form)
 
 
 class IssueDeleteView(ProjectMixin, DeleteView):

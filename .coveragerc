@@ -3,3 +3,4 @@ source = apptracker
 omit =
     *admin.py*
     *__init__*
+    */migrations/*

@@ -1,0 +1,37 @@
+{% extends "apptracker/issues/base_sidebar_actions.html" %}
+{% load apptracker_tags %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-xs-6 col-xs-offset-3">
+            <div class="box">
+            <div class="box-header">
+                <h3>Comment</h3>
+            </div>
+                <div class="box-body">
+                    <form action="{% url "issue-comment" project.pk issue.pk %}" method="post">{% csrf_token %}
+                        <div class="form-group">
+                            {% with text_comment=form.text %}
+                                {% if text_comment.errors %}
+                                    <div class="form-group has-error">
+                                        {{ text_comment|add_css_class:"form-control" }}
+                                        {% for error in text_comment.errors %}
+                                            <span id="helpBlock" class="help-block">{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    <div class="form-group">
+                                        {{ text_comment|add_css_class:"form-control" }}
+                                    </div>
+                                {% endif %}
+                            {% endwith %}
+                        </div>
+                        <div class="text-right">
+                            <button type="submit" class="btn btn-primary">Comment</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

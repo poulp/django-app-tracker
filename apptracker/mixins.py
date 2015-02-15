@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
 
-from apptracker.models import Project
+from apptracker.models import Project, Issue
 
 
 class ProjectMixin(object):
@@ -11,6 +11,16 @@ class ProjectMixin(object):
     def get_context_data(self, **kwargs):
         context = super(ProjectMixin, self).get_context_data(**kwargs)
         context['project'] = self.get_project()
+        return context
+
+
+class IssueMixin(object):
+    def get_issue(self):
+        return get_object_or_404(Issue, pk=self.kwargs['issue_pk'])
+
+    def get_context_data(self, **kwargs):
+        context = super(IssueMixin, self).get_context_data(**kwargs)
+        context['issue'] = self.get_issue()
         return context
 
 
