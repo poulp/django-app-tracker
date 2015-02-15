@@ -6,7 +6,6 @@
     <meta charset="UTF-8">
     <title>Issue tracker</title>
     <link rel="stylesheet" href="{% static "bower_components/bootstrap/dist/css/bootstrap.min.css" %}"/>
-    <link rel="stylesheet" href="{% static "bower_components/rdash-ui/dist/css/rdash.min.css" %}"/>
     <link rel="stylesheet" href="{% static "css/timeline.css" %}"/>
     {% block extra_css %}{% endblock %}
     <link rel="stylesheet" href="{% static "css/apptracker.css" %}"/>
@@ -15,13 +14,13 @@
 
 <body>
 
-<div id="page-wrapper" class="open">
+<div id="page-wrapper" class="active">
     <div id="sidebar-wrapper">
         <ul class="sidebar">
-            <li class="sidebar-main">
-                <a>
-                    {% block side_title %}
-                    {% endblock %}
+            <li id="toggle-sidebar" class="sidebar-main">
+                <a href="#">
+                    {% block side_title %}Dashboard{% endblock %}
+                    <span class="menu-icon glyphicon glyphicon-transfer"></span>
                 </a>
             </li>
             {% block side_menu %}{% endblock %}
@@ -65,10 +64,11 @@
     </div>
 </div>
 
-    <script src="{% static "bower_components/jquery/dist/jquery.min.js" %}"></script>
-    <script src="{% static "bower_components/bootstrap/dist/js/bootstrap.min.js" %}"></script>
-    <script src="{% static "js/main.js" %}"></script>
-    {% block extra_js %}{% endblock %}
+<script src="{% static "bower_components/jquery/dist/jquery.min.js" %}"></script>
+<script src="{% static "bower_components/jquery.cookie/jquery.cookie.js" %}"></script>
+<script src="{% static "bower_components/bootstrap/dist/js/bootstrap.min.js" %}"></script>
+<script src="{% static "js/main.js" %}"></script>
+{% block extra_js %}{% endblock %}
 </body>
 
 </html>
