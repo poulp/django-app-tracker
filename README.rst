@@ -16,3 +16,7 @@ django-app-tracker
 .. image:: https://coveralls.io/repos/poulp/django-app-tracker/badge.svg?branch=master
      :target: https://coveralls.io/r/poulp/django-app-tracker?branch=master
      :alt: Coverage
+
+------------------------
+
+Issue tracker application for django. Work with python3 and Django 1.7. Work in progress ...
