@@ -34,7 +34,7 @@
                                 </div>
                                 <div class="col-xs-2 text-right">
                                     <span><i class="glyphicon glyphicon-time"></i> {{ issue.created_date|date:'M-d-y' }}</span><br/>
-                                    <span><i class="glyphicon glyphicon-comment"></i> 0</span>
+                                    <span><i class="glyphicon glyphicon-comment"></i> {{ issue.comments.all|length }}</span>
                                 </div>
                             </div>
                         </div>
