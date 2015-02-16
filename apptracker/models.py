@@ -6,7 +6,7 @@ from django.utils import timezone
 from django.utils.safestring import mark_safe
 from django.utils.encoding import smart_text
 from django.utils.text import slugify
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 
 from markdown import markdown
 
@@ -111,16 +111,16 @@ class Comment(models.Model):
 
         super().save(*args, **kwargs)
 
-#@receiver(post_save, sender=Issue)
-#def post_save_issue(sender, instance, **kwargs):
-    # updated_fields = kwargs.get('update_fields', [])
+        #@receiver(post_save, sender=Issue)
+        #def post_save_issue(sender, instance, **kwargs):
+        # updated_fields = kwargs.get('update_fields', [])
 
-    # if not created and updated_fields:
-    #    for field in updated_fields:
-    #        issue_activity = IssueActivity()
-    #        issue_activity.issue = instance
-    #        issue_activity.attribute_changed = field
-    #        issue_activity.save()
+        # if not created and updated_fields:
+        #    for field in updated_fields:
+        #        issue_activity = IssueActivity()
+        #        issue_activity.issue = instance
+        #        issue_activity.attribute_changed = field
+        #        issue_activity.save()
 
 
 class IssueActivity(models.Model):
@@ -135,3 +135,11 @@ class IssueActivity(models.Model):
 
     def __str__(self):
         return self.issue.title + " " + self.attribute_changed
+
+
+class TrackerTeam(Group):
+    class Meta(object):
+        verbose_name = 'Team'
+        verbose_name_plural = 'Teams'
+
+    color = models.CharField(max_length=7, default="#2D3E63", verbose_name='Color')

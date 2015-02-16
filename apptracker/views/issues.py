@@ -10,6 +10,7 @@ from apptracker.mixins import ProjectMixin, IssueMixin, LoginRequiredMixin
 from apptracker.forms import NewIssueForm, IssueFilterForm, CommentForm
 from apptracker.models import Issue
 
+
 class IssuesListView(ProjectMixin, ListView):
     template_name = 'apptracker/issues/list.html'
     context_object_name = 'issues'
@@ -53,7 +54,7 @@ class IssueCommentView(LoginRequiredMixin, ProjectMixin, IssueMixin, FormView):
     form_class = CommentForm
 
     def get_success_url(self):
-        return reverse('issue-detail', kwargs={'pk': self.kwargs['pk'], 'issue_pk': self.kwargs['issue_pk']})
+        return reverse('issue-detail', kwargs={'project_pk': self.kwargs['project_pk'], 'issue_pk': self.kwargs['issue_pk']})
 
     def form_valid(self, form):
         comment = form.save(commit=False)
@@ -75,18 +76,18 @@ class IssueDeleteView(LoginRequiredMixin, ProjectMixin, DeleteView):
     context_object_name = 'issue'
 
     def get_success_url(self):
-        return reverse('issue-list', kwargs={'pk': self.get_project().pk})
+        return reverse('issue-list', kwargs={'project_pk': self.kwargs['project_pk']})
 
 
-class IssueNewView(LoginRequiredMixin, ProjectMixin, FormView):
-    template_name = 'apptracker/issues/new.html'
+class IssueCreateView(LoginRequiredMixin, ProjectMixin, FormView):
+    template_name = 'apptracker/issues/create.html'
     form_class = NewIssueForm
 
     def get_form(self, form_class):
         return form_class(project=self.get_project(), **self.get_form_kwargs())
 
     def get_success_url(self):
-        return reverse_lazy('issue-list', kwargs={'pk': self.kwargs['pk']})
+        return reverse_lazy('issue-list', kwargs={'project_pk': self.kwargs['project_pk']})
 
     def form_valid(self, form):
         issue = form.save(commit=False)
@@ -94,7 +95,7 @@ class IssueNewView(LoginRequiredMixin, ProjectMixin, FormView):
         issue.project = self.get_project()
         issue.save()
         form.save_m2m()
-        return super(IssueNewView, self).form_valid(form)
+        return super(IssueCreateView, self).form_valid(form)
 
 
 class IssueEditView(LoginRequiredMixin, ProjectMixin, UpdateView):
@@ -105,7 +106,7 @@ class IssueEditView(LoginRequiredMixin, ProjectMixin, UpdateView):
     pk_url_kwarg = 'issue_pk'
 
     def get_success_url(self):
-        return reverse('issue-detail', kwargs={'pk': self.get_project().pk, 'issue_pk': self.kwargs['issue_pk']})
+        return reverse('issue-detail', kwargs={'project_pk': self.kwargs['project_pk'], 'issue_pk': self.kwargs['issue_pk']})
 
     def get_form(self, form_class):
         return form_class(project=self.get_project(), **self.get_form_kwargs())
@@ -121,8 +122,8 @@ class IssueEditView(LoginRequiredMixin, ProjectMixin, UpdateView):
 
 class IssueCloseView(LoginRequiredMixin, ProjectMixin, View):
 
-    def get(self, request, pk, issue_pk):
+    def get(self, request, project_pk, issue_pk):
         issue = get_object_or_404(Issue, pk=issue_pk)
         issue.is_closed = not issue.is_closed
         issue.save()
-        return redirect(reverse('issue-detail', kwargs={'pk': pk, 'issue_pk': issue_pk}))
+        return redirect(reverse('issue-detail', kwargs={'project_pk': project_pk, 'issue_pk': issue_pk}))

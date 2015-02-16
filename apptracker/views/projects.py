@@ -17,6 +17,7 @@ class ProjectDetailView(DetailView):
     model = Project
     template_name = 'apptracker/projects/detail.html'
     context_object_name = 'project'
+    pk_url_kwarg = 'project_pk'
 
 
 class ProjectCreateView(LoginRequiredMixin, CreateView):
@@ -36,6 +37,7 @@ class ProjectCreateView(LoginRequiredMixin, CreateView):
 class ProjectUpdateView(LoginRequiredMixin, ProjectMixin, UpdateView):
     template_name = 'apptracker/projects/edit.html'
     model = Project
+    pk_url_kwarg = 'project_pk'
     fields = [
         'name',
         'description',
@@ -43,14 +45,15 @@ class ProjectUpdateView(LoginRequiredMixin, ProjectMixin, UpdateView):
         'documentation'
     ]
 
-    def get_success_url(self):
-        return reverse('project-list')
+def get_success_url(self):
+    return reverse('project-list')
 
 
 class ProjectDeleteView(LoginRequiredMixin, DeleteView):
     model = Project
     template_name = 'apptracker/projects/confirm_delete.html'
     context_object_name = 'project'
+    pk_url_kwarg = 'project_pk'
 
     def get_success_url(self):
         return reverse('project-list')
@@ -61,7 +64,7 @@ class ProjectLabelsView(LoginRequiredMixin, ProjectMixin, FormView):
     form_class = LabelForm
 
     def get_success_url(self):
-        return reverse('project-labels', kwargs={'pk': self.kwargs['pk']})
+        return reverse('project-labels', kwargs={'project_pk': self.kwargs['project_pk']})
 
     def get_context_data(self, **kwargs):
         context = super(ProjectLabelsView, self).get_context_data(**kwargs)
@@ -83,7 +86,7 @@ class LabelEditView(LoginRequiredMixin, ProjectMixin, UpdateView):
     pk_url_kwarg = 'label_pk'
 
     def get_success_url(self):
-        return reverse('project-labels', kwargs={'pk': self.get_project().pk})
+        return reverse('project-labels', kwargs={'project_pk': self.kwargs['project_pk']})
 
 
 class LabelDeleteView(LoginRequiredMixin, AjaxableResponseMixin, DeleteView):

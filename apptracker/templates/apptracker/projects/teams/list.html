@@ -1,0 +1,33 @@
+{% extends "apptracker/projects/base_detail.html" %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-xs-3">
+            <div class="box">
+                <div class="box-body">
+                    <a href="{% url "team-create" project.pk %}" class="btn btn-block btn-primary">Create a team</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-4">
+            {% for team in teams %}
+                <div class="box">
+                    <div class="box-header">
+                        <h3>{{ team.name }}</h3>
+                    </div>
+                    <div class="box-body">
+                        Label : <span class="label" style="background-color:{{ team.color }}">{{ team.name }}</span>
+                    <hr/>
+                    <h4>Permissions</h4>
+                        {% for perm in team.permissions.all %}
+                            {{ perm }}
+                        {% endfor %}
+                    <hr/>
+                    <h4>Members</h4>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,91 @@
+{% extends "apptracker/projects/base_detail.html" %}
+{% load static %}
+{% load apptracker_tags %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static "bower_components/bootstrap-colorpicker/css/colorpicker.css" %}"/>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static "bower_components/bootstrap-colorpicker/js/bootstrap-colorpicker.js" %}"></script>
+    <script>
+        $(function(){
+            $('.color-input').colorpicker();
+        });
+    </script>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-xs-6 col-xs-offset-3">
+            <div class="box">
+                <div class="box-header">
+                    <h3>New team</h3>
+                </div>
+
+                <div class="box-body">
+                    <div class="row">
+                        <form action="" method="POST">{% csrf_token %}
+                            <div class="col-xs-6">
+                                {% with name=form.name %}
+                                    {% if name.errors %}
+                                        <div class="form-group has-error">
+                                            {{ name.label_tag }}
+                                            {{ name|add_css_class:"form-control" }}
+                                            {% for error in name.errors %}
+                                                <span id="helpBlock" class="help-block">{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        <div class="form-group">
+                                            {{ name.label_tag }}
+                                            {{ name|add_css_class:"form-control" }}
+                                        </div>
+                                    {% endif %}
+                                {% endwith %}
+
+                                {% with color=form.color %}
+                                    {% if color.errors %}
+                                        <div class="form-group has-error">
+                                            {{ color.label_tag }}
+                                            {{ color|add_css_class:"color-input form-control" }}
+                                            {% for error in color.errors %}
+                                                <span id="helpBlock" class="help-block">{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        <div class="form-group">
+                                            {{ color.label_tag }}
+                                            {{ color|add_css_class:"color-input form-control" }}
+                                        </div>
+                                    {% endif %}
+                                {% endwith %}
+                            </div>
+                            <div class="col-xs-6">
+                                {% with permissions=form.permissions %}
+                                    {% if permissions.errors %}
+                                        <div class="form-group has-error">
+                                            {{ permissions.label_tag }}
+                                            {{ permissions|add_css_class:"form-control" }}
+                                            {% for error in permissions.errors %}
+                                                <span id="helpBlock" class="help-block">{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        <div class="form-group">
+                                            {{ permissions.label_tag }}
+                                            {{ permissions|add_css_class:"form-control" }}
+                                        </div>
+                                    {% endif %}
+                                {% endwith %}
+                                <div class="text-right">
+                                    <button type="submit" class="btn btn-primary">Create</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
