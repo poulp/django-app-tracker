@@ -1,4 +1,4 @@
-from django.views.generic.edit import CreateView, DeleteView
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic.list import ListView
 from django.core.urlresolvers import reverse
 
@@ -29,6 +29,16 @@ class TeamDeleteView(LoginRequiredMixin, ProjectMixin, DeleteView):
     template_name = 'apptracker/projects/teams/confirm_delete.html'
     context_object_name = 'team'
     pk_url_kwarg = 'team_pk'
+
+    def get_success_url(self):
+        return reverse('team-list', kwargs={'project_pk': self.kwargs['project_pk']})
+
+
+class TeamEditView(LoginRequiredMixin, ProjectMixin, UpdateView):
+    model = TrackerTeam
+    template_name = 'apptracker/projects/teams/edit.html'
+    pk_url_kwarg = 'team_pk'
+    form_class = TrackerTeamForm
 
     def get_success_url(self):
         return reverse('team-list', kwargs={'project_pk': self.kwargs['project_pk']})

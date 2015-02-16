@@ -17,17 +17,23 @@
                     </div>
                     <div class="box-body">
                         Label : <span class="label" style="background-color:{{ team.color }}">{{ team.name }}</span>
-                        <hr/>
-                        <h4>Permissions</h4>
-                        {% for perm in team.permissions.all %}
-                            {{ perm }}
-                        {% endfor %}
+                        {% with permissions=team.permissions.all %}
+                            {% if permissions %}
+                                <hr/>
+                                <h4>Permissions</h4>
+                                <ul>
+                                    {% for permission in permissions %}
+                                        <li>{{ permission }}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        {% endwith %}
                         <hr/>
                         <h4>Members</h4>
                         <hr/>
                         <div class="text-right">
                             <a href="{% url "team-delete" project.pk team.pk %}" class="btn  btn-danger">Delete</a>
-                            <a href="#" class="btn btn-primary">Edit</a>
+                            <a href="{% url "team-edit" project.pk team.pk %}" class="btn btn-primary">Edit</a>
                         </div>
                     </div>
                 </div>
