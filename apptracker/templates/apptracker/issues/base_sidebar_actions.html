@@ -1,5 +1,9 @@
 {% extends "apptracker/projects/base_detail.html" %}
 
+{% block title %}
+    {{ issue.title }}
+{% endblock %}
+
 {% block issue_actions %}
     <li class="sidebar-title"><span>ISSUE ACTIONS</span></li>
     <li class="sidebar-list">

@@ -32,6 +32,7 @@ class ProjectCreateView(CreateView):
     def get_success_url(self):
         return reverse('project-list')
 
+
 class ProjectUpdateView(ProjectMixin, UpdateView):
     template_name = 'apptracker/projects/edit.html'
     model = Project
@@ -44,6 +45,7 @@ class ProjectUpdateView(ProjectMixin, UpdateView):
 
     def get_success_url(self):
         return reverse('project-list')
+
 
 class ProjectDeleteView(DeleteView):
     model = Project

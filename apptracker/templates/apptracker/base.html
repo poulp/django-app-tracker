@@ -4,7 +4,7 @@
 <html lang="fr" >
 <head>
     <meta charset="UTF-8">
-    <title>Issue tracker</title>
+    <title>{% block title %}Issue tracker{% endblock %}</title>
     <link rel="stylesheet" href="{% static "bower_components/bootstrap/dist/css/bootstrap.min.css" %}"/>
     <link rel="stylesheet" href="{% static "css/timeline.css" %}"/>
     {% block extra_css %}{% endblock %}
