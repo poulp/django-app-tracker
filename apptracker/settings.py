@@ -4,8 +4,8 @@ from django.conf import settings
 USER_SETTINGS = getattr(settings, 'APPTRACKER', None)
 
 DEFAULTS = {
-    'LOGIN_PAGE' : '/login',
-    'LOGOUT_PAGE': '/logout'
+    'LOGIN_URL' : '/login',
+    'LOGOUT_URL': '/logout'
 }
 
 

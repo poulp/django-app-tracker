@@ -4,10 +4,7 @@ from django.views.generic.edit import FormView, DeleteView, UpdateView
 from django.views.generic.detail import DetailView
 from django.views.generic import View
 from django.core.urlresolvers import reverse_lazy, reverse
-from django.utils.decorators import method_decorator
-from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, get_object_or_404
-from apptracker.settings import tracker_settings
 
 from apptracker.mixins import ProjectMixin, IssueMixin, LoginRequiredMixin
 from apptracker.forms import NewIssueForm, IssueFilterForm, CommentForm
@@ -90,10 +87,6 @@ class IssueNewView(LoginRequiredMixin, ProjectMixin, FormView):
 
     def get_success_url(self):
         return reverse_lazy('issue-list', kwargs={'pk': self.kwargs['pk']})
-
-    @method_decorator(login_required(login_url=tracker_settings.LOGIN_PAGE))
-    def dispatch(self, *args, **kwargs):
-        return super(IssueNewView, self).dispatch(*args, **kwargs)
 
     def form_valid(self, form):
         issue = form.save(commit=False)

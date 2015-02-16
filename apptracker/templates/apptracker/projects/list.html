@@ -11,9 +11,11 @@
                             <div class="col-md-10">
                                 <h2>All projects</h2>
                             </div>
-                            <div class="col-md-2 text-right">
-                                <a href="{% url "project-create" %}" class="btn btn-primary">Create a new project</a>
-                            </div>
+                            {% if user.is_authenticated %}
+                                <div class="col-md-2 text-right">
+                                    <a href="{% url "project-create" %}" class="btn btn-primary">Create a new project</a>
+                                </div>
+                            {% endif %}
                         </div>
                     </div>
 

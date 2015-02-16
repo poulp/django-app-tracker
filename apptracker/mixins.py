@@ -55,6 +55,6 @@ class AjaxableResponseMixin(object):
 
 class LoginRequiredMixin(object):
 
-    @method_decorator(login_required(login_url=tracker_settings.LOGIN_PAGE))
+    @method_decorator(login_required(login_url=tracker_settings.LOGIN_URL))
     def dispatch(self, *args, **kwargs):
         return super(LoginRequiredMixin, self).dispatch(*args, **kwargs)

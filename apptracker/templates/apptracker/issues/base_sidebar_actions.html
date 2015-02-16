@@ -5,18 +5,20 @@
 {% endblock %}
 
 {% block issue_actions %}
-    <li class="sidebar-title"><span>ISSUE ACTIONS</span></li>
-    <li class="sidebar-list">
-        <a href="{% url "issue-edit" project.pk issue.pk %}">Edit <span class="menu-icon glyphicon glyphicon-pencil"></span></a>
-    </li>
-    <li class="sidebar-list">
-        {% if issue.is_closed %}
-            <a href="{% url "issue-close" project.pk issue.pk %}">Open <span class="menu-icon glyphicon glyphicon-ok-circle"></span></a>
-        {% else %}
-            <a href="{% url "issue-close" project.pk issue.pk %}">Close <span class="menu-icon glyphicon glyphicon-remove-circle"></span></a>
-        {% endif %}
-    </li>
-    <li class="sidebar-list">
-        <a href="{% url "issue-delete" project.pk issue.pk %}">Delete <span class="menu-icon glyphicon glyphicon-trash"></span></a>
-    </li>
+    {% if user.is_authenticated %}
+        <li class="sidebar-title"><span>ISSUE ACTIONS</span></li>
+        <li class="sidebar-list">
+            <a href="{% url "issue-edit" project.pk issue.pk %}">Edit <span class="menu-icon glyphicon glyphicon-pencil"></span></a>
+        </li>
+        <li class="sidebar-list">
+            {% if issue.is_closed %}
+                <a href="{% url "issue-close" project.pk issue.pk %}">Open <span class="menu-icon glyphicon glyphicon-ok-circle"></span></a>
+            {% else %}
+                <a href="{% url "issue-close" project.pk issue.pk %}">Close <span class="menu-icon glyphicon glyphicon-remove-circle"></span></a>
+            {% endif %}
+        </li>
+        <li class="sidebar-list">
+            <a href="{% url "issue-delete" project.pk issue.pk %}">Delete <span class="menu-icon glyphicon glyphicon-trash"></span></a>
+        </li>
+    {% endif %}
 {% endblock %}
