@@ -3,7 +3,7 @@
 
 from django.conf.urls import include, url
 
-from apptracker.views import projects, issues, team
+from apptracker.views import projects, issues, teams
 
 
 project_urls = [
@@ -15,9 +15,9 @@ project_urls = [
     url(r'^(?P<project_pk>[0-9]+)/delete$', projects.ProjectDeleteView.as_view(), name='project-delete'),
 
     #Groups and permissions
-    url(r'^(?P<project_pk>[0-9]+)/team$', team.TeamListView.as_view(), name='team-list'),
-    url(r'^(?P<project_pk>[0-9]+)/team/create$', team.TeamCreateViews.as_view(), name='team-create'),
-    #url(r'^(?P<project_pk>[0-9]+)/team/delete', projects.ProjectDetailView.as_view(), name='team-delete'),
+    url(r'^(?P<project_pk>[0-9]+)/team$', teams.TeamListView.as_view(), name='team-list'),
+    url(r'^(?P<project_pk>[0-9]+)/team/create$', teams.TeamCreateView.as_view(), name='team-create'),
+    url(r'^(?P<project_pk>[0-9]+)/team/(?P<team_pk>[0-9]+)/delete', teams.TeamDeleteView.as_view(), name='team-delete'),
 
 
     # Labels
