@@ -17,7 +17,7 @@
 
 {% block content %}
     <div class="row">
-        <div class="col-xs-6 col-xs-offset-3">
+        <div class="col-xs-8 col-xs-offset-2">
             <div class="box">
                 <div class="box-header">
                     <h3>New team</h3>
@@ -72,10 +72,14 @@
                                             {% endfor %}
                                         </div>
                                     {% else %}
-                                        <div class="form-group">
-                                            {{ permissions.label_tag }}
-                                            {{ permissions|add_css_class:"form-control" }}
-                                        </div>
+                                        {% for permission in permissions %}
+                                            <div class="checkbox">
+                                                <label>
+                                                    {{ permission.tag }}
+                                                    {{ permission.choice_label }}
+                                                </label>
+                                            </div>
+                                        {% endfor %}
                                     {% endif %}
                                 {% endwith %}
                                 <div class="text-right">

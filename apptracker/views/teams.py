@@ -4,6 +4,7 @@ from django.core.urlresolvers import reverse
 
 from apptracker.models import TrackerTeam
 from apptracker.mixins import LoginRequiredMixin, ProjectMixin
+from apptracker.forms import TrackerTeamForm
 
 
 class TeamListView(LoginRequiredMixin, ProjectMixin, ListView):
@@ -17,6 +18,7 @@ class TeamListView(LoginRequiredMixin, ProjectMixin, ListView):
 class TeamCreateView(LoginRequiredMixin, ProjectMixin, CreateView):
     template_name = 'apptracker/projects/teams/create.html'
     model = TrackerTeam
+    form_class = TrackerTeamForm
 
     def get_success_url(self):
         return reverse('team-list', kwargs={'project_pk': self.kwargs['project_pk']})
