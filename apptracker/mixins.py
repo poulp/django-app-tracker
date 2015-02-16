@@ -1,7 +1,10 @@
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
 
 from apptracker.models import Project, Issue
+from apptracker.settings import tracker_settings
 
 
 class ProjectMixin(object):
@@ -48,3 +51,10 @@ class AjaxableResponseMixin(object):
             return JsonResponse(data)
         else:
             return response
+
+
+class LoginRequiredMixin(object):
+
+    @method_decorator(login_required(login_url=tracker_settings.LOGIN_PAGE))
+    def dispatch(self, *args, **kwargs):
+        return super(LoginRequiredMixin, self).dispatch(*args, **kwargs)

@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, get_object_or_404
 from apptracker.settings import tracker_settings
 
-from apptracker.mixins import ProjectMixin, IssueMixin
+from apptracker.mixins import ProjectMixin, IssueMixin, LoginRequiredMixin
 from apptracker.forms import NewIssueForm, IssueFilterForm, CommentForm
 from apptracker.models import Issue
 
@@ -51,7 +51,7 @@ class IssueDetailView(ProjectMixin, DetailView):
         return context
 
 
-class IssueCommentView(ProjectMixin, IssueMixin, FormView):
+class IssueCommentView(LoginRequiredMixin, ProjectMixin, IssueMixin, FormView):
     template_name = 'apptracker/issues/comment.html'
     form_class = CommentForm
 
@@ -71,7 +71,7 @@ class IssueCommentView(ProjectMixin, IssueMixin, FormView):
         return super(IssueCommentView, self).form_valid(form)
 
 
-class IssueDeleteView(ProjectMixin, DeleteView):
+class IssueDeleteView(LoginRequiredMixin, ProjectMixin, DeleteView):
     model = Issue
     pk_url_kwarg = 'issue_pk'
     template_name = 'apptracker/issues/confirm_delete.html'
@@ -81,7 +81,7 @@ class IssueDeleteView(ProjectMixin, DeleteView):
         return reverse('issue-list', kwargs={'pk': self.get_project().pk})
 
 
-class IssueNewView(ProjectMixin, FormView):
+class IssueNewView(LoginRequiredMixin, ProjectMixin, FormView):
     template_name = 'apptracker/issues/new.html'
     form_class = NewIssueForm
 
@@ -104,7 +104,7 @@ class IssueNewView(ProjectMixin, FormView):
         return super(IssueNewView, self).form_valid(form)
 
 
-class IssueEditView(ProjectMixin, UpdateView):
+class IssueEditView(LoginRequiredMixin, ProjectMixin, UpdateView):
     model = Issue
     template_name = 'apptracker/issues/edit.html'
     form_class = NewIssueForm
@@ -126,7 +126,7 @@ class IssueEditView(ProjectMixin, UpdateView):
         return super(IssueEditView, self).form_valid(form)
 
 
-class IssueCloseView(ProjectMixin, View):
+class IssueCloseView(LoginRequiredMixin, ProjectMixin, View):
 
     def get(self, request, pk, issue_pk):
         issue = get_object_or_404(Issue, pk=issue_pk)

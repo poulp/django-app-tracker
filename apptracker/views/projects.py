@@ -4,7 +4,7 @@ from django.views.generic.edit import CreateView, FormView, DeleteView, UpdateVi
 from django.core.urlresolvers import reverse
 
 from apptracker.models import Project, Label
-from apptracker.mixins import ProjectMixin, AjaxableResponseMixin
+from apptracker.mixins import ProjectMixin, AjaxableResponseMixin, LoginRequiredMixin
 from apptracker.forms import LabelForm
 
 
@@ -19,7 +19,7 @@ class ProjectDetailView(DetailView):
     context_object_name = 'project'
 
 
-class ProjectCreateView(CreateView):
+class ProjectCreateView(LoginRequiredMixin, CreateView):
     template_name = 'apptracker/projects/create.html'
     model = Project
     fields = [
@@ -33,7 +33,7 @@ class ProjectCreateView(CreateView):
         return reverse('project-list')
 
 
-class ProjectUpdateView(ProjectMixin, UpdateView):
+class ProjectUpdateView(LoginRequiredMixin, ProjectMixin, UpdateView):
     template_name = 'apptracker/projects/edit.html'
     model = Project
     fields = [
@@ -47,7 +47,7 @@ class ProjectUpdateView(ProjectMixin, UpdateView):
         return reverse('project-list')
 
 
-class ProjectDeleteView(DeleteView):
+class ProjectDeleteView(LoginRequiredMixin, DeleteView):
     model = Project
     template_name = 'apptracker/projects/confirm_delete.html'
     context_object_name = 'project'
@@ -56,7 +56,7 @@ class ProjectDeleteView(DeleteView):
         return reverse('project-list')
 
 
-class ProjectLabelsView(ProjectMixin, FormView):
+class ProjectLabelsView(LoginRequiredMixin, ProjectMixin, FormView):
     template_name = 'apptracker/projects/labels/list.html'
     form_class = LabelForm
 
@@ -75,7 +75,7 @@ class ProjectLabelsView(ProjectMixin, FormView):
         return super(ProjectLabelsView, self).form_valid(form)
 
 
-class LabelEditView(ProjectMixin, UpdateView):
+class LabelEditView(LoginRequiredMixin, ProjectMixin, UpdateView):
     model = Label
     template_name = 'apptracker/projects/labels/edit.html'
     form_class = LabelForm
@@ -86,7 +86,7 @@ class LabelEditView(ProjectMixin, UpdateView):
         return reverse('project-labels', kwargs={'pk': self.get_project().pk})
 
 
-class LabelDeleteView(AjaxableResponseMixin, DeleteView):
+class LabelDeleteView(LoginRequiredMixin, AjaxableResponseMixin, DeleteView):
     model = Label
     pk_url_kwarg = 'label_pk'
     template_name = 'apptracker/projects/labels/confirm_delete.html'
