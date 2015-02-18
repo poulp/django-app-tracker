@@ -11,10 +11,8 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AddField(
-            model_name='issue',
-            name='pull_request',
-            field=models.URLField(blank=True, default=''),
-            preserve_default=True,
+        migrations.RemoveField(
+            model_name='trackerteam',
+            name='project',
         ),
     ]

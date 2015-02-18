@@ -27,16 +27,26 @@
     {% block issue_actions %}{% endblock %}
 
     {% if user.is_authenticated %}
-        <li class="sidebar-title"><span>PROJECT SETTINGS</span></li>
-        <li class="sidebar-list">
-            <a href="{% url "project-labels" project.pk %}">Labels <span class="menu-icon glyphicon glyphicon-tags"></span></a>
-        </li>
-        <li class="sidebar-list">
-            <a href="{% url "project-edit" project.pk %}">Edit <span class="menu-icon glyphicon glyphicon-pencil"></span></a>
-        </li>
-        <li class="sidebar-list">
-            <a href="{% url "team-list" project.pk %}">Teams <span class="menu-icon glyphicon glyphicon-user"></span></a>
-        </li>
+        <li class="sidebar-title"><span>PROJECT</span></li>
+
+        {% if perms.apptracker.view_label %}
+            <li class="sidebar-list">
+                <a href="{% url "project-labels" project.pk %}">Labels <span class="menu-icon glyphicon glyphicon-tags"></span></a>
+            </li>
+        {% endif %}
+
+        {% if perms.apptracker.view_project %}
+            <li class="sidebar-list">
+                <a href="{% url "project-edit" project.pk %}">Edit <span class="menu-icon glyphicon glyphicon-pencil"></span></a>
+            </li>
+        {% endif %}
+
+        <li class="sidebar-title"><span>GLOBAL</span></li>
+        {% if perms.apptracker.view_trackerteam %}
+            <li class="sidebar-list">
+                <a href="{% url "team-list" %}">Teams <span class="menu-icon glyphicon glyphicon-user"></span></a>
+            </li>
+        {% endif %}
     {% endif %}
 {% endblock %}
 

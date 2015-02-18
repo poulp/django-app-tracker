@@ -17,6 +17,7 @@ class Project(models.Model):
         verbose_name = 'Project'
         verbose_name_plural = 'Projects'
         ordering = ['slug']
+        default_permissions = ('create', 'edit', 'delete', 'view')
 
     name = models.CharField('Name', max_length=80)
     slug = models.CharField('Slug', max_length=80)
@@ -39,6 +40,8 @@ class Label(models.Model):
         verbose_name = 'Label'
         verbose_name_plural = 'Labels'
         ordering = ['color']
+        default_permissions = ('create', 'edit', 'delete', 'view')
+
 
     title = models.CharField(max_length=20, verbose_name='Title')
     slug = models.SlugField(max_length=20, verbose_name='Slug')
@@ -60,6 +63,8 @@ class Issue(models.Model):
         verbose_name = 'Issue'
         verbose_name_plural = 'Issues'
         ordering = ['-pk']
+        default_permissions = ('create', 'edit', 'delete', 'view')
+
 
     title = models.CharField('Title', max_length=140)
     description = models.TextField('Description', default='', blank=True)
@@ -93,6 +98,8 @@ class Comment(models.Model):
         verbose_name = 'Comment'
         verbose_name_plural = 'Comments'
         ordering = ['pk']
+        default_permissions = ('create', 'edit', 'view')
+
 
     author = models.ForeignKey(User, related_name='user_comments')
     is_issue_owner = models.BooleanField(default=False)
@@ -138,8 +145,10 @@ class IssueActivity(models.Model):
 
 
 class TrackerTeam(Group):
+
     class Meta(object):
         verbose_name = 'Team'
         verbose_name_plural = 'Teams'
+        default_permissions = ('create', 'edit', 'delete', 'view')
 
     color = models.CharField(max_length=7, default="#2D3E63", verbose_name='Color')

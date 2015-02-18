@@ -15,11 +15,10 @@ project_urls = [
     url(r'^(?P<project_pk>[0-9]+)/delete$', projects.ProjectDeleteView.as_view(), name='project-delete'),
 
     #Groups and permissions
-    url(r'^(?P<project_pk>[0-9]+)/team$', teams.TeamListView.as_view(), name='team-list'),
-    url(r'^(?P<project_pk>[0-9]+)/team/create$', teams.TeamCreateView.as_view(), name='team-create'),
-    url(r'^(?P<project_pk>[0-9]+)/team/(?P<team_pk>[0-9]+)/edit', teams.TeamEditView.as_view(), name='team-edit'),
-    url(r'^(?P<project_pk>[0-9]+)/team/(?P<team_pk>[0-9]+)/delete', teams.TeamDeleteView.as_view(), name='team-delete'),
-
+    url(r'^team$', teams.TeamListView.as_view(), name='team-list'),
+    url(r'^team/create$', teams.TeamCreateView.as_view(), name='team-create'),
+    url(r'^team/(?P<team_pk>[0-9]+)/edit', teams.TeamEditView.as_view(), name='team-edit'),
+    url(r'^team/(?P<team_pk>[0-9]+)/delete', teams.TeamDeleteView.as_view(), name='team-delete'),
 
     # Labels
     url(r'^(?P<project_pk>[0-9]+)/labels/$', projects.ProjectLabelsView.as_view(), name='project-labels'),

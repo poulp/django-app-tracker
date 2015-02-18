@@ -1,4 +1,4 @@
-{% extends "apptracker/projects/base_detail.html" %}
+{% extends "apptracker/projects/base_projects.html" %}
 
 {% block content %}
     <div class="row">
@@ -8,7 +8,7 @@
                     <form action="" method="post">{% csrf_token %}
                         <p>Are you sure you want to delete "{{ team }}"?</p>
                         <button type="submit" class="btn btn-danger">Confirm"</button>
-                        <a href="{% url "team-list" project.pk %}" class="btn btn-default">Cancel</a>
+                        <a href="{% url "team-list" %}" class="btn btn-default">Cancel</a>
                     </form>
                 </div>
             </div>

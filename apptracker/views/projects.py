@@ -4,7 +4,7 @@ from django.views.generic.edit import CreateView, FormView, DeleteView, UpdateVi
 from django.core.urlresolvers import reverse
 
 from apptracker.models import Project, Label
-from apptracker.mixins import ProjectMixin, AjaxableResponseMixin, LoginRequiredMixin
+from apptracker.mixins import ProjectMixin, AjaxableResponseMixin, LoginRequiredMixin, PermissionRequiredMixin
 from apptracker.forms import LabelForm
 
 
@@ -59,9 +59,10 @@ class ProjectDeleteView(LoginRequiredMixin, DeleteView):
         return reverse('project-list')
 
 
-class ProjectLabelsView(LoginRequiredMixin, ProjectMixin, FormView):
+class ProjectLabelsView(PermissionRequiredMixin, LoginRequiredMixin, ProjectMixin, FormView):
     template_name = 'apptracker/projects/labels/list.html'
     form_class = LabelForm
+    permissions = ['apptracker.view_label', 'apptracker.create_label']
 
     def get_success_url(self):
         return reverse('project-labels', kwargs={'project_pk': self.kwargs['project_pk']})
@@ -78,21 +79,24 @@ class ProjectLabelsView(LoginRequiredMixin, ProjectMixin, FormView):
         return super(ProjectLabelsView, self).form_valid(form)
 
 
-class LabelEditView(LoginRequiredMixin, ProjectMixin, UpdateView):
+class LabelEditView(LoginRequiredMixin, PermissionRequiredMixin, ProjectMixin, UpdateView):
     model = Label
     template_name = 'apptracker/projects/labels/edit.html'
     form_class = LabelForm
     context_object_name = 'label'
     pk_url_kwarg = 'label_pk'
+    permissions = ['apptracker.edit_label']
+
 
     def get_success_url(self):
         return reverse('project-labels', kwargs={'project_pk': self.kwargs['project_pk']})
 
 
-class LabelDeleteView(LoginRequiredMixin, AjaxableResponseMixin, DeleteView):
+class LabelDeleteView(LoginRequiredMixin, PermissionRequiredMixin, AjaxableResponseMixin, DeleteView):
     model = Label
     pk_url_kwarg = 'label_pk'
     template_name = 'apptracker/projects/labels/confirm_delete.html'
+    permissions = ['apptracker.delete_label']
 
     def get_success_url(self):
         return reverse('project-list')
