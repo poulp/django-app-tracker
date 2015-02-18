@@ -20,7 +20,7 @@ class ProjectDetailView(DetailView):
     pk_url_kwarg = 'project_pk'
 
 
-class ProjectCreateView(LoginRequiredMixin, CreateView):
+class ProjectCreateView(PermissionRequiredMixin, LoginRequiredMixin, CreateView):
     template_name = 'apptracker/projects/create.html'
     model = Project
     fields = [
@@ -29,12 +29,13 @@ class ProjectCreateView(LoginRequiredMixin, CreateView):
         'repository',
         'documentation'
     ]
+    permissions = ['apptracker.create_project']
 
     def get_success_url(self):
         return reverse('project-list')
 
 
-class ProjectUpdateView(LoginRequiredMixin, ProjectMixin, UpdateView):
+class ProjectUpdateView(PermissionRequiredMixin, LoginRequiredMixin, ProjectMixin, UpdateView):
     template_name = 'apptracker/projects/edit.html'
     model = Project
     pk_url_kwarg = 'project_pk'
@@ -44,16 +45,18 @@ class ProjectUpdateView(LoginRequiredMixin, ProjectMixin, UpdateView):
         'repository',
         'documentation'
     ]
+    permissions = ['apptracker.edit_project']
 
-def get_success_url(self):
-    return reverse('project-list')
+    def get_success_url(self):
+        return reverse('project-list')
 
 
-class ProjectDeleteView(LoginRequiredMixin, DeleteView):
+class ProjectDeleteView(PermissionRequiredMixin, LoginRequiredMixin, DeleteView):
     model = Project
     template_name = 'apptracker/projects/confirm_delete.html'
     context_object_name = 'project'
     pk_url_kwarg = 'project_pk'
+    permissions = ['apptracker.delete_project']
 
     def get_success_url(self):
         return reverse('project-list')

@@ -12,9 +12,11 @@
                                 <h2>All projects</h2>
                             </div>
                             {% if user.is_authenticated %}
-                                <div class="col-md-2 text-right">
-                                    <a href="{% url "project-create" %}" class="btn btn-primary">Create a new project</a>
-                                </div>
+                                {% if perms.apptracker.create_project %}
+                                    <div class="col-md-2 text-right">
+                                        <a href="{% url "project-create" %}" class="btn btn-primary">Create a new project</a>
+                                    </div>
+                                {% endif %}
                             {% endif %}
                         </div>
                     </div>
@@ -34,16 +36,18 @@
             </div>
         </div>
     {% else %}
-        <div class="row">
-            <div class="col-md-4 col-md-offset-4 text-center">
-                <div class="box">
-                    <div class="box-body">
-                        <p>No projects found !</p>
-                        <a href="{% url "project-create" %}" class="btn btn-primary">Create your first project</a>
+        {% if perms.apptracker.create_project %}
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4 text-center">
+                    <div class="box">
+                        <div class="box-body">
+                            <p>No projects found !</p>
+                            <a href="{% url "project-create" %}" class="btn btn-primary">Create your first project</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        {% endif %}
     {% endif %}
 
 {% endblock %}

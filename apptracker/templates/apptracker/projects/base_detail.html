@@ -35,7 +35,7 @@
             </li>
         {% endif %}
 
-        {% if perms.apptracker.view_project %}
+        {% if perms.apptracker.edit_project %}
             <li class="sidebar-list">
                 <a href="{% url "project-edit" project.pk %}">Edit <span class="menu-icon glyphicon glyphicon-pencil"></span></a>
             </li>
