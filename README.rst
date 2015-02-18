@@ -20,18 +20,18 @@ Issue tracker application for django. Work with python3 and Django 1.7, work in 
 Quick start
 -----------
 
-1. To install `django-app-tracker` simply run::
+1. To install ``django-app-tracker`` simply run::
 
     python setup.py install
 
-2. Add "polls" to your INSTALLED_APPS setting like this::
+2. Add "apptracker" to your INSTALLED_APPS setting like this::
 
     INSTALLED_APPS = (
         ...
         'apptracker',
     )
 
-3. Include the polls URLconf in your project urls.py like this::
+3. Include the apptracker URLconf in your project urls.py like this::
 
     url(r'^tracker/', include('apptracker.urls')),
 
