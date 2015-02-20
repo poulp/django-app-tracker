@@ -118,31 +118,6 @@ class Comment(models.Model):
 
         super().save(*args, **kwargs)
 
-        #@receiver(post_save, sender=Issue)
-        #def post_save_issue(sender, instance, **kwargs):
-        # updated_fields = kwargs.get('update_fields', [])
-
-        # if not created and updated_fields:
-        #    for field in updated_fields:
-        #        issue_activity = IssueActivity()
-        #        issue_activity.issue = instance
-        #        issue_activity.attribute_changed = field
-        #        issue_activity.save()
-
-
-class IssueActivity(models.Model):
-
-    class Meta(object):
-        verbose_name = 'Issue Activity'
-        verbose_name_plural = 'Issue Activities'
-
-    issue = models.ForeignKey(Issue, related_name="activity", null=False, blank=False)
-    attribute_changed = models.CharField('Changed', max_length=200)
-    created_date = models.DateTimeField('Created date', null=False, blank=False, default=timezone.now)
-
-    def __str__(self):
-        return self.issue.title + " " + self.attribute_changed
-
 
 class TrackerTeam(Group):
 
