@@ -9,18 +9,28 @@ try:
         DATABASES={
             "default": {
                 "ENGINE": "django.db.backends.sqlite3",
-            }
+                }
         },
         ROOT_URLCONF="apptracker.urls",
         INSTALLED_APPS=[
             "django.contrib.auth",
             "django.contrib.contenttypes",
             "django.contrib.sites",
+            "django.contrib.humanize",
             "apptracker",
-        ],
+            ],
+        MIDDLEWARE_CLASSES = [
+            'django.contrib.sessions.middleware.SessionMiddleware',
+            'django.middleware.common.CommonMiddleware',
+            'django.middleware.csrf.CsrfViewMiddleware',
+            'django.contrib.auth.middleware.AuthenticationMiddleware',
+            'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
+            'django.contrib.messages.middleware.MessageMiddleware',
+            'django.middleware.clickjacking.XFrameOptionsMiddleware',
+            ],
         SITE_ID=1,
         NOSE_ARGS=['-s'],
-    )
+        )
 
     try:
         import django

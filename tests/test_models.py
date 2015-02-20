@@ -12,7 +12,7 @@ from django.test import TestCase
 from django.utils.text import slugify
 from django.contrib.auth.models import User
 
-from apptracker.models import Project, Issue, IssueActivity, Label
+from apptracker.models import Project, Issue, Label, Comment
 
 
 class ProjectModelTest(TestCase):
@@ -89,14 +89,41 @@ class IssueModelTest(TestCase):
             self.issue1.description_html
         )
 
-    #def test_issue_activity(self):
-    #    self.assertEqual(0, len(IssueActivity.objects.all()))
 
-    #    self.issue1.title = "update title"
-    #    self.issue1.save(update_fields=['title'])
+class CommentModelTest(TestCase):
 
-    #    self.assertEqual(1, len(IssueActivity.objects.all()))
-    #    issue_activity = IssueActivity.objects.get(pk=1)
-    #    self.assertEqual(issue_activity.issue, self.issue1)
-    #    self.assertEqual(issue_activity.attribute_changed, "title")
-    #    self.assertEqual(issue_activity.__unicode__(), self.issue1.title+" "+issue_activity.attribute_changed)
+    def setUp(self):
+        self.project1 = Project()
+        self.project1.name = "project1"
+        self.project1.description = "project1 description"
+        self.project1.save()
+
+        self.user = User.objects.create(
+            username='poulp'
+        )
+        self.user.save()
+
+        self.issue1 = Issue.objects.create(
+            title="issue1",
+            description="description",
+            project=self.project1,
+            owner=self.user
+        )
+        self.issue1.save()
+
+        self.comment = Comment.objects.create(
+            author=self.user,
+            issue=self.issue1,
+            text='hello'
+        )
+
+    def test_modified_date(self):
+        self.comment.text = "update text"
+        self.comment.save()
+        self.assertNotEqual(self.comment.created_date, self.comment.modified_date)
+
+    def test_markdown_to_html_in_save(self):
+        self.assertEqual(
+            "<p>hello</p>",
+            self.comment.text_html
+        )

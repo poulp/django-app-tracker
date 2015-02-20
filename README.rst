@@ -28,6 +28,7 @@ Quick start
 
     INSTALLED_APPS = (
         ...
+        'django.contrib.humanize',
         'apptracker',
     )
 
