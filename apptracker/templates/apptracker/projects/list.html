@@ -24,7 +24,7 @@
                     <div class="box-body">
                         <div class="list-group">
                             {% for project in object_list %}
-                                <a href="{% url "issue-list" project.pk %}" class="list-group-item">
+                                <a href="{% url "issue-list" project.pk %}?is_open=on" class="list-group-item">
                                     <h4>{{ project.name }}</h4>
                                     <p>{{ project.description }}</p>
                                 </a>

@@ -35,14 +35,14 @@
             <!-- Header Bar -->
             <div class="row header">
                 <div class="col-xs-12">
-                    <div class="user pull-right">
-                        <div class="item dropdown">
+                    <div class="pull-right">
+                        <div class="">
                             {% if user.is_authenticated %}
-                                <a href="#">
-                                    {{ user.username }}
-                                </a>
+                                <div>
+                                    <span><i class="glyphicon glyphicon-user"></i> {{ user.username }}</span>
+                                </div>
                             {% else %}
-                                <a href="#">Not logged in</a>
+                                <a href="#">Login</a>
                             {% endif %}
 
                         </div>

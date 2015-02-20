@@ -22,6 +22,7 @@
         <div class="col-md-7">
             <div class="box">
                 <div class="box-header back">
+
                     {% with labels=issue.labels.all %}
                         {% if labels %}
                             {% for label in labels %}
@@ -31,6 +32,7 @@
                             <span>No label</span>
                         {% endif %}
                     {% endwith %}
+
                     <hr/>
                     <div class="row issue-description-meta">
                         <div class="col-md-6">
@@ -54,6 +56,8 @@
                 <div class="box-body">
                     <div class="row">
                         <div class="col-md-12">
+                            <h3>{{ issue.title }}</h3>
+                            <hr/>
                             <span class="issue-description">{{ issue.description_html | safe }}</span>
                         </div>
                     </div>
