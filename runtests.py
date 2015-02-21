@@ -11,14 +11,8 @@ try:
                 "ENGINE": "django.db.backends.sqlite3",
                 }
         },
+        STATIC_URL = '/static/',
         ROOT_URLCONF="apptracker.urls",
-        INSTALLED_APPS=[
-            "django.contrib.auth",
-            "django.contrib.contenttypes",
-            "django.contrib.sites",
-            "django.contrib.humanize",
-            "apptracker",
-            ],
         MIDDLEWARE_CLASSES = [
             'django.contrib.sessions.middleware.SessionMiddleware',
             'django.middleware.common.CommonMiddleware',
@@ -28,6 +22,25 @@ try:
             'django.contrib.messages.middleware.MessageMiddleware',
             'django.middleware.clickjacking.XFrameOptionsMiddleware',
             ],
+        TEMPLATE_CONTEXT_PROCESSORS = [
+            "django.contrib.auth.context_processors.auth",
+            "django.core.context_processors.debug",
+            "django.core.context_processors.i18n",
+            "django.core.context_processors.media",
+            "django.core.context_processors.static",
+            "django.core.context_processors.tz",
+        ],
+        INSTALLED_APPS=[
+            "django.contrib.auth",
+            "django.contrib.contenttypes",
+            "django.contrib.sites",
+            "django.contrib.staticfiles",
+             "django.contrib.sessions",
+            "django.contrib.humanize",
+            "apptracker",
+            "django_nose"
+            ],
+        TEST_RUNNER = 'django_nose.NoseTestSuiteRunner',
         SITE_ID=1,
         NOSE_ARGS=['-s'],
         )

@@ -23,7 +23,7 @@
 
                     <div class="box-body">
                         <div class="list-group">
-                            {% for project in object_list %}
+                            {% for project in projects %}
                                 <a href="{% url "issue-list" project.pk %}?is_open=on" class="list-group-item">
                                     <h4>{{ project.name }}</h4>
                                     <p>{{ project.description }}</p>

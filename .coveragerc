@@ -4,3 +4,4 @@ omit =
     *admin.py*
     *__init__*
     */migrations/*
+    *settings.py*
