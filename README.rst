@@ -39,6 +39,3 @@ Quick start
 4. Run `python manage.py migrate` to create the apptracker models.
 
 5. Visit http://127.0.0.1:8000/tracker/
-
-.. image:: http://zestedesavoir.com/media/galleries/1485/c623e024-650d-41e9-a1d3-de4e04bf91d6.png
-     :alt: Issues
