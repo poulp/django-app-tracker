@@ -6,7 +6,7 @@ from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.core.urlresolvers import reverse
 
 from apptracker.models import Project
-from apptracker.mixins import ProjectMixin, LoginRequiredMixin, PermissionRequiredMixin
+from apptracker.mixins import LoginRequiredMixin, PermissionRequiredMixin
 
 
 class ProjectListView(ListView):
@@ -30,10 +30,11 @@ class ProjectCreateView(PermissionRequiredMixin, LoginRequiredMixin, CreateView)
         return reverse('project-list')
 
 
-class ProjectUpdateView(PermissionRequiredMixin, LoginRequiredMixin, ProjectMixin, UpdateView):
+class ProjectUpdateView(PermissionRequiredMixin, LoginRequiredMixin, UpdateView):
     template_name = 'apptracker/projects/edit.html'
     model = Project
     pk_url_kwarg = 'project_pk'
+    context_object_name = 'project'
     fields = [
         'name',
         'description',
@@ -55,5 +56,3 @@ class ProjectDeleteView(PermissionRequiredMixin, LoginRequiredMixin, DeleteView)
 
     def get_success_url(self):
         return reverse('project-list')
-
-

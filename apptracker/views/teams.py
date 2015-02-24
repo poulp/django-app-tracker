@@ -1,15 +1,19 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic.list import ListView
 from django.core.urlresolvers import reverse
 
 from apptracker.models import TrackerTeam
-from apptracker.mixins import LoginRequiredMixin
+from apptracker.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from apptracker.forms import TrackerTeamForm
 
 
-class TeamListView(LoginRequiredMixin, ListView):
+class TeamListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     template_name = 'apptracker/projects/teams/list.html'
     context_object_name = 'teams'
+    permissions = ['apptracker.view_trackerteam']
 
     def get_queryset(self):
         return TrackerTeam.objects.all()
