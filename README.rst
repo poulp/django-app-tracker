@@ -1,17 +1,14 @@
-=============================
 django-app-tracker
 =============================
 
-.. image:: https://travis-ci.org/poulp/django-app-tracker.svg
+.. image:: http://img.shields.io/travis/poulp/django-app-tracker/master.svg?style=flat-square
     :target: https://travis-ci.org/poulp/django-app-tracker
+     
+.. image:: http://img.shields.io/requires/github/poulp/django-app-tracker.svg?style=flat-square
+    :target: https://requires.io/github/poulp/django-app-tracker/requirements/?branch=master
 
-.. image:: https://requires.io/github/poulp/django-app-tracker/requirements.svg?branch=master
-     :target: https://requires.io/github/poulp/django-app-tracker/requirements/?branch=master
-     :alt: Requirements Status
-
-.. image:: https://coveralls.io/repos/poulp/django-app-tracker/badge.svg?branch=master
-     :target: https://coveralls.io/r/poulp/django-app-tracker?branch=master
-     :alt: Coverage
+.. image:: http://img.shields.io/coveralls/poulp/django-app-tracker.svg?style=flat-square
+    :target: https://coveralls.io/r/poulp/django-app-tracker?branch=master
 
 ------------------------
 
