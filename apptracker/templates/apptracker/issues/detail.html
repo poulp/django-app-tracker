@@ -1,4 +1,4 @@
-{% extends "apptracker/issues/base_sidebar_actions.html" %}
+{% extends "apptracker/issues/base.html" %}
 
 {% load humanize %}
 {% load apptracker_tags %}
@@ -7,43 +7,36 @@
     {{ issue.title }}
 {% endblock %}
 
-{% block page_title %}
-    {% if issue.is_closed %}
-        <span class="label label-danger">Close</span>
-    {% else %}
-        <span class="label label-success">Open</span>
-    {% endif %}
-    <small>#{{ issue.pk }}</small>
-    <h1>{{ issue.title }}</h1>
+{% block breadcrumb %}
+    {{ block.super }}
+    / #{{ issue.pk }}
 {% endblock %}
 
 {% block content %}
     <div class="row">
-        <div class="col-md-7">
+        <div class="col-xs-9">
             <div class="box">
-                <div class="box-header back">
+                <div class="box-header">
 
                     {% with labels=issue.labels.all %}
                         {% if labels %}
-                            {% for label in labels %}
-                                <span class="label" style="background-color:{{ label.color }}">{{ label.title }}</span>
-                            {% endfor %}
+                            <p> Labels :
+                                {% for label in labels %}
+                                    <span class="label" style="background-color:{{ label.color }}">{{ label.title }}</span>
+                                {% endfor %}
+                            </p>
                         {% else %}
-                            <span>No label</span>
+                            <p>Labels : No label</p>
                         {% endif %}
                     {% endwith %}
-
-                    <hr/>
                     <div class="row issue-description-meta">
                         <div class="col-md-6">
                             <p>Reported by <strong> {{ issue.owner.username }}</strong></p>
-                            {% with pull_request=issue.pull_request %}
-                                {% if pull_request %}
-                                    <p>Pull Request : <a href="{{ pull_request }}">{{ pull_request }}</a></p>
-                                {% else %}
-                                    <p>Pull Request : No pull request associated.</p>
-                                {% endif %}
-                            {% endwith %}
+                            {% if issue.is_closed %}
+                                <p>Status : <span class="label label-danger">Close</span></p>
+                            {% else %}
+                                <p>Status : <span class="label label-success">Open</span></p>
+                            {% endif %}
                         </div>
 
                         <div class="col-md-6 text-right">
@@ -51,6 +44,13 @@
                             <p>Last Modified <strong> {{ issue.modified_date|naturaltime }}</strong></p>
                         </div>
                     </div>
+                    {% with pull_request=issue.pull_request %}
+                        {% if pull_request %}
+                            <p>Pull Request : <a href="{{ pull_request }}">{{ pull_request }}</a></p>
+                        {% else %}
+                            <p>Pull Request : No pull request associated.</p>
+                        {% endif %}
+                    {% endwith %}
                 </div>
 
                 <div class="box-body">
@@ -73,7 +73,7 @@
                             </div>
 
                             <div class="col-md-2 text-right">
-                                <span class="label label-info">{{ comments|length }}</span>
+                                <span class="label label-primary">{{ comments|length }}</span>
                             </div>
                         </div>
                     </div>
@@ -131,6 +131,23 @@
                 </div>
             {% endwith %}
 
+        </div>
+
+        <div class="col-xs-3">
+            <div class="box">
+                <div class="box-body">
+                    <ul class="nav nav-pills nav-stacked">
+                        <li role="presentation" class="active"><a href="{% url "issue-detail" project.pk issue.pk %}">Detail</a></li>
+                        <li role="presentation"><a href="{% url "issue-edit" project.pk issue.pk %}">Edit</a></li>
+                        {% if issue.is_closed %}
+                            <li role="presentation"><a href="{% url "issue-close" project.pk issue.pk %}">Open</a></li>
+                        {% else %}
+                            <li role="presentation"><a href="{% url "issue-close" project.pk issue.pk %}">Close</a></li>
+                        {% endif %}
+                        <li role="presentation"><a href="{% url "issue-delete" project.pk issue.pk %}">Delete</a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}

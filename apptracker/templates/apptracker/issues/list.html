@@ -4,8 +4,8 @@
     Issues - {{ project.name }}
 {% endblock %}
 
-{% block page_title %}
-    Issues
+{% block nav_title %}
+    | {{ project.name }}
 {% endblock %}
 
 {% block content %}
@@ -26,7 +26,7 @@
                                         {% endif %}
                                         <span><a href="{% url "issue-detail" project.pk issue.pk %}" title="{{ issue.title }}" >{{ issue.title }}</a> <small>#{{ issue.pk }}</small></span>
                                     </div>
-                                    <span><i class="glyphicon glyphicon-user"></i> {{ issue.owner.username }}</span>
+                                    <span>Reported by <strong>{{ issue.owner.username }}</strong></span>
                                     {% with labels=issue.labels.all %}
                                         {% if labels %}
                                             <i class="glyphicon glyphicon-tags"></i>
@@ -38,7 +38,7 @@
                                 </div>
                                 <div class="col-xs-2 text-right">
                                     <span><i class="glyphicon glyphicon-time"></i> {{ issue.created_date|date:'M-d-y' }}</span><br/>
-                                    <span><i class="glyphicon glyphicon-comment"></i> {{ issue.comments.all|length }}</span>
+                                    <span class="label label-default label-small"><i class="glyphicon glyphicon-comment"></i> {{ issue.comments.all|length }}</span>
                                 </div>
                             </div>
                         </div>

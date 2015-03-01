@@ -43,6 +43,7 @@ class TeamEditView(LoginRequiredMixin, UpdateView):
     template_name = 'apptracker/projects/teams/edit.html'
     pk_url_kwarg = 'team_pk'
     form_class = TrackerTeamForm
+    context_object_name = 'team'
 
     def get_success_url(self):
         return reverse('team-list')

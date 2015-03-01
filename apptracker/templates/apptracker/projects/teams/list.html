@@ -4,16 +4,13 @@
     Teams - Issue Tracker
 {% endblock %}
 
+{% block breadcrumb %}
+    / Teams
+{% endblock %}
+
 {% block content %}
     <div class="row">
-        <div class="col-xs-3">
-            <div class="box">
-                <div class="box-body">
-                    <a href="{% url "team-create" %}" class="btn btn-block btn-primary">Create a team</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-xs-4">
+        <div class="col-xs-8">
             {% for team in teams %}
                 <div class="box">
                     <div class="box-header">
@@ -34,11 +31,11 @@
                         {% endwith %}
                         <hr/>
                         <h4>Members</h4>
-                    <ul>
-                        {% for member in team.user_set.all %}
-                            <li>{{ member.username }}</li>
+                        <ul>
+                            {% for member in team.user_set.all %}
+                                <li>{{ member.username }}</li>
                             {% endfor %}
-                    </ul>
+                        </ul>
                         <hr/>
                         <div class="text-right">
                             <a href="{% url "team-delete" team.pk %}" class="btn  btn-danger">Delete</a>
@@ -47,6 +44,11 @@
                     </div>
                 </div>
             {% endfor %}
+        </div>
+
+        <div class="col-xs-4">
+            <a href="{% url "team-create" %}" class="btn btn-block btn-primary">Create a team</a>
+            </div>
         </div>
     </div>
 

@@ -1,29 +1,5 @@
 {% extends "apptracker/base.html" %}
 
-{% block page_title %}
+{% block title %}
     Projects
-{% endblock %}
-
-{% block breadcrumb %}
-    <a href="{% url "project-list" %}">Projects</a>
-{% endblock %}
-
-{% block side_title %}
-    Projects
-{% endblock %}
-
-{% block side_menu %}
-    <li class="sidebar-title"><span>NAVIGATION</span></li>
-    <li class="sidebar-list">
-        <a href="{% url "project-list" %}">Projects <span class="menu-icon glyphicon glyphicon-th-list"></span></a>
-    </li>
-    {% if user.is_authenticated %}
-
-        <li class="sidebar-title"><span>GLOBAL</span></li>
-        {% if perms.apptracker.view_trackerteam %}
-            <li class="sidebar-list">
-                <a href="{% url "team-list" %}">Teams <span class="menu-icon glyphicon glyphicon-user"></span></a>
-            </li>
-        {% endif %}
-    {% endif %}
 {% endblock %}

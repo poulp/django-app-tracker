@@ -2,6 +2,10 @@
 {% load static %}
 {% load apptracker_tags %}
 
+{% block breadcrumb %}
+    / <a href="{% url "team-list" %}">Teams</a> / {{ team.name }} / edit
+{% endblock %}
+
 {% block extra_css %}
     <link rel="stylesheet" href="{% static "bower_components/bootstrap-colorpicker/css/colorpicker.css" %}"/>
 {% endblock %}
