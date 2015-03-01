@@ -6,7 +6,6 @@
     <meta charset="UTF-8">
     <title>{% block title %}Issue tracker{% endblock %}</title>
     <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}"/>
-    <link rel="stylesheet" href="{% static "css/timeline.css" %}"/>
     {% block extra_css %}{% endblock %}
     <link rel="stylesheet" href="{% static "css/apptracker.css" %}"/>
 
@@ -26,7 +25,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Issue Tracker</a>
+                <a class="navbar-brand" href="{% url "project-list" %}">Issue Tracker</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -61,6 +60,7 @@
         <div class="col-xs-12">
             <ol class="breadcrumb">
                 <li><a href="#">Projects</a></li>
+
                 {% block breadcrumb %}{% endblock %}
             </ol>
         </div>

@@ -13,62 +13,70 @@
         <div class="col-xs-9">
             <div class="box">
                 <div class="box-body">
-                    {% for issue in issues %}
-                        <div class="row issue-block">
+                    {% if issues %}
+                        {% for issue in issues %}
+                            <div class="row issue-block">
 
-                            <div class="issue-block-info">
-                                <div class="col-xs-10">
-                                    <div class="issue-block-title">
-                                        {% if issue.is_closed %}
-                                            <span><i class="glyphicon glyphicon-remove-circle icon-close"></i></span>
-                                        {% else %}
-                                            <span><i class="glyphicon glyphicon-ok-circle icon-open"></i></span>
-                                        {% endif %}
-                                        <span><a href="{% url "issue-detail" project.pk issue.pk %}" title="{{ issue.title }}" >{{ issue.title }}</a> <small>#{{ issue.pk }}</small></span>
+                                <div class="issue-block-info">
+                                    <div class="col-xs-10">
+                                        <div class="issue-block-title">
+                                            {% if issue.is_closed %}
+                                                <span><i class="glyphicon glyphicon-remove-circle icon-close"></i></span>
+                                            {% else %}
+                                                <span><i class="glyphicon glyphicon-ok-circle icon-open"></i></span>
+                                            {% endif %}
+                                            <span><a href="{% url "issue-detail" project.pk issue.pk %}" title="{{ issue.title }}" >{{ issue.title }}</a> <small>#{{ issue.pk }}</small></span>
+                                        </div>
+                                        <span>Reported by <strong>{{ issue.owner.username }}</strong></span>
+                                        {% with labels=issue.labels.all %}
+                                            {% if labels %}
+                                                <i class="glyphicon glyphicon-tags"></i>
+                                                {% for label in labels %}
+                                                    <span class="label label-small" style="background-color:{{ label.color }}">{{ label.title }}</span>
+                                                {% endfor %}
+                                            {% endif %}
+                                        {% endwith %}
                                     </div>
-                                    <span>Reported by <strong>{{ issue.owner.username }}</strong></span>
-                                    {% with labels=issue.labels.all %}
-                                        {% if labels %}
-                                            <i class="glyphicon glyphicon-tags"></i>
-                                            {% for label in labels %}
-                                                <span class="label label-small" style="background-color:{{ label.color }}">{{ label.title }}</span>
-                                            {% endfor %}
-                                        {% endif %}
-                                    {% endwith %}
-                                </div>
-                                <div class="col-xs-2 text-right">
-                                    <span><i class="glyphicon glyphicon-time"></i> {{ issue.created_date|date:'M-d-y' }}</span><br/>
-                                    <span class="label label-default label-small"><i class="glyphicon glyphicon-comment"></i> {{ issue.comments.all|length }}</span>
+                                    <div class="col-xs-2 text-right">
+                                        <span><i class="glyphicon glyphicon-time"></i> {{ issue.created_date|date:'M-d-y' }}</span><br/>
+                                        <span class="label label-default label-small"><i class="glyphicon glyphicon-comment"></i> {{ issue.comments.all|length }}</span>
+                                    </div>
                                 </div>
                             </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="text-center">
+                            <p>This project has no issues.</p>
                         </div>
-                    {% endfor %}
-
-                    <div class="text-center">
-                        <nav>
-                            <ul class="pagination">
-                                {% if page_obj.has_previous %}
-                                    <li>
-                                        <a href="{% url "issue-list" project.pk %}?page={{ page_obj.previous_page_number }}" aria-label="Previous">
-                                            <span aria-hidden="true">Previous</span>
-                                        </a>
-                                    </li>
-                                {% endif %}
-
-                                <li><a href="{% url "issue-list" project.pk %}?page={{ page_obj.number }}">{{ page_obj.number }}</a></li>
-
-                                {% if page_obj.has_next %}
-                                    <li>
-                                        <a href="{% url "issue-list" project.pk %}?page={{ page_obj.next_page_number }}" aria-label="Next">
-                                            <span aria-hidden="true">Next</span>
-                                        </a>
-                                    </li>
-                                {% endif %}
-                            </ul>
-                        </nav>
-                    </div>
+                    {% endif %}
                 </div>
             </div>
+
+            {% if issues %}
+                <div class="text-center">
+                    <nav>
+                        <ul class="pagination">
+                            {% if page_obj.has_previous %}
+                                <li>
+                                    <a href="{% url "issue-list" project.pk %}?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                                        <span aria-hidden="true">Previous</span>
+                                    </a>
+                                </li>
+                            {% endif %}
+
+                            <li><a href="{% url "issue-list" project.pk %}?page={{ page_obj.number }}">{{ page_obj.number }}</a></li>
+
+                            {% if page_obj.has_next %}
+                                <li>
+                                    <a href="{% url "issue-list" project.pk %}?page={{ page_obj.next_page_number }}" aria-label="Next">
+                                        <span aria-hidden="true">Next</span>
+                                    </a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                </div>
+            {% endif %}
         </div>
 
         <div class="col-xs-3">
@@ -99,8 +107,8 @@
                         </div>
                         <hr/>
                         <div class="text-right">
-                                <p>Labels</p>
-                            </div>
+                            <p>Labels</p>
+                        </div>
                         <div class="form-group">
                             {{ filter_form.labels }}
                         </div>

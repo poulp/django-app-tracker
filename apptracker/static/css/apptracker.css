@@ -68,6 +68,10 @@ h3 {
     border-radius: 5px;
 }
 
+.breadcrumb{
+    background-color: #ffffff;
+}
+
 /*************************
  * Page menu
  ************************/
@@ -135,6 +139,6 @@ h3 {
 }
 
 .form-group.required label:after {
-  content:"*";
-  color:red;
+    content:"*";
+    color:red;
 }

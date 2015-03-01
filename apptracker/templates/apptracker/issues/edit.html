@@ -1,6 +1,11 @@
 {% extends "apptracker/issues/base.html" %}
 {% load apptracker_tags %}
 
+{% block breadcrumb %}
+    {{ block.super }}
+    / edit
+{% endblock %}
+
 {%  block content %}
 
     <div class="row">

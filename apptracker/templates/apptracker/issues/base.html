@@ -3,3 +3,8 @@
 {% block title %}
     {{ issue.title }}
 {% endblock %}
+
+{% block breadcrumb %}
+    {{ block.super }}
+    / <i>#{{ issue.pk }}</i>
+{% endblock %}

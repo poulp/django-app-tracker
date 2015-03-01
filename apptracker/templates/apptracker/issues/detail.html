@@ -7,11 +7,6 @@
     {{ issue.title }}
 {% endblock %}
 
-{% block breadcrumb %}
-    {{ block.super }}
-    / #{{ issue.pk }}
-{% endblock %}
-
 {% block content %}
     <div class="row">
         <div class="col-xs-9">

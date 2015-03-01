@@ -1,6 +1,11 @@
 {% extends "apptracker/issues/base.html" %}
 {% load apptracker_tags %}
 
+{% block breadcrumb %}
+    {{ block.super }}
+    / comment
+{% endblock %}
+
 {% block content %}
     <div class="row">
         <div class="col-xs-6 col-xs-offset-3">

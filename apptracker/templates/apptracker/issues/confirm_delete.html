@@ -1,5 +1,10 @@
 {% extends "apptracker/issues/base.html" %}
 
+{% block breadcrumb %}
+    {{ block.super }}
+    / delete
+{% endblock %}
+
 {% block content %}
     <div class="row">
         <div class="col-xs-9">

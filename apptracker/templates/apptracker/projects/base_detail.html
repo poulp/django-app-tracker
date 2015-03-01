@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block breadcrumb %}
-    / {{ project.name }} / Issues
+    / <a href="{% url "issue-list" project.pk %}">{{ project.name }}</a> / Issues
 {% endblock %}
 
 {% block nav_menu %}
