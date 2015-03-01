@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Issue tracker{% endblock %}</title>
-    <link rel="stylesheet" href="{% static "bower_components/bootstrap/dist/css/bootstrap.min.css" %}"/>
+    <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}"/>
     <link rel="stylesheet" href="{% static "css/timeline.css" %}"/>
     {% block extra_css %}{% endblock %}
     <link rel="stylesheet" href="{% static "css/apptracker.css" %}"/>
@@ -67,9 +67,8 @@
     </div>
     {% block content %}{% endblock %}
 </div>
-<script src="{% static "bower_components/jquery/dist/jquery.min.js" %}"></script>
-<script src="{% static "bower_components/jquery.cookie/jquery.cookie.js" %}"></script>
-<script src="{% static "bower_components/bootstrap/dist/js/bootstrap.min.js" %}"></script>
+<script src="{% static "js/jquery.min.js" %}"></script>
+<script src="{% static "js/bootstrap.min.js" %}"></script>
 <script src="{% static "js/main.js" %}"></script>
 {% block extra_js %}{% endblock %}
 </body>
