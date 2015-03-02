@@ -6,7 +6,6 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User, Permission, Group
 
 from apptracker.models import TrackerTeam
-from apptracker.settings import tracker_settings
 
 
 class TeamListViewTest(TestCase):
