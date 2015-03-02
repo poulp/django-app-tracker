@@ -19,31 +19,34 @@ class TeamListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
         return TrackerTeam.objects.all()
 
 
-class TeamCreateView(LoginRequiredMixin, CreateView):
+class TeamCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     template_name = 'apptracker/projects/teams/create.html'
     model = TrackerTeam
     form_class = TrackerTeamForm
+    permissions = ['apptracker.create_trackerteam']
 
     def get_success_url(self):
         return reverse('team-list')
 
 
-class TeamDeleteView(LoginRequiredMixin, DeleteView):
+class TeamDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = TrackerTeam
     template_name = 'apptracker/projects/teams/confirm_delete.html'
     context_object_name = 'team'
     pk_url_kwarg = 'team_pk'
+    permissions = ['apptracker.delete_trackerteam']
 
     def get_success_url(self):
         return reverse('team-list')
 
 
-class TeamEditView(LoginRequiredMixin, UpdateView):
+class TeamEditView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = TrackerTeam
     template_name = 'apptracker/projects/teams/edit.html'
     pk_url_kwarg = 'team_pk'
     form_class = TrackerTeamForm
     context_object_name = 'team'
+    permissions = ['apptracker.edit_trackerteam']
 
     def get_success_url(self):
         return reverse('team-list')
