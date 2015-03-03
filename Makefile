@@ -1,13 +1,11 @@
-.PHONY: clean-pyc clean-build docs
+.PHONY: clean-pyc clean-build
 
 help:
 	@echo "clean-build - remove build artifacts"
 	@echo "clean-pyc - remove Python file artifacts"
 	@echo "lint - check style with flake8"
 	@echo "test - run tests quickly with the default Python"
-	@echo "testall - run tests on every Python version with tox"
 	@echo "coverage - check code coverage quickly with the default Python"
-	@echo "docs - generate Sphinx HTML documentation, including API docs"
 	@echo "release - package and upload a release"
 	@echo "sdist - package"
 
@@ -24,27 +22,14 @@ clean-pyc:
 	find . -name '*~' -exec rm -f {} +
 
 lint:
-	flake8 django-app-tracker tests
+	flake8 apptracker
 
 test:
 	python runtests.py test
 
-test-all:
-	tox
-
 coverage:
-	coverage run --source django-app-tracker setup.py test
-	coverage report -m
+	coverage run runtests.py
 	coverage html
-	open htmlcov/index.html
-
-docs:
-	rm -f docs/django-app-tracker.rst
-	rm -f docs/modules.rst
-	sphinx-apidoc -o docs/ django-app-tracker
-	$(MAKE) -C docs clean
-	$(MAKE) -C docs html
-	open docs/_build/html/index.html
 
 release: clean
 	python setup.py sdist upload
