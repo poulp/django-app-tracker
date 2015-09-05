@@ -42,7 +42,6 @@ class Label(models.Model):
         ordering = ['color']
         default_permissions = ('create', 'edit', 'delete', 'view')
 
-
     title = models.CharField(max_length=20, verbose_name='Title')
     slug = models.SlugField(max_length=20, verbose_name='Slug')
     color = models.CharField(max_length=7, default="#2D3E63", verbose_name='Color')
@@ -64,7 +63,6 @@ class Issue(models.Model):
         verbose_name_plural = 'Issues'
         ordering = ['-pk']
         default_permissions = ('create', 'edit', 'delete', 'view')
-
 
     title = models.CharField('Title', max_length=140)
     description = models.TextField('Description', default='', blank=True)
@@ -99,7 +97,6 @@ class Comment(models.Model):
         verbose_name_plural = 'Comments'
         ordering = ['pk']
         default_permissions = ('create', 'edit', 'view')
-
 
     author = models.ForeignKey(User, related_name='user_comments')
     is_issue_owner = models.BooleanField(default=False)
