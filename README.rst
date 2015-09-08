@@ -12,7 +12,7 @@ django-app-tracker
 
 ------------------------
 
-Issue tracker application for django. Work with python3 and Django 1.7, work in progress.
+Issue tracker application for django. Work with python3 and Django 1.8.
 
 Quick start
 -----------
@@ -29,10 +29,24 @@ Quick start
         'apptracker',
     )
 
-3. Include the apptracker URLconf in your project urls.py like this::
+3.  Add "tracker_settings" to your TEMPLATE_CONTEXT_PROCESSORS setting like this::
+
+    TEMPLATE_CONTEXT_PROCESSORS = (
+        ...
+        'apptracker.context_processors.tracker_settings',
+    )
+
+4. Add this lines at the end of your settings::
+
+    APPTRACKER = {
+        'LOGIN_URL': '/login',
+        'LOGOUT_URL': '/logout',
+    }
+
+5. Include the apptracker URLconf in your project urls.py like this::
 
     url(r'^tracker/', include('apptracker.urls')),
 
-4. Run `python manage.py migrate` to create the apptracker models.
+6. Run `python manage.py migrate` to create the apptracker models.
 
-5. Visit http://127.0.0.1:8000/tracker/
+7. Visit http://127.0.0.1:8000/tracker/projects
