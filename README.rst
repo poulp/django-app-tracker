@@ -29,7 +29,7 @@ Quick start
         'apptracker',
     )
 
-3.  Add "tracker_settings" to your TEMPLATE_CONTEXT_PROCESSORS setting like this::
+3. Add "tracker_settings" to your TEMPLATE_CONTEXT_PROCESSORS setting like this::
 
     TEMPLATE_CONTEXT_PROCESSORS = (
         ...
