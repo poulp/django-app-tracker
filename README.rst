@@ -50,3 +50,5 @@ Quick start
 6. Run `python manage.py migrate` to create the apptracker models.
 
 7. Visit http://127.0.0.1:8000/tracker/projects
+
+Screenshots : http://poulp.github.io/apptracker.html
