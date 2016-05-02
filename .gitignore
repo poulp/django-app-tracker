@@ -4,3 +4,4 @@
 htmlcov/*
 .coverage
 apptracker/static/bower_components/*
+venv/
